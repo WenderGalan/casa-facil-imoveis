@@ -1,0 +1,5 @@
+language: java
+jdk: oraclejdk8
+before_install:
+  - cd Back-end
+  - chmod +x mvnw

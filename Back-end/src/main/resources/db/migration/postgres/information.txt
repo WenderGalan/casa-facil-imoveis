@@ -1,0 +1,7 @@
+Dentro destas pastas ficam localizados os arquivos de migração do banco de dados,
+sendo que está sendo gerenciado pelo Flyway que controla a versão do banco e toda vez
+que não contiver as tabelas do SQL ele irá criar para fazer a manutenção.
+
+O banco de dados está hospedado no heroku cli.
+
+A primeira versão de SQL so banco está nesta mesma pasta com o nome V1__tabelas.sql
