@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import PrivateTemplate from '../templates/PrivateTemplate'
 import Cadastro from '../views/Cadastro'
 import Login from '../views/Login'
+import store from '../store/store'
 
 Vue.use(Router)
 
@@ -27,12 +28,26 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      beforeEnter (to, from, next) {
+        if (store.state.sessao) {
+          next(from.name)
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/cadastro',
       name: 'cadastro',
-      component: Cadastro
+      component: Cadastro,
+      beforeEnter (to, from, next) {
+        if (store.state.sessao) {
+          next(from.name)
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/',

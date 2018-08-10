@@ -60,7 +60,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <p>Possui uma conta? <a href="#">Entre aqui</a> </p>
+            <p>Possui uma conta? <a href="#" @click="irLogin">Entre aqui</a> </p>
           </div>
         </div>
       </b-card>
@@ -70,7 +70,22 @@
 
 <script>
 export default {
-  name: 'cadastro'
+  name: 'cadastro',
+  data () {
+    return {
+      pesquisar: {
+        filtroPesquisa: '',
+        minPreco: null,
+        maxPreco: null
+      },
+      listaAnuncios: []
+    }
+  },
+  methods: {
+    irLogin () {
+      this.$router.push({name: 'login'})
+    }
+  }
 }
 </script>
 
