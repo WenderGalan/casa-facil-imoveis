@@ -13,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * The type Swagger configuration.
+ *
  * @author Wender Galan
  * Created on: 10/08/2018
  */
@@ -41,7 +42,10 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder().title("Casa Fácil Imóveis API")
                 .description("Documentação da API de acesso aos endpoints da aplicação Casa Fácil Imóveis.")
                 .contact(contact)
-                .version("1.0")
+                .license("Apache License Version 2.0")
+                .licenseUrl("https://opensource.org/licenses/Apache-2.0")
+                .version("1.0-SNAPSHOT")
                 .build();
     }
+
 }
