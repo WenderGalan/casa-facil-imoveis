@@ -4,6 +4,15 @@
       <b-card title="Cadastre-se">
         <div class="row">
 
+          <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
+            <fb-signin-button
+              :params="fbSignInParams"
+              @success="onSignInSuccess"
+              @error="onSignInError">
+              <b>Entre com uma conta facebook</b>
+            </fb-signin-button>
+          </div>
+
           <div style="margin-top: 15px" class="col-sm-12 col-md-4 col-lg-12">
             <g-signin-button
               :params="googleSignInParams"
@@ -84,10 +93,12 @@
 
 <script>
 import googleMixins from '../mixins/googleServiceMixins'
+import mixinsFacebook from '../mixins/facebookServiceMixins'
 export default {
   name: 'cadastro',
   mixins: [
-    googleMixins
+    googleMixins,
+    mixinsFacebook
   ],
   data () {
     return {
