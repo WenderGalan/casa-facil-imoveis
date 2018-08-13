@@ -3,10 +3,12 @@ import App from './App.vue'
 import router from './router/router'
 import store from './store/store'
 import BootstrapVue from 'bootstrap-vue'
+import GSignInButton from 'vue-google-signin-button'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(BootstrapVue)
+Vue.use(GSignInButton)
 Vue.config.productionTip = false
 
 new Vue({
