@@ -31,7 +31,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="text" placeholder="Nome"
+            <input type="text" placeholder="Nome" v-model="novoUsuario.nome"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
 
@@ -40,7 +40,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="text" placeholder="Número (opcional)" v-mask="'(##) #####-####'"
+            <input type="text" placeholder="Número (opcional)" v-model="novoUsuario.numero" v-mask="'(##) #####-####'"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
 
@@ -49,7 +49,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="text" placeholder="exemplo@dominio.com"
+            <input type="text" placeholder="exemplo@dominio.com" v-model="novoUsuario.email"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
 
@@ -58,7 +58,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="password" placeholder="Senha (mínimo 8 caracteres)"
+            <input type="password" placeholder="Senha (mínimo 8 caracteres)" v-model="novoUsuario.senha"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
 
@@ -67,7 +67,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="password" placeholder="Digite sua senha novamente"
+            <input type="password" placeholder="Digite sua senha novamente" v-model="confirmaSenha"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
 
@@ -96,20 +96,21 @@ import googleMixins from '../mixins/googleServiceMixins'
 import mixinsFacebook from '../mixins/facebookServiceMixins'
 export default {
   name: 'cadastro',
+  data () {
+    return {
+      novoUsuario: {
+        nome: '',
+        numero: '',
+        email: '',
+        senha: ''
+      },
+      confirmaSenha: ''
+    }
+  },
   mixins: [
     googleMixins,
     mixinsFacebook
   ],
-  data () {
-    return {
-      pesquisar: {
-        filtroPesquisa: '',
-        minPreco: null,
-        maxPreco: null
-      },
-      listaAnuncios: []
-    }
-  },
   methods: {
     irLogin () {
       this.$router.push({name: 'login'})
