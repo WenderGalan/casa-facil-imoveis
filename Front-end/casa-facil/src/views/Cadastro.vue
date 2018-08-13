@@ -3,6 +3,20 @@
     <div class="col-sm-12 col-md-4 col-lg-5  center">
       <b-card title="Cadastre-se">
         <div class="row">
+
+          <div style="margin-top: 15px" class="col-sm-12 col-md-4 col-lg-12">
+            <g-signin-button
+              :params="googleSignInParams"
+              @success="onSignInSuccessGoogle"
+              @error="onSignInErrorGoogle">
+              <b>Entre com uma conta google</b>
+            </g-signin-button>
+          </div>
+
+          <div style="margin-bottom: -12px; margin-top: 15px" class="col-sm-12 col-md-4 col-lg-12">
+            <p>ou</p>
+          </div>
+
           <div style="margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
             <p class="text-left">Digite seu nome e sobrenome:*</p>
           </div>
@@ -13,11 +27,11 @@
           </div>
 
           <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
-            <p class="text-left">Digite seu número de telefone:*</p>
+            <p class="text-left">Digite seu número de telefone:</p>
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="text" placeholder="Número"
+            <input type="text" placeholder="Número (opcional)"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
 
@@ -69,8 +83,12 @@
 </template>
 
 <script>
+import googleMixins from '../mixins/googleServiceMixins'
 export default {
   name: 'cadastro',
+  mixins: [
+    googleMixins
+  ],
   data () {
     return {
       pesquisar: {

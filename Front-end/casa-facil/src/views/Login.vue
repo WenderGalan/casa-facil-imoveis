@@ -9,8 +9,12 @@
               :params="googleSignInParams"
               @success="onSignInSuccessGoogle"
               @error="onSignInErrorGoogle">
-              Entre com uma conta google
+              <b>Entre com uma conta google</b>
             </g-signin-button>
+          </div>
+
+          <div style="margin-top: 30px; margin-bottom: -20px" class="col-sm-12 col-md-4 col-lg-12">
+            <p>ou</p>
           </div>
 
           <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
@@ -41,33 +45,12 @@
   </div>
 </template>
 <script>
+import mixinsGoogle from '../mixins/googleServiceMixins'
 export default {
   name: 'login',
-  data () {
-    return {
-      /**
-       * The Auth2 parameters, as seen on
-       * https://developers.google.com/identity/sign-in/web/reference#gapiauth2initparams.
-       * As the very least, a valid client_id must present.
-       * @type {Object}
-       */
-      googleSignInParams: {
-        client_id: '158526899286-0mbplsvrgtfe9qo80jd276m3h4i3nkg3.apps.googleusercontent.com'
-      }
-    }
-  },
-  methods: {
-    onSignInSuccessGoogle (googleUser) {
-      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
-      // See https://developers.google.com/identity/sign-in/web/reference#users
-      const profile = googleUser.getBasicProfile() // etc etc
-      console.log(profile)
-    },
-    onSignInErrorGoogle (error) {
-      // `error` contains any error occurred.
-      console.log('OH NOES', error)
-    }
-  }
+  mixins: [
+    mixinsGoogle
+  ]
 }
 </script>
 
@@ -76,16 +59,5 @@ export default {
     width: 50%;
     padding: 10px;
     margin: auto;
-  }
-
-  .g-signin-button {
-    /* This is where you control how the button looks. Be creative! */
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 3px;
-    background-color: #3c82f7;
-    color: #fff;
-    box-shadow: 0 3px 0 #0f69ff;
-    cursor: pointer;
   }
 </style>
