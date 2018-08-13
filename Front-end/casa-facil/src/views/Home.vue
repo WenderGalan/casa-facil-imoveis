@@ -23,11 +23,11 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-6">
-                <input type="number" placeholder="R$" class="form-control col-sm-12 col-md-4 col-lg-12"/>
+                <input v-mask="'###.###.###,##'" type="text" placeholder="R$" class="form-control col-sm-12 col-md-4 col-lg-12"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-6">
-                <input type="number" placeholder="R$" class="form-control col-sm-12 col-md-4 col-lg-12"/>
+                <input v-mask="'###.###.###,##'" type="text" placeholder="R$" class="form-control col-sm-12 col-md-4 col-lg-12"/>
               </div>
             </div>
           </b-card>

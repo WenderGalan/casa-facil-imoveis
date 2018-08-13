@@ -40,7 +40,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="text" placeholder="Número (opcional)"
+            <input type="text" placeholder="Número (opcional)" v-mask="'(##) #####-####'"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
 
