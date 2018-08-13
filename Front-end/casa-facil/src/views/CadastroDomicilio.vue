@@ -103,6 +103,13 @@ export default {
         complemento: '',
         localidade: '',
         bairro: ''
+      },
+      fotos: [],
+      infoImovel: {
+        titulo: '',
+        descricao: '',
+        valor: 0,
+        tipoImovel: ''
       }
     }
   }
