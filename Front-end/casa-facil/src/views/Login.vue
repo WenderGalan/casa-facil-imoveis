@@ -31,7 +31,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="text" v-model="email" placeholder="exemplo@dominio.com"
+            <input type="text" id="email" v-model="email" placeholder="exemplo@dominio.com"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
 
@@ -40,7 +40,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="password" v-model="senha" placeholder="Senha (mínimo 8 caracteres)"
+            <input type="password" id="senha" v-model="senha" placeholder="Senha (mínimo 8 caracteres)"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
 
@@ -57,6 +57,7 @@
 import mixinsGoogle from '../mixins/googleServiceMixins'
 import mixinsFacebook from '../mixins/facebookServiceMixins'
 import {login} from '../services/requestServices'
+import Utils from '../util/Utils'
 export default {
   name: 'login',
   data () {
@@ -70,15 +71,33 @@ export default {
     mixinsFacebook
   ],
   methods: {
+    validarCampos () {
+      let validacao = true
+      if (Utils.validateEmail(this.email) === false) {
+        Utils.alertInput('email')
+        validacao = false
+      } else {
+        Utils.alertInputValid('email')
+      }
+      if (this.senha === null || this.senha.length < 8) {
+        Utils.alertInput('senha')
+        validacao = false
+      } else {
+        Utils.alertInputValid('senha')
+      }
+      return validacao
+    },
     logIn () {
-      login(this.email, this.senha).then((response) => {
-        if (response.data) {
-          this.$store.commit('alterarSessao', response.data)
-          this.$router.push({name: 'home'})
-        }
-      }).catch((err) => {
-        console.log(err.response)
-      })
+      if (this.validarCampos()) {
+        login(this.email, this.senha).then((response) => {
+          if (response.data) {
+            this.$store.commit('alterarSessao', response.data)
+            this.$router.push({name: 'home'})
+          }
+        }).catch((err) => {
+          console.log(err.response)
+        })
+      }
     }
   }
 }
