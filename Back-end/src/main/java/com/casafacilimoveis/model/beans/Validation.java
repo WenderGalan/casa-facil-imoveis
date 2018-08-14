@@ -1,4 +1,4 @@
-package com.casafacilimoveis.model;
+package com.casafacilimoveis.model.beans;
 
 public class Validation {
 

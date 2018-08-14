@@ -1,6 +1,6 @@
 package com.casafacilimoveis.util;
 
-import com.casafacilimoveis.model.Validation;
+import com.casafacilimoveis.model.beans.Validation;
 import org.springframework.validation.ObjectError;
 
 import java.util.ArrayList;

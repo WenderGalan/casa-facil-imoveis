@@ -18,7 +18,7 @@ import java.util.Properties;
 /**
  * Created by @author Wender Galan on 28/02/2018.
  */
-@EnableJpaRepositories(basePackages = "com.casafacilimoveis.repository.*")
+@EnableJpaRepositories(basePackages = "com.casafacilimoveis.repository")
 @EnableTransactionManagement
 @Configuration
 public class JpaConfiguration {

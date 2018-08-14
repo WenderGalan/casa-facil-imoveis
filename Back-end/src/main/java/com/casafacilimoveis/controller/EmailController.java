@@ -1,6 +1,6 @@
 package com.casafacilimoveis.controller;
 
-import com.casafacilimoveis.model.Validation;
+import com.casafacilimoveis.model.beans.Validation;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

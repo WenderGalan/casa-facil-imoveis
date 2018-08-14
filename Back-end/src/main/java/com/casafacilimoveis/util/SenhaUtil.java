@@ -8,11 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * Em 09/08/2018
  *
  * Exemplo de utilização:
- * String senhaEncoded = SenhaUtils.gerarBCrypt("senhaDoUsuario");
- * boolean senhaValida = SenhaUtils.senhaValida("senhaDoUsuario", senhaEncoded);
+ * String senhaEncoded = SenhaUtil.gerarBCrypt("senhaDoUsuario");
+ * boolean senhaValida = SenhaUtil.senhaValida("senhaDoUsuario", senhaEncoded);
  *
  */
-public class SenhaUtils {
+public class SenhaUtil {
 
     /**
      * Gera um hash utilizando o Bcrypt

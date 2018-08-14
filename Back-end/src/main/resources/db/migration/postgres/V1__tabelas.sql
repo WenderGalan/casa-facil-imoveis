@@ -1,11 +1,26 @@
 --PRIMEIRA VERSÃO DO BANCO DE DADOS
-CREATE TABLE public.usuarios (
-  id INTEGER NOT NULL,
-  nome TEXT NOT NULL,
-  login VARCHAR(500) NOT NULL,
-  senha VARCHAR(1000),
-  PRIMARY KEY(id)
+--TABLE USUARIOS--
+CREATE TABLE public.usuarios
+(
+    id integer NOT NULL,
+    nome text NOT NULL,
+    email text NOT NULL,
+    numero text NOT NULL,
+    senha text NOT NULL,
+    tipo_usuario integer NOT NULL,
+    PRIMARY KEY (id, email)
 )
-WITH (oids = false);
+WITH (
+    OIDS = FALSE
+);
 
-INSERT INTO public.usuarios (id, nome, login, senha) VALUES (1, 'Jose Teste', 'josesinho', 'senha');
+ALTER TABLE public.usuarios
+    OWNER to zxebwestoynydb;
+
+CREATE SEQUENCE public.usuarios_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1;
+
+ALTER SEQUENCE public.usuarios_id_seq
+    OWNER TO zxebwestoynydb;
