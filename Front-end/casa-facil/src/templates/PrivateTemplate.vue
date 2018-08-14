@@ -14,7 +14,7 @@
           <b-nav-item href="#" v-if="!verificarSessao" @click="irLogin">Entrar</b-nav-item>
           <!-- Navbar dropdowns -->
           <b-nav-item-dropdown v-if="verificarSessao" text="User" right>
-            <b-dropdown-item href="#" v-if="verificarSessao">Perfil</b-dropdown-item>
+            <b-dropdown-item href="#" @click="irPerfil" v-if="verificarSessao">Perfil</b-dropdown-item>
             <b-dropdown-item href="#" @click="sair" v-if="verificarSessao">Sair</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -42,6 +42,14 @@ export default {
     },
     adicionarAnuncio () {
       this.$router.push({name: 'cadastroDomicilio'})
+    },
+    irPerfil () {
+      const id = this.$store.state.sessao.id
+      this.$router.push(
+        {
+          name: 'perfil',
+          params: {id}
+        })
     }
   },
   computed: {

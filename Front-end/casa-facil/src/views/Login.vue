@@ -33,7 +33,6 @@
           <div class="col-sm-12 col-md-4 col-lg-12">
             <input type="text" v-model="email" placeholder="exemplo@dominio.com"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
-            {{email}}
           </div>
 
           <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
@@ -43,8 +42,6 @@
           <div class="col-sm-12 col-md-4 col-lg-12">
             <input type="password" v-model="senha" placeholder="Senha (mínimo 8 caracteres)"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
-
-            {{senha}}
           </div>
 
           <div class="container" style="margin-top: 25px">
@@ -74,7 +71,6 @@ export default {
   ],
   methods: {
     logIn () {
-      debugger
       login(this.email, this.senha).then((response) => {
         if (response.data) {
           this.$store.commit('alterarSessao', response.data)

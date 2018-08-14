@@ -5,3 +5,5 @@ export const login = (email, senha) => http.get(`/usuarios/v1/login?email=${emai
 export const criarConta = (user) => http.post('/usuarios/v1', user)
 
 export const enviarEmail = (nome, email) => http.get(`/email/v1/email-enviar-codigo?nome=${nome}&email=${email}`)
+
+export const alterarUsuario = (user) => http.put('/usuarios/v1', user)
