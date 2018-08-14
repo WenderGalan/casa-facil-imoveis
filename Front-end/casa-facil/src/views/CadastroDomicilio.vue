@@ -88,6 +88,39 @@
             <p id="titulo2" class="text-left">Informações do Imóvel</p>
             <hr>
           </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-12">
+            <p class="text-left">Escolha no maximo 4 imagens</p>
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-12">
+            <b-form-file v-model="fotos" class="mt-3" multiple plain></b-form-file>
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-6">
+            <p class="text-left">Defina um título</p>
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-6">
+            <p class="text-left">Preço</p>
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-6">
+            <input type="text" class="form-control"/>
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-6">
+            <input type="text" class="form-control"/>
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-12">
+            <p class="text-left">Descrição:</p>
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-12">
+            <textarea class="form-control"/>
+          </div>
+
         </div>
       </b-card>
     </div>
