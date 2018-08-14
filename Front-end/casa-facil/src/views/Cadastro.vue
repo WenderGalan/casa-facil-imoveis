@@ -118,6 +118,7 @@
 import googleMixins from '../mixins/googleServiceMixins'
 import mixinsFacebook from '../mixins/facebookServiceMixins'
 import {enviarEmail, criarConta} from '../services/requestServices'
+import Utils from '../util/Utils'
 export default {
   name: 'cadastro',
   data () {
@@ -164,53 +165,38 @@ export default {
     validarCampos () {
       let validacao = true
       if (this.novoUsuario.nome === null || this.novoUsuario.nome.length < 4) {
-        this.alertInput('nome')
+        Utils.alertInput('nome')
         validacao = false
       } else {
-        this.alertInputValid('nome')
+        Utils.alertInputValid('nome')
       }
-      if (this.validateEmail() === false) {
-        this.alertInput('email')
+      if (Utils.validateEmail(this.novoUsuario.email) === false) {
+        Utils.alertInput('email')
         validacao = false
       } else {
-        this.alertInputValid('email')
+        Utils.alertInputValid('email')
       }
       if (this.novoUsuario.senha === null || this.novoUsuario.senha.length < 8) {
-        this.alertInput('senha')
+        Utils.alertInput('senha')
         validacao = false
       } else {
-        this.alertInputValid('senha')
+        Utils.alertInputValid('senha')
       }
       if (this.novoUsuario.tipoUsuario === null) {
-        this.alertInput('tipoUsuario')
+        Utils.alertInput('tipoUsuario')
         validacao = false
       } else {
-        this.alertInputValid('tipoUsuario')
+        Utils.alertInputValid('tipoUsuario')
       }
       if (this.novoUsuario.senha.length < 8 || this.novoUsuario.senha !== this.confirmaSenha) {
-        this.alertInput('senha')
-        this.alertInput('confirmaSenha')
+        Utils.alertInput('senha')
+        Utils.alertInput('confirmaSenha')
         validacao = false
       } else {
-        this.alertInputValid('senha')
-        this.alertInputValid('confirmaSenha')
+        Utils.alertInputValid('senha')
+        Utils.alertInputValid('confirmaSenha')
       }
       return validacao
-    },
-    // COLOCA EM DESTAQUE OS INPUTS QUE PRECISAM SER PREENCHIDOS CORRETAMENTE
-    alertInput (id) {
-      document.getElementById(id).style.boxShadow = '0 0 0 0.2rem rgba(255, 0, 0, 0.25)'
-      document.getElementById(id).style.borderColor = '#ff0000'
-    },
-    // COLOCA EM DESTAQUE OS INPUTS QUE FORAM PREENCHIDOS CORRETAMENTE
-    alertInputValid (id) {
-      document.getElementById(id).style.boxShadow = '0 0 0 0.2rem rgb(220,237,200)'
-      document.getElementById(id).style.borderColor = '#DCEDC8'
-    },
-    // FAZ A VALIDAÇÃO DO EMAIL
-    validateEmail () {
-      let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return re.test(this.novoUsuario.email)
     },
     // ENVIA UM EMAIL DE VALIDAÇÃO PARA O EMAIL DA PESSOA
     validarEmail () {
