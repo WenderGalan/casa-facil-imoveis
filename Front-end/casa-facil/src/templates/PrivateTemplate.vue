@@ -6,7 +6,7 @@
       <b-collapse is-nav id="nav_dropdown_collapse">
         <b-navbar-nav>
           <b-nav-item style="margin-left: 50px" href="#" @click="irHome">Início</b-nav-item>
-          <b-nav-item href="#">Link</b-nav-item>
+          <b-nav-item href="#" @click="adicionarAnuncio">Adicionar Anúncio</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
@@ -25,28 +25,31 @@
 </template>
 
 <script>
-  export default {
-    name: 'PrivateTemplate',
-    methods: {
-      irCadastro () {
-        this.$router.push({name: 'cadastro'})
-      },
-      irLogin () {
-        this.$router.push({name: 'login'})
-      },
-      irHome () {
-        this.$router.push({name: 'home'})
-      },
-      sair () {
-        this.$store.commit('alterarSessao', undefined)
-      }
+export default {
+  name: 'PrivateTemplate',
+  methods: {
+    irCadastro () {
+      this.$router.push({name: 'cadastro'})
     },
-    computed: {
-      verificarSessao () {
-        return this.$store.state.sessao !== undefined;
-      }
+    irLogin () {
+      this.$router.push({name: 'login'})
+    },
+    irHome () {
+      this.$router.push({name: 'home'})
+    },
+    sair () {
+      this.$store.commit('alterarSessao', undefined)
+    },
+    adicionarAnuncio () {
+      this.$router.push({name: 'cadastroDomicilio'})
+    }
+  },
+  computed: {
+    verificarSessao () {
+      return this.$store.state.sessao !== undefined
     }
   }
+}
 </script>
 
 <style scoped>
