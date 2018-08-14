@@ -1,6 +1,6 @@
 import http from './http'
 
-export const login = (user) => http.post('/usuarios/v1', user)
+export const login = (email, senha) => http.get(`/usuarios/v1/login?email=${email}&senha=${senha}`)
 
 export const criarConta = (user) => http.post('/usuarios/v1', user)
 

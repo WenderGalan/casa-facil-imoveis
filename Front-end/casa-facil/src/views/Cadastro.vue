@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="col-sm-12 col-md-4 col-lg-5  center">
       <b-card title="Cadastre-se">
         <div class="row">
@@ -104,7 +104,7 @@
           <p class="text-left">Enviamos o código de validação para seu email, por favor, digite o código abaixo</p>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="password" placeholder="Digite sua senha novamente" v-model="confirmaSenha"
+            <input type="password" placeholder="Digite seu código de confirmação" v-model="inputValidacao"
                    class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
         </div>
@@ -117,7 +117,7 @@
 <script>
 import googleMixins from '../mixins/googleServiceMixins'
 import mixinsFacebook from '../mixins/facebookServiceMixins'
-import {enviarEmail} from '../services/requestServices'
+import {enviarEmail, criarConta} from '../services/requestServices'
 export default {
   name: 'cadastro',
   data () {
@@ -144,7 +144,11 @@ export default {
           text: 'Sou uma empresa'
         }
       ],
-      responseEmail: {}
+      responseEmail: {
+        campo: '',
+        mensagem: ''
+      },
+      inputValidacao: ''
     }
   },
   mixins: [
@@ -162,23 +166,34 @@ export default {
       if (this.novoUsuario.nome === null || this.novoUsuario.nome.length < 4) {
         this.alertInput('nome')
         validacao = false
+      } else {
+        this.alertInputValid('nome')
       }
       if (this.validateEmail() === false) {
         this.alertInput('email')
         validacao = false
+      } else {
+        this.alertInputValid('email')
       }
       if (this.novoUsuario.senha === null || this.novoUsuario.senha.length < 8) {
         this.alertInput('senha')
         validacao = false
+      } else {
+        this.alertInputValid('senha')
       }
       if (this.novoUsuario.tipoUsuario === null) {
         this.alertInput('tipoUsuario')
         validacao = false
+      } else {
+        this.alertInputValid('tipoUsuario')
       }
-      if (this.novoUsuario.senha !== this.confirmaSenha) {
+      if (this.novoUsuario.senha.length < 8 || this.novoUsuario.senha !== this.confirmaSenha) {
         this.alertInput('senha')
         this.alertInput('confirmaSenha')
         validacao = false
+      } else {
+        this.alertInputValid('senha')
+        this.alertInputValid('confirmaSenha')
       }
       return validacao
     },
@@ -186,6 +201,11 @@ export default {
     alertInput (id) {
       document.getElementById(id).style.boxShadow = '0 0 0 0.2rem rgba(255, 0, 0, 0.25)'
       document.getElementById(id).style.borderColor = '#ff0000'
+    },
+    // COLOCA EM DESTAQUE OS INPUTS QUE FORAM PREENCHIDOS CORRETAMENTE
+    alertInputValid (id) {
+      document.getElementById(id).style.boxShadow = '0 0 0 0.2rem rgb(220,237,200)'
+      document.getElementById(id).style.borderColor = '#DCEDC8'
     },
     // FAZ A VALIDAÇÃO DO EMAIL
     validateEmail () {
@@ -209,7 +229,18 @@ export default {
     },
     // ESCONDE A MODAL DA TELA
     hideModal () {
-      this.$refs.myModalRef.hide()
+      if (this.inputValidacao === this.responseEmail.mensagem) {
+        criarConta(this.novoUsuario).then((response) => {
+          if (response.data) {
+            this.novoUsuario = response.data
+            this.$refs.myModalRef.hide()
+            this.$store.commit('alterarSessao', this.novoUsuario)
+            this.$router.push({name: home})
+          }
+        }).catch((err) => {
+          console.log(err.response)
+        })
+      }
     }
   }
 }
