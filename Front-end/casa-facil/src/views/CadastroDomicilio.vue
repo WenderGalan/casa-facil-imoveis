@@ -151,7 +151,7 @@ export default {
       }
     }
   },
-  methods : {
+  methods: {
     buscarCep () {
       Axios({
         method: 'GET',
