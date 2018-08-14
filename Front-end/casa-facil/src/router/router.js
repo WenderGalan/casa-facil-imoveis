@@ -25,7 +25,7 @@ export default new Router({
           component: Home
         },
         {
-          path:'/private/cadastro-domicilio',
+          path: '/private/cadastro-domicilio',
           name: 'cadastroDomicilio',
           component: CadastroDomicilio,
           beforeEnter (to, from, next) {

@@ -54,6 +54,14 @@
           </div>
 
           <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
+            <p class="text-left">Que tipo de usuário você é?</p>
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-12">
+            <b-form-select v-model="novoUsuario.tipoUsuario" :options="tiposDeUsuario" class="mb-3" ></b-form-select>
+          </div>
+
+          <div style="margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
             <p class="text-left">Digite sua senha:*</p>
           </div>
 
@@ -102,9 +110,24 @@ export default {
         nome: '',
         numero: '',
         email: '',
-        senha: ''
+        senha: '',
+        tipoUsuario: null
       },
-      confirmaSenha: ''
+      confirmaSenha: '',
+      tiposDeUsuario: [
+        {
+          value: 0,
+          text: 'Sou pessoa física'
+        },
+        {
+          value: 1,
+          text: 'Sou corretor'
+        },
+        {
+          value: 2,
+          text: 'Sou uma empresa'
+        }
+      ]
     }
   },
   mixins: [

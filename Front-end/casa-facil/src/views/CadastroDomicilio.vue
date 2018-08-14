@@ -14,8 +14,12 @@
                 <p class="text-left">CEP:</p>
               </div>
 
-              <div class="col-sm-12 col-md-4 col-lg-12">
+              <div class="col-sm-12 col-md-4 col-lg-10">
                 <input type="text" id="cep" v-model="localizacao.cep" v-mask="'#####-###'" class="form-control"/>
+              </div>
+
+              <div class="col-sm-12 col-md-4 col-lg-2">
+                <b-button variant="info" @click="buscarCep">Buscar</b-button>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
@@ -59,7 +63,7 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" v-model="localizacao.endereco" class="form-control"/>
+                <input type="text" v-model="localizacao.logradouro" class="form-control"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
@@ -91,13 +95,14 @@
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
   name: 'CadastroDomicilio',
   data () {
     return {
       localizacao: {
         cep: '',
-        endereco: '',
+        logradouro: '',
         uf: '',
         numero: '',
         complemento: '',
@@ -111,6 +116,19 @@ export default {
         valor: 0,
         tipoImovel: ''
       }
+    }
+  },
+  methods : {
+    buscarCep () {
+      Axios({
+        method: 'GET',
+        url: `http://viacep.com.br/ws/${this.localizacao.cep}/json/`
+      }).then((response) => {
+        console.log(response.data)
+        this.localizacao = response.data
+      }).catch((err) => {
+        console.log(err.response)
+      })
     }
   }
 }
