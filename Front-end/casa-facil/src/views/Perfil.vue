@@ -88,7 +88,7 @@ export default {
       this.perfilUsuario = user
     },
     salvarAlteracoes () {
-      alterarUsuario(perfilUsuario).then((response) => {
+      alterarUsuario(this.perfilUsuario).then((response) => {
         if (response.data) {
           this.perfilUsuario = response.data
           this.$store.commit('alterarSessao', this.perfilUsuario)
@@ -104,7 +104,7 @@ export default {
   },
   watch: {
     permEditar (val) {
-      this.disabled = !val;
+      this.disabled = !val
     }
   }
 }

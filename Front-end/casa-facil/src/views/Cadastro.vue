@@ -3,7 +3,6 @@
     <div class="col-sm-12 col-md-4 col-lg-5  center">
       <b-card title="Cadastre-se">
         <div class="row">
-
           <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
             <fb-signin-button
               :params="fbSignInParams"
@@ -18,7 +17,7 @@
               :params="googleSignInParams"
               @success="onSignInSuccessGoogle"
               @error="onSignInErrorGoogle">
-              <b>Entre com uma conta google</b>
+              <b>Cadastre-se com uma conta google</b>
             </g-signin-button>
           </div>
 
@@ -221,7 +220,7 @@ export default {
             this.novoUsuario = response.data
             this.$refs.myModalRef.hide()
             this.$store.commit('alterarSessao', this.novoUsuario)
-            this.$router.push({name: home})
+            this.$router.push({name: 'home'})
           }
         }).catch((err) => {
           console.log(err.response)
