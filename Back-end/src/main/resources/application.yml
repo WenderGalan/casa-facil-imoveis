@@ -1,0 +1,10 @@
+#GOOGLE DRIVE API CONFIGURATION
+ google :
+  #Account para acesso a API
+  service_account_email : uploadimagens@casa-facil-imoveis-213417.iam.gserviceaccount.com
+  #Nome da aplicação casa fácil imóveis no console da google
+  application_name : Casa-Facil-Imoveis
+  #Este é o ID da pasta no google drive
+  folder_id : 1cylWmVxIDxpw7BJq_Iw7oQhjUeuKU5uy
+  #Este é o nome do arquivo que está localizado dentro da pasta resorurces no projeto
+  service_account_key : casa-facil-imoveis-213417-7230664c1153.p12

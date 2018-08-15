@@ -10,6 +10,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+
 import java.util.Random;
 
 /**
@@ -24,6 +26,7 @@ import java.util.Random;
  */
 @Api(description = "Controller de requisições de email")
 @RestController
+@CrossOrigin
 @RequestMapping("/email")
 public class EmailController {
 
