@@ -1,6 +1,6 @@
 package com.casafacilimoveis.controller;
 
-import com.casafacilimoveis.model.Usuario;
+import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.beans.ResponseError;
 import com.casafacilimoveis.model.enums.CodeError;
 import com.casafacilimoveis.repository.UsuarioRepository;

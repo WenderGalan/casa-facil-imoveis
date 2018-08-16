@@ -1,6 +1,6 @@
 package com.casafacilimoveis.controller;
 
-import com.casafacilimoveis.model.Imagem;
+import com.casafacilimoveis.model.entities.Imagem;
 import com.casafacilimoveis.service.GoogleDriveService;
 import com.casafacilimoveis.util.Util;
 import io.swagger.annotations.Api;

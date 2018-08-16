@@ -1,5 +1,6 @@
-package com.casafacilimoveis.model;
+package com.casafacilimoveis.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.io.Serializable;
  * The type Imagem.
  */
 @Entity
-@Table(name = "imagem", schema = "public")
+@Table(name = "imagens", schema = "public")
 public class Imagem implements Serializable {
 
     @Id
@@ -20,7 +21,11 @@ public class Imagem implements Serializable {
     @Column(name = "imagem_url", nullable = false)
     private String imagemUrl;
 
-    //todo FALTA A FK DO ANUNCIO
+    @JsonIgnore
+    @NotNull
+    @JoinColumn(referencedColumnName = "id", name = "id_anuncio", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Anuncio anuncio;
 
     public Imagem() {
     }
@@ -64,6 +69,14 @@ public class Imagem implements Serializable {
      */
     public void setImagemUrl(String imagemUrl) {
         this.imagemUrl = "https://drive.google.com/uc?id=" + imagemUrl;
+    }
+
+    public Anuncio getAnuncio() {
+        return anuncio;
+    }
+
+    public void setAnuncio(Anuncio anuncio) {
+        this.anuncio = anuncio;
     }
 }
 

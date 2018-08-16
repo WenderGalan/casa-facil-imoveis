@@ -8,6 +8,7 @@ CREATE TABLE public.usuarios
     numero text NOT NULL,
     senha text NOT NULL,
     tipo_usuario integer NOT NULL,
+    url_imagem integer NOT NULL,
     PRIMARY KEY (id, email)
 )
 WITH (
@@ -24,3 +25,23 @@ CREATE SEQUENCE public.usuarios_id_seq
 
 ALTER SEQUENCE public.usuarios_id_seq
     OWNER TO zxebwestoynydb;
+
+--TABLE IMAGEM--
+CREATE TABLE public.imagens
+(
+    id integer NOT NULL,
+    imagem_url text NOT NULL,
+    id_anuncio integer NOT NULL,
+    PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.imagens
+    OWNER to zxebwestoynydb;
+
+-- TABLE ANUNCIO --
+
+
+

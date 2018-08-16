@@ -1,4 +1,4 @@
-package com.casafacilimoveis.model;
+package com.casafacilimoveis.model.entities;
 
 import com.casafacilimoveis.model.enums.TipoUsuario;
 import org.hibernate.validator.constraints.Length;
@@ -40,6 +40,9 @@ public class Usuario implements Serializable {
     @Column(name = "tipo_usuario", nullable = false)
     @NotNull(message = "O tipo do usuário não foi informado.")
     private TipoUsuario tipoUsuario;
+
+    @Column(name = "url_imagem")
+    private String urlImagem;
 
     public Integer getId() {
         return id;
@@ -87,6 +90,14 @@ public class Usuario implements Serializable {
 
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public String getUrlImagem() {
+        return urlImagem;
+    }
+
+    public void setUrlImagem(String urlImagem) {
+        this.urlImagem = urlImagem;
     }
 
     @Override
