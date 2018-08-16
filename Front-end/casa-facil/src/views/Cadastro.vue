@@ -215,6 +215,9 @@ export default {
     // ESCONDE A MODAL DA TELA
     hideModal () {
       if (this.inputValidacao === this.responseEmail.mensagem) {
+        if (this.novoUsuario.numero.length > 0) {
+          this.novoUsuario.numero = Utils.formatarNumero(this.novoUsuario.numero)
+        }
         criarConta(this.novoUsuario).then((response) => {
           if (response.data) {
             this.novoUsuario = response.data

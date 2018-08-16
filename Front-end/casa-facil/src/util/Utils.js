@@ -16,4 +16,13 @@ export default class Utils {
     let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return re.test(email)
   }
+  // FAZ A FORMATAÇÃO DO NUMERO PARA RETIRAR A MÁSCARA DO VUE THE MASK
+  static formatarNumero (numero) {
+    let valor = numero
+    valor = valor.replace('(', '')
+    valor = valor.replace(')', '')
+    valor = valor.replace(' ', '')
+    valor = valor.replace('-', '')
+    return valor
+  }
 }

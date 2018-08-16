@@ -66,6 +66,7 @@
 
 <script>
 import {alterarUsuario} from '../services/requestServices'
+import Utils from '../util/Utils'
 export default {
   name: 'perfil',
   data () {
@@ -88,6 +89,8 @@ export default {
       this.perfilUsuario = user
     },
     salvarAlteracoes () {
+      this.perfilUsuario.numero = Utils.formatarNumero(this.perfilUsuario.numero)
+      console.log(this.perfilUsuario.numero)
       alterarUsuario(this.perfilUsuario).then((response) => {
         if (response.data) {
           this.perfilUsuario = response.data
