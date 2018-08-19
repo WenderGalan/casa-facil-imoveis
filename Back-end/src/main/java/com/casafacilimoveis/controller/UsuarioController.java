@@ -1,9 +1,14 @@
 package com.casafacilimoveis.controller;
 
-import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.beans.ResponseError;
+import com.casafacilimoveis.model.entities.Anuncio;
+import com.casafacilimoveis.model.entities.Imagem;
+import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.CodeError;
+import com.casafacilimoveis.repository.AnuncioRepository;
+import com.casafacilimoveis.repository.ImagemRepository;
 import com.casafacilimoveis.repository.UsuarioRepository;
+import com.casafacilimoveis.service.GoogleDriveService;
 import com.casafacilimoveis.util.SenhaUtil;
 import com.casafacilimoveis.util.Util;
 import io.swagger.annotations.Api;
@@ -24,6 +29,15 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private AnuncioRepository anuncioRepository;
+
+    @Autowired
+    private ImagemRepository imagemRepository;
+
+    @Autowired
+    private GoogleDriveService googleDriveService;
 
     @ApiOperation("Busca todos os usuários do sistema")
     @GetMapping("/v1")
@@ -77,7 +91,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
-    @ApiOperation("Exclui o usuário pelo ID")
+    @ApiOperation("Exclui o usuário pelo ID (deleta todos os anúncios e imagens vinculados a ele)")
     @DeleteMapping("/v1/{id}")
     public ResponseEntity excluirPorId(@PathVariable("id") Integer id) {
         Usuario usuario = usuarioRepository.getOne(id);
@@ -87,6 +101,14 @@ public class UsuarioController {
         }
 
         try {
+            for (Anuncio anuncio : usuario.getAnuncios()) {
+                for (Imagem imagem : anuncio.getImagensAnuncios()) {
+                    googleDriveService.deleteFile(imagem.getId());
+                    imagemRepository.delete(imagem);
+                }
+                anuncioRepository.delete(anuncio);
+            }
+
             usuarioRepository.delete(usuario);
         } catch (Exception ex) {
             return new ResponseEntity(new ResponseError(CodeError.NAO_PERMITIDO_EXCLUIR, ex.getMessage()), HttpStatus.BAD_REQUEST);

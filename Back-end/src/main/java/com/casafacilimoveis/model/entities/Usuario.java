@@ -1,11 +1,13 @@
 package com.casafacilimoveis.model.entities;
 
 import com.casafacilimoveis.model.enums.TipoUsuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -43,6 +45,10 @@ public class Usuario implements Serializable {
 
     @Column(name = "url_imagem")
     private String urlImagem;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "anunciante")
+    private List<Anuncio> anuncios;
 
     public Integer getId() {
         return id;
@@ -98,6 +104,14 @@ public class Usuario implements Serializable {
 
     public void setUrlImagem(String urlImagem) {
         this.urlImagem = urlImagem;
+    }
+
+    public List<Anuncio> getAnuncios() {
+        return anuncios;
+    }
+
+    public void setAnuncios(List<Anuncio> anuncios) {
+        this.anuncios = anuncios;
     }
 
     @Override
