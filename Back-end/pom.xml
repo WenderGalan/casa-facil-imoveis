@@ -48,10 +48,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!--FLYWAY - CONTROLE DE VERSÃO DO BANCO DE DADOS-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-        </dependency>
+        </dependency>-->
         <!--DEVTOOLS - FERRAMENTAS PARA DEV-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

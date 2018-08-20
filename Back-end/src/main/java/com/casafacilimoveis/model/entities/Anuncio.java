@@ -33,20 +33,19 @@ public class Anuncio implements Serializable {
     @NotNull(message = "O valor não foi informado.")
     private Double valor;
 
-    @Column(name = "id_anunciante", nullable = false)
-    @NotNull(message = "O anunciante não foi informado.")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_anunciante", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_anuncio_anunciante"))
     private Usuario anunciante;
 
-    @NotNull(message = "O endereco não foi informado.")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_endereco", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_endereco", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_anuncio_endereco"))
     private Endereco endereco;
 
     @Column(name = "tipo_imovel", nullable = false)
     @NotNull(message = "O tipo de imóvel não foi informado.")
     private TipoImovel tipoImovel;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "anuncio")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "anuncio")
     private List<Imagem> imagensAnuncios;
 
     public Integer getId() {

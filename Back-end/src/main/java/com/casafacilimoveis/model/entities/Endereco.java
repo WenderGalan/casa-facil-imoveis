@@ -1,10 +1,12 @@
 package com.casafacilimoveis.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -32,7 +34,6 @@ public class Endereco implements Serializable {
     private String bairro;
 
     @Column(name = "numero")
-    @Length(min = 1, max = 100, message = "O numero deve ter no minímo {min} e no máximo {max} caracteres")
     private Integer numero;
 
     @Column(name = "estado", nullable = false)
@@ -51,12 +52,14 @@ public class Endereco implements Serializable {
     private String cep;
 
     @Column(name = "latitude", nullable = false)
-    @Length(min = 1, max = 100, message = "O latitude deve ter no minímo {min} e no máximo {max} caracteres")
     private Double latitude;
 
     @Column(name = "longitude", nullable = false)
-    @Length(min = 1, max = 100, message = "O latitude deve ter no minímo {min} e no máximo {max} caracteres")
     private Double longitude;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "endereco")
+    private List<Anuncio> anuncios;
 
     public Endereco() {
     }
@@ -139,6 +142,14 @@ public class Endereco implements Serializable {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public List<Anuncio> getAnuncios() {
+        return anuncios;
+    }
+
+    public void setAnuncios(List<Anuncio> anuncios) {
+        this.anuncios = anuncios;
     }
 
     @Override

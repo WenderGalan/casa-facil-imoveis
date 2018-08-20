@@ -30,9 +30,10 @@ public class Imagem implements Serializable {
     public Imagem() {
     }
 
-    public Imagem(String imagemUrl) {
+    public Imagem(String imagemUrl, Anuncio anuncio) {
         this.id = imagemUrl;
         this.imagemUrl = "https://drive.google.com/uc?id=" + imagemUrl;
+        this.anuncio = anuncio;
     }
 
     /**
