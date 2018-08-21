@@ -1,30 +1,62 @@
 package com.casafacilimoveis.model.beans;
 
+/**
+ * The type Validation.
+ */
 public class Validation {
 
     private String campo;
     private String mensagem;
 
+    /**
+     * Instantiates a new Validation.
+     */
     public Validation() {
     }
 
+    /**
+     * Instantiates a new Validation.
+     *
+     * @param campo    the campo
+     * @param mensagem the mensagem
+     */
     public Validation(String campo, String mensagem) {
         this.campo = campo;
         this.mensagem = mensagem;
     }
 
+    /**
+     * Gets .
+     *
+     * @return the
+     */
     public String getcampo() {
         return campo;
     }
 
+    /**
+     * Sets .
+     *
+     * @param campo the campo
+     */
     public void setcampo(String campo) {
         this.campo = campo;
     }
 
+    /**
+     * Gets .
+     *
+     * @return the
+     */
     public String getmensagem() {
         return mensagem;
     }
 
+    /**
+     * Sets .
+     *
+     * @param mensagem the mensagem
+     */
     public void setmensagem(String mensagem) {
         this.mensagem = mensagem;
     }

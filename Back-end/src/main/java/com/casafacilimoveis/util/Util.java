@@ -10,8 +10,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Util.
+ */
 public class Util {
 
+    /**
+     * Criar lista de erros da validacao list.
+     *
+     * @param erros the erros
+     * @return the list
+     */
     public static List<Validation> criarListaDeErrosDaValidacao(List<ObjectError> erros){
         List<Validation> lista = new ArrayList<>();
         if(erros != null && !erros.isEmpty()){
@@ -22,6 +31,14 @@ public class Util {
         return lista;
     }
 
+    /**
+     * Convert file.
+     *
+     * @param file the file
+     * @return the file
+     * @throws IllegalStateException the illegal state exception
+     * @throws IOException           the io exception
+     */
     public static File convert(MultipartFile file) throws IllegalStateException, IOException {
         File convFile = new File(file.getOriginalFilename());
         FileOutputStream fos = new FileOutputStream(convFile);

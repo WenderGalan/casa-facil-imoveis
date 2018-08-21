@@ -27,9 +27,18 @@ public class Imagem implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Anuncio anuncio;
 
+    /**
+     * Instantiates a new Imagem.
+     */
     public Imagem() {
     }
 
+    /**
+     * Instantiates a new Imagem.
+     *
+     * @param imagemUrl the imagem url
+     * @param anuncio   the anuncio
+     */
     public Imagem(String imagemUrl, Anuncio anuncio) {
         this.id = imagemUrl;
         this.imagemUrl = "https://drive.google.com/uc?id=" + imagemUrl;
@@ -72,10 +81,20 @@ public class Imagem implements Serializable {
         this.imagemUrl = "https://drive.google.com/uc?id=" + imagemUrl;
     }
 
+    /**
+     * Gets anuncio.
+     *
+     * @return the anuncio
+     */
     public Anuncio getAnuncio() {
         return anuncio;
     }
 
+    /**
+     * Sets anuncio.
+     *
+     * @param anuncio the anuncio
+     */
     public void setAnuncio(Anuncio anuncio) {
         this.anuncio = anuncio;
     }

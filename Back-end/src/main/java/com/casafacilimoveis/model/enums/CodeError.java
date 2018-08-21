@@ -1,7 +1,21 @@
 package com.casafacilimoveis.model.enums;
 
+/**
+ * The enum Code error.
+ */
 public enum CodeError {
-    NAO_PERMITIDO_EXCLUIR(1000), USUARIO_EXISTENTE(1001), USUARIO_OU_SENHA_INVALIDOS(1002);
+    /**
+     * Nao permitido excluir code error.
+     */
+    NAO_PERMITIDO_EXCLUIR(1000),
+    /**
+     * Usuario existente code error.
+     */
+    USUARIO_EXISTENTE(1001),
+    /**
+     * Usuario ou senha invalidos code error.
+     */
+    USUARIO_OU_SENHA_INVALIDOS(1002);
 
     private int code;
 
@@ -9,6 +23,11 @@ public enum CodeError {
         this.code = code;
     }
 
+    /**
+     * Gets code.
+     *
+     * @return the code
+     */
     public int getCode() {
         return code;
     }

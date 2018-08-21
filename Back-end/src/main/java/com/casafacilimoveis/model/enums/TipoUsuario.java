@@ -1,7 +1,21 @@
 package com.casafacilimoveis.model.enums;
 
+/**
+ * The enum Tipo usuario.
+ */
 public enum TipoUsuario {
-    FISICA(0), CORRETOR(1), JURIDICA(2);
+    /**
+     * Fisica tipo usuario.
+     */
+    FISICA(0),
+    /**
+     * Corretor tipo usuario.
+     */
+    CORRETOR(1),
+    /**
+     * Juridica tipo usuario.
+     */
+    JURIDICA(2);
 
     TipoUsuario(int i) {
     }

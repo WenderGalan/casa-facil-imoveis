@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The type Anuncio.
+ */
 @Entity
 @Table(name = "anuncios", schema = "public")
 public class Anuncio implements Serializable {
@@ -48,66 +51,146 @@ public class Anuncio implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "anuncio")
     private List<Imagem> imagensAnuncios;
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Gets titulo.
+     *
+     * @return the titulo
+     */
     public String getTitulo() {
         return titulo;
     }
 
+    /**
+     * Sets titulo.
+     *
+     * @param titulo the titulo
+     */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
+    /**
+     * Gets descricao.
+     *
+     * @return the descricao
+     */
     public String getDescricao() {
         return descricao;
     }
 
+    /**
+     * Sets descricao.
+     *
+     * @param descricao the descricao
+     */
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
+    /**
+     * Gets valor.
+     *
+     * @return the valor
+     */
     public Double getValor() {
         return valor;
     }
 
+    /**
+     * Sets valor.
+     *
+     * @param valor the valor
+     */
     public void setValor(Double valor) {
         this.valor = valor;
     }
 
+    /**
+     * Gets anunciante.
+     *
+     * @return the anunciante
+     */
     public Usuario getAnunciante() {
         return anunciante;
     }
 
+    /**
+     * Sets anunciante.
+     *
+     * @param anunciante the anunciante
+     */
     public void setAnunciante(Usuario anunciante) {
         this.anunciante = anunciante;
     }
 
+    /**
+     * Gets endereco.
+     *
+     * @return the endereco
+     */
     public Endereco getEndereco() {
         return endereco;
     }
 
+    /**
+     * Sets endereco.
+     *
+     * @param endereco the endereco
+     */
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 
+    /**
+     * Gets tipo imovel.
+     *
+     * @return the tipo imovel
+     */
     public TipoImovel getTipoImovel() {
         return tipoImovel;
     }
 
+    /**
+     * Sets tipo imovel.
+     *
+     * @param tipoImovel the tipo imovel
+     */
     public void setTipoImovel(TipoImovel tipoImovel) {
         this.tipoImovel = tipoImovel;
     }
 
+    /**
+     * Gets imagens anuncios.
+     *
+     * @return the imagens anuncios
+     */
     public List<Imagem> getImagensAnuncios() {
         return imagensAnuncios;
     }
 
+    /**
+     * Sets imagens anuncios.
+     *
+     * @param imagensAnuncios the imagens anuncios
+     */
     public void setImagensAnuncios(List<Imagem> imagensAnuncios) {
         this.imagensAnuncios = imagensAnuncios;
     }

@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ * The type Anuncio controller.
+ */
 @Api(description = "Controller de requisições de anúncios")
 @RestController
 @CrossOrigin
@@ -29,6 +32,12 @@ public class AnuncioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    /**
+     * Buscar todos response entity.
+     *
+     * @param search the search
+     * @return the response entity
+     */
     @ApiOperation("Busca todos os anúncios da aplicação")
     @GetMapping("/v1")
     public ResponseEntity buscarTodos(@RequestParam(value = "search", required = false) String search) {
@@ -39,6 +48,12 @@ public class AnuncioController {
         }
     }
 
+    /**
+     * Buscar por id response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @ApiOperation("Busca apenas um anúncio pelo o ID")
     @GetMapping("/v1/{id}")
     public ResponseEntity buscarPorId(@PathVariable("id") Integer id) {
@@ -51,6 +66,14 @@ public class AnuncioController {
         return ResponseEntity.ok(anuncio);
     }
 
+    /**
+     * Salvar response entity.
+     *
+     * @param anuncio the anuncio
+     * @param id      the id
+     * @param result  the result
+     * @return the response entity
+     */
     @ApiOperation("Salva o anúncio")
     @PostMapping("/v1/{id}")
     public ResponseEntity salvar(@Valid @RequestBody Anuncio anuncio, @PathVariable("id") Integer id, BindingResult result) {
@@ -65,6 +88,13 @@ public class AnuncioController {
         return ResponseEntity.ok(anuncio);
     }
 
+    /**
+     * Alterar response entity.
+     *
+     * @param anuncio the anuncio
+     * @param result  the result
+     * @return the response entity
+     */
     @ApiOperation("Altera o anúncio")
     @PutMapping("/v1")
     public ResponseEntity alterar(@Valid @RequestBody Anuncio anuncio, BindingResult result) {
@@ -76,6 +106,12 @@ public class AnuncioController {
         return ResponseEntity.ok(anuncio);
     }
 
+    /**
+     * Excluir por id response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @ApiOperation("Exclui o anúncio pelo ID")
     @DeleteMapping("/v1/{id}")
     public ResponseEntity excluirPorId(@PathVariable("id") Integer id) {

@@ -5,15 +5,36 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+/**
+ * The interface Usuario repository.
+ */
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
+    /**
+     * Find one by id usuario.
+     *
+     * @param id the id
+     * @return the usuario
+     */
     @Query("SELECT u FROM Usuario u WHERE u.id = ?1 ")
     public Usuario findOneById(Integer id);
 
+    /**
+     * Find by email usuario.
+     *
+     * @param email the email
+     * @return the usuario
+     */
     @Query("SELECT u FROM Usuario u WHERE u.email = ?1")
     public Usuario findByEmail(String email);
 
+    /**
+     * Find by nome usuario.
+     *
+     * @param nome the nome
+     * @return the usuario
+     */
     @Query("SELECT u FROM Usuario u WHERE u.nome LIKE %"+ "?1" +"%")
     public Usuario findByNome(String nome);
 }

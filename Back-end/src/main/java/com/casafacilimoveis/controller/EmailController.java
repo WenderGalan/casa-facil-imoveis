@@ -32,6 +32,10 @@ public class EmailController {
     private JavaMailSender mailSender;
 
     /**
+     * Send email response entity.
+     *
+     * @param nome  the nome
+     * @param email the email
      * @return the string
      */
     @ApiOperation("Envio de e-mail para confirmar o código de cadastro")

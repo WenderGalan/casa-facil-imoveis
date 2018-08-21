@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Imagem controller.
+ */
 @Api(description = "Controller de requisições de imagens")
 @RestController
 @CrossOrigin
@@ -44,6 +47,7 @@ public class ImagemController {
      *
      * @param files arquivos para fazer upload
      * @param id    do anuncio para inserção no banco de dados
+     * @return the response entity
      */
     @ApiOperation("Envio das imagens do anúncio")
     @PostMapping(path = "/v1/enviar-imagens-anuncio/{id}")
@@ -101,8 +105,9 @@ public class ImagemController {
      *
      * @param file arquivos para fazer upload
      * @param id   do anuncio para inserção no banco de dados
+     * @return the response entity
      */
-    @ApiOperation("Envio das imagens do anúncio")
+    @ApiOperation("Envio da imagem do perfil do usuário")
     @PostMapping(path = "/v1/enviar-imagem-user/{id}")
     public ResponseEntity salvarImagemUser(@RequestParam("file") MultipartFile file, @PathVariable("id") Integer id) {
         Usuario usuario = usuarioRepository.findOneById(id);
@@ -130,6 +135,9 @@ public class ImagemController {
 
     /**
      * DELETA UMA LISTA DE IMAGENS
+     *
+     * @param imagens the imagens
+     * @return the boolean
      */
     public boolean deletarImagensAnuncio(List<Imagem> imagens) {
         if (imagens != null && imagens.size() > 0) {
