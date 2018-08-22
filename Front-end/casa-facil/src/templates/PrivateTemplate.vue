@@ -6,7 +6,8 @@
       <b-collapse is-nav id="nav_dropdown_collapse">
         <b-navbar-nav>
           <b-nav-item style="margin-left: 50px" href="#" @click="irHome">Início</b-nav-item>
-          <b-nav-item href="#" @click="adicionarAnuncio">Adicionar Anúncio</b-nav-item>
+          <b-nav-item href="#" v-if="verificarSessao" @click="adicionarAnuncio">Adicionar Anúncio</b-nav-item>
+          <b-nav-item href="#" v-if="verificarSessao" @click="visualizarAnuncios">Anúncios Cadastrados</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
@@ -50,6 +51,15 @@ export default {
           name: 'perfil',
           params: {id}
         })
+    },
+    visualizarAnuncios () {
+      const id = this.$store.state.sessao.id
+      this.$router.push(
+        {
+          name: 'meusAnuncios',
+          params: {id}
+        })
+
     }
   },
   computed: {

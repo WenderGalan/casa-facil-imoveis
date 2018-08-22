@@ -4,7 +4,7 @@
       <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <b-img rounded src="https://picsum.photos/1024/400/?image=41" width="130" height="130" blank-color="#777"
+            <b-img rounded="circle" :src="perfilUsuario.urlImagem" width="200" height="200" blank-color="#777"
                    alt="img" class="m-1"></b-img>
             <input type="file" class="upload"/>
           </div>
@@ -78,7 +78,8 @@ export default {
         nome: '',
         numero: '',
         tipoUsuario: '',
-        senha: ''
+        senha: '',
+        urlImagem: ''
       },
       permEditar: false
     }

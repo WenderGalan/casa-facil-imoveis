@@ -37,41 +37,15 @@
         <div class="col-sm-12 col-md-4 col-lg-8">
           <b-card title="">
             <div class="row">
-              <b-card>
+              <b-card v-for="anuncio in anuncios" style="margin-top: 15px">
                 <div class="row">
                   <div class="col-sm-12 col-md-4 col-lg-4">
                     <img src="../assets/logo.png"/>
                   </div>
                   <div class="col-sm-12 col-md-4 col-lg-8">
-                    <p>dokasopkdopskaodkosakdopksaokdposakdoksaopkdopksaokdospadopksaokdospkdopadopksaokdospkdopadopksaokdospkdopadopkpadopksaokdo</p>
-                    <p>dokasopkdopskaodkosakdopksaokdposakdoksaopkdopksaokdospadopksaokdospkdopadopksaokdospkdopadopksaokdospkdopadopkpadopksaokdo</p>
-                    <p>dokasopkdopskaodkosakdopksaokdposakdoksaopkdopksaokdospadopksaokdospkdopadopksaokdospkdopadopksaokdospkdopadopkpadopksaokdo</p>
-                  </div>
-                </div>
-              </b-card>
-              <br>
-              <b-card>
-                <div class="row">
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-                    <img src="../assets/logo.png"/>
-                  </div>
-                  <div class="col-sm-12 col-md-4 col-lg-8">
-                    <p>dokasopkdopskaodkosakdopksaokdposakdoksaopkdopksaokdospadopksaokdospkdopadopksaokdospkdopadopksaokdospkdopadopkpadopksaokdo</p>
-                    <p>dokasopkdopskaodkosakdopksaokdposakdoksaopkdopksaokdospadopksaokdospkdopadopksaokdospkdopadopksaokdospkdopadopkpadopksaokdo</p>
-                    <p>dokasopkdopskaodkosakdopksaokdposakdoksaopkdopksaokdospadopksaokdospkdopadopksaokdospkdopadopksaokdospkdopadopkpadopksaokdo</p>
-                  </div>
-                </div>
-              </b-card>
-              <br>
-              <b-card>
-                <div class="row">
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-                    <img src="../assets/logo.png"/>
-                  </div>
-                  <div class="col-sm-12 col-md-4 col-lg-8">
-                    <p>dokasopkdopskaodkosakdopksaokdposakdoksaopkdopksaokdospadopksaokdospkdopadopksaokdospkdopadopksaokdospkdopadopkpadopksaokdo</p>
-                    <p>dokasopkdopskaodkosakdopksaokdposakdoksaopkdopksaokdospadopksaokdospkdopadopksaokdospkdopadopksaokdospkdopadopkpadopksaokdo</p>
-                    <p>dokasopkdopskaodkosakdopksaokdposakdoksaopkdopksaokdospadopksaokdospkdopadopksaokdospkdopadopksaokdospkdopadopkpadopksaokdo</p>
+                    <h3>{{anuncio.titulo}}</h3>
+                    <p>{{anuncio.descricao}}</p>
+                    <p class="text-right" style="font-weight: bold">Valor: {{anuncio.valor}}</p>
                   </div>
                 </div>
               </b-card>
@@ -84,8 +58,28 @@
 </template>
 
 <script>
-
+import {buscarTodosAnuncios} from '../services/requestServices'
 export default {
-  name: 'home'
+  name: 'home',
+  data () {
+    return {
+      anuncios: []
+    }
+  },
+  methods: {
+    buscarAnuncios () {
+      buscarTodosAnuncios().then((response) => {
+        if (response.data) {
+          this.anuncios = response.data
+          console.log(response.data)
+        }
+      }).catch((err) => {
+        console.log(err.response)
+      })
+    }
+  },
+  mounted () {
+    this.buscarAnuncios()
+  }
 }
 </script>

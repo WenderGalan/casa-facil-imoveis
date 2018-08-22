@@ -15,7 +15,7 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-10">
-                <input type="text" id="cep" v-model="localizacao.cep" v-mask="'#####-###'" class="form-control"/>
+                <input type="text" id="cep" @keyup.enter="buscarCep" v-model="localizacao.cep" v-mask="'#####-###'" class="form-control"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-2">
@@ -26,7 +26,7 @@
                 <div class="row">
                   <div class="col-sm-12 col-md-4 col-lg-6" style="margin-left: -15px">
                     <div class="col-sm-12 col-md-4 col-lg-12">
-                      <p class="text-left">UF:</p>
+                      <p class="text-left">Estado:</p>
                     </div>
 
                     <div class="col-sm-12 col-md-4 col-lg-12">
@@ -47,7 +47,7 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">Localidade:</p>
+                <p class="text-left">Cidade:</p>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
@@ -97,6 +97,15 @@
             <b-form-file v-model="fotos" class="mt-3" multiple plain></b-form-file>
           </div>
 
+          <div class="col-sm-12 col-md-4 col-lg-12">
+            <p class="text-left">Escolha o tipo de imóvel</p>
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-12">
+            <b-form-select id="tipoDomicilio" v-model="infoImovel.tipoImovel" :options="tiposDeDomicilio"
+                           class="mb-3"></b-form-select>
+          </div>
+
           <div class="col-sm-12 col-md-4 col-lg-6">
             <p class="text-left">Defina um título</p>
           </div>
@@ -106,11 +115,11 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-6">
-            <input type="text" class="form-control"/>
+            <input type="text" v-model="infoImovel.titulo" class="form-control"/>
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-6">
-            <input type="text" class="form-control"/>
+            <input type="number" v-model="infoImovel.valor" class="form-control"/>
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
@@ -118,8 +127,11 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <textarea class="form-control"/>
+            <textarea v-model="infoImovel.descricao" class="form-control"></textarea>
           </div>
+
+          <b-button style="margin-top: 10px" variant="success" @click="adicionarAnuncio" class="form-control">Salvar</b-button>
+
 
         </div>
       </b-card>
@@ -129,6 +141,7 @@
 
 <script>
 import Axios from 'axios'
+import {salvarAnuncio} from '../services/requestServices'
 export default {
   name: 'CadastroDomicilio',
   data () {
@@ -147,8 +160,39 @@ export default {
         titulo: '',
         descricao: '',
         valor: 0,
-        tipoImovel: ''
-      }
+        tipoImovel: null
+      },
+      tiposDeDomicilio: [
+        {
+          value: 0,
+          text: 'Casa'
+        },
+        {
+          value: 1,
+          text: 'Apartamento'
+        },
+        {
+          value: 2,
+          text: 'Loja'
+        },
+        {
+          value: 3,
+          text: 'Terreno'
+        },
+        {
+          value: 4,
+          text: 'Fazenda'
+        },
+        {
+          value: 5,
+          text: 'Imovel Comercial'
+        }
+      ],
+      responseEmail: {
+        campo: '',
+        mensagem: ''
+      },
+      inputValidacao: ''
     }
   },
   methods: {
@@ -159,6 +203,33 @@ export default {
       }).then((response) => {
         console.log(response.data)
         this.localizacao = response.data
+      }).catch((err) => {
+        console.log(err.response)
+      })
+    },
+    adicionarAnuncio () {
+      const anuncio = {
+        descricao: this.infoImovel.descricao,
+        endereco: {
+          bairro: this.localizacao.bairro,
+          cep: this.localizacao.cep,
+          cidade: this.localizacao.localidade,
+          complemento: this.localizacao.complemento,
+          endereco: this.localizacao.logradouro,
+          estado: this.localizacao.uf,
+          latitude: 0.0,
+          longitude: 0.0,
+          numero: this.localizacao.numero
+        },
+        tipoImovel: this.infoImovel.tipoImovel,
+        titulo: this.infoImovel.titulo,
+        valor: this.infoImovel.valor
+      }
+      console.log(anuncio)
+      salvarAnuncio(this.$store.state.sessao.id, anuncio).then((response) => {
+        if (response.data) {
+          console.log(response.data)
+        }
       }).catch((err) => {
         console.log(err.response)
       })
