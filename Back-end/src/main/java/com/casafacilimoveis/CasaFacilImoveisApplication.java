@@ -30,6 +30,11 @@ public class CasaFacilImoveisApplication extends SpringBootServletInitializer {
         return builder.sources(CasaFacilImoveisApplication.class);
     }
 
+    /**
+     * Property sources placeholder configurer property sources placeholder configurer.
+     *
+     * @return the property sources placeholder configurer
+     */
     @Bean
     @Primary
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {

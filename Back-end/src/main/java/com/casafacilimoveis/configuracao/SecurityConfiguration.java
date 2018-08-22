@@ -6,8 +6,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 /**
  * The type Security configuration.
- * @author Wender Galan
- * Created on: 10/08/2018
+ *
+ * @author Wender Galan Created on: 10/08/2018
  */
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {

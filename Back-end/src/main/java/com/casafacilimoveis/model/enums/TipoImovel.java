@@ -1,7 +1,33 @@
 package com.casafacilimoveis.model.enums;
 
+/**
+ * The enum Tipo imovel.
+ */
 public enum TipoImovel {
-    CASA(0), APARTAMENTO(1), LOJA(2), TERRENO(3), FAZENDA(4), IMOVEL_COMERCIAL(5);
+    /**
+     * Casa tipo imovel.
+     */
+    CASA(0),
+    /**
+     * Apartamento tipo imovel.
+     */
+    APARTAMENTO(1),
+    /**
+     * Loja tipo imovel.
+     */
+    LOJA(2),
+    /**
+     * Terreno tipo imovel.
+     */
+    TERRENO(3),
+    /**
+     * Fazenda tipo imovel.
+     */
+    FAZENDA(4),
+    /**
+     * Imovel comercial tipo imovel.
+     */
+    IMOVEL_COMERCIAL(5);
 
     private int code;
 
@@ -9,6 +35,11 @@ public enum TipoImovel {
         this.code = code;
     }
 
+    /**
+     * Gets code.
+     *
+     * @return the code
+     */
     public int getCode() {
         return code;
     }

@@ -2,8 +2,10 @@ package com.casafacilimoveis.controller;
 
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Imagem;
+import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.ImagemRepository;
+import com.casafacilimoveis.repository.UsuarioRepository;
 import com.casafacilimoveis.service.GoogleDriveService;
 import com.casafacilimoveis.util.Util;
 import io.swagger.annotations.Api;
@@ -19,6 +21,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Imagem controller.
+ */
 @Api(description = "Controller de requisições de imagens")
 @RestController
 @CrossOrigin
@@ -34,11 +39,15 @@ public class ImagemController {
     @Autowired
     private ImagemRepository imagemRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     /**
      * https://developers.google.com/drive/api/v2/reference/files/insert
      *
      * @param files arquivos para fazer upload
      * @param id    do anuncio para inserção no banco de dados
+     * @return the response entity
      */
     @ApiOperation("Envio das imagens do anúncio")
     @PostMapping(path = "/v1/enviar-imagens-anuncio/{id}")
@@ -92,7 +101,43 @@ public class ImagemController {
     }
 
     /**
+     * https://developers.google.com/drive/api/v2/reference/files/insert
+     *
+     * @param file arquivos para fazer upload
+     * @param id   do anuncio para inserção no banco de dados
+     * @return the response entity
+     */
+    @ApiOperation("Envio da imagem do perfil do usuário")
+    @PostMapping(path = "/v1/enviar-imagem-user/{id}")
+    public ResponseEntity salvarImagemUser(@RequestParam("file") MultipartFile file, @PathVariable("id") Integer id) {
+        Usuario usuario = usuarioRepository.findOneById(id);
+        if (usuario != null) {
+            if (file != null && !file.isEmpty()) {
+                try {
+                    File fileConvert = Util.convert(file);
+                    if (fileConvert != null) {
+                        com.google.api.services.drive.model.File fileGoogle = driveService.uploadFile(fileConvert);
+                        usuario.setUrlImagem("https://drive.google.com/uc?id=" + fileGoogle.getId());
+                        usuarioRepository.save(usuario);
+                        fileConvert.delete();
+                        return ResponseEntity.ok().body(usuario.getUrlImagem());
+                    }
+                } catch (IOException e) {
+                    System.out.println("Erro na conversão da imagem");
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                }
+
+            }
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+
+    /**
      * DELETA UMA LISTA DE IMAGENS
+     *
+     * @param imagens the imagens
+     * @return the boolean
      */
     public boolean deletarImagensAnuncio(List<Imagem> imagens) {
         if (imagens != null && imagens.size() > 0) {

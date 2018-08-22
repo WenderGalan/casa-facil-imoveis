@@ -19,8 +19,6 @@ import java.util.Random;
  * <p>
  * O email que faz o envio de e-mail tem as seguintes configurações:
  * <p>
- * Usuario: casafacilimoveisconfirmation@gmail.com
- * Senha: l3e8r5h6g2
  *
  * @author Wender Galan created on 11/08/2018
  */
@@ -34,6 +32,10 @@ public class EmailController {
     private JavaMailSender mailSender;
 
     /**
+     * Send email response entity.
+     *
+     * @param nome  the nome
+     * @param email the email
      * @return the string
      */
     @ApiOperation("Envio de e-mail para confirmar o código de cadastro")

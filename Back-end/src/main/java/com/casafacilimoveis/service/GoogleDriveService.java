@@ -9,6 +9,8 @@ public interface GoogleDriveService {
 
     /**
      * Upload file file.
+     *
+     * @param file the file
      * @return the file
      */
     public File uploadFile(java.io.File file);

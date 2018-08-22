@@ -4,13 +4,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * The type Senha utils.
- * @author Wender Galan
- * Em 09/08/2018
  *
- * Exemplo de utilização:
- * String senhaEncoded = SenhaUtil.gerarBCrypt("senhaDoUsuario");
- * boolean senhaValida = SenhaUtil.senhaValida("senhaDoUsuario", senhaEncoded);
- *
+ * @author Wender Galan Em 09/08/2018 Exemplo de utilização: String senhaEncoded = SenhaUtil.gerarBCrypt("senhaDoUsuario"); boolean senhaValida = SenhaUtil.senhaValida("senhaDoUsuario", senhaEncoded);
  */
 public class SenhaUtil {
 

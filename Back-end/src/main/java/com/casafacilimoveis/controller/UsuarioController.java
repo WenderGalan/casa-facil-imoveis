@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/**
+ * The type Usuario controller.
+ */
 @Api(description = "Controller de requisições de usuário")
 @CrossOrigin
 @RestController
@@ -39,6 +42,12 @@ public class UsuarioController {
     @Autowired
     private GoogleDriveService googleDriveService;
 
+    /**
+     * Buscar todos response entity.
+     *
+     * @param search the search
+     * @return the response entity
+     */
     @ApiOperation("Busca todos os usuários do sistema")
     @GetMapping("/v1")
     public ResponseEntity buscarTodos(@RequestParam(value = "search", required = false) String search) {
@@ -49,6 +58,12 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Buscar por id response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @ApiOperation("Busca apenas um usuário pelo o ID")
     @GetMapping("/v1/{id}")
     public ResponseEntity buscarPorId(@PathVariable("id") Integer id) {
@@ -61,6 +76,13 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
+    /**
+     * Salvar response entity.
+     *
+     * @param usuario the usuario
+     * @param result  the result
+     * @return the response entity
+     */
     @ApiOperation("Salva o usuário")
     @PostMapping("/v1")
     public ResponseEntity salvar(@Valid @RequestBody Usuario usuario, BindingResult result) {
@@ -80,6 +102,13 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
+    /**
+     * Alterar response entity.
+     *
+     * @param usuario the usuario
+     * @param result  the result
+     * @return the response entity
+     */
     @ApiOperation("Altera o usuário")
     @PutMapping("/v1")
     public ResponseEntity alterar(@Valid @RequestBody Usuario usuario, BindingResult result) {
@@ -91,6 +120,12 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
+    /**
+     * Excluir por id response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @ApiOperation("Exclui o usuário pelo ID (deleta todos os anúncios e imagens vinculados a ele)")
     @DeleteMapping("/v1/{id}")
     public ResponseEntity excluirPorId(@PathVariable("id") Integer id) {
@@ -117,6 +152,13 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    /**
+     * Logar usuario response entity.
+     *
+     * @param email the email
+     * @param senha the senha
+     * @return the response entity
+     */
     @ApiOperation("Login do usuário")
     @GetMapping("/v1/login")
     public ResponseEntity logarUsuario(@RequestParam(value = "email") String email, @RequestParam(value = "senha") String senha) {

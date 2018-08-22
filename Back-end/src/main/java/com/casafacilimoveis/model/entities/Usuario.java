@@ -10,6 +10,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The type Usuario.
+ */
 @Entity
 @Table(name = "usuarios", schema = "public")
 public class Usuario implements Serializable {
@@ -43,73 +46,154 @@ public class Usuario implements Serializable {
     @NotNull(message = "O tipo do usuário não foi informado.")
     private TipoUsuario tipoUsuario;
 
+    //Imagem padrão dos usuários
     @Column(name = "url_imagem")
-    private String urlImagem;
+    private String urlImagem = "https://drive.google.com/uc?id=1NzqIM3Li0YlTZDcTkGrIDCQsFUsCZqgm";
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "anunciante")
     private List<Anuncio> anuncios;
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Gets nome.
+     *
+     * @return the nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Sets nome.
+     *
+     * @param nome the nome
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Gets numero.
+     *
+     * @return the numero
+     */
     public String getNumero() {
         return numero;
     }
 
+    /**
+     * Sets numero.
+     *
+     * @param numero the numero
+     */
     public void setNumero(String numero) {
         this.numero = numero;
     }
 
+    /**
+     * Gets senha.
+     *
+     * @return the senha
+     */
     public String getSenha() {
         return senha;
     }
 
+    /**
+     * Sets senha.
+     *
+     * @param senha the senha
+     */
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
+    /**
+     * Gets tipo usuario.
+     *
+     * @return the tipo usuario
+     */
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
 
+    /**
+     * Sets tipo usuario.
+     *
+     * @param tipoUsuario the tipo usuario
+     */
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 
+    /**
+     * Gets url imagem.
+     *
+     * @return the url imagem
+     */
     public String getUrlImagem() {
         return urlImagem;
     }
 
+    /**
+     * Sets url imagem.
+     *
+     * @param urlImagem the url imagem
+     */
     public void setUrlImagem(String urlImagem) {
         this.urlImagem = urlImagem;
     }
 
+    /**
+     * Gets anuncios.
+     *
+     * @return the anuncios
+     */
     public List<Anuncio> getAnuncios() {
         return anuncios;
     }
 
+    /**
+     * Sets anuncios.
+     *
+     * @param anuncios the anuncios
+     */
     public void setAnuncios(List<Anuncio> anuncios) {
         this.anuncios = anuncios;
     }

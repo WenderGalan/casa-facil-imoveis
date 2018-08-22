@@ -14,8 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * The type Swagger configuration.
  *
- * @author Wender Galan
- * Created on: 10/08/2018
+ * @author Wender Galan Created on: 10/08/2018
  */
 @Configuration
 @EnableSwagger2
