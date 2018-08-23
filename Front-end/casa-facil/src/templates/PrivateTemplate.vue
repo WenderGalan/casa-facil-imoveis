@@ -40,6 +40,7 @@ export default {
     },
     sair () {
       this.$store.commit('alterarSessao', undefined)
+      this.$router.push({name: 'home'})
     },
     adicionarAnuncio () {
       this.$router.push({name: 'cadastroDomicilio'})

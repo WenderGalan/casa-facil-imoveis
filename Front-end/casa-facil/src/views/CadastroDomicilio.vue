@@ -129,11 +129,10 @@
           <div class="col-sm-12 col-md-4 col-lg-12">
             <textarea v-model="infoImovel.descricao" class="form-control"></textarea>
           </div>
-
-          <b-button style="margin-top: 10px" variant="success" @click="adicionarAnuncio" class="form-control">Salvar</b-button>
-
-
         </div>
+        <b-button style="margin-top: 10px"
+                  variant="success"
+                  @click="adicionarAnuncio" @keyup.enter="adicionarAnuncio">Salvar</b-button>
       </b-card>
     </div>
   </div>
@@ -229,6 +228,8 @@ export default {
       salvarAnuncio(this.$store.state.sessao.id, anuncio).then((response) => {
         if (response.data) {
           console.log(response.data)
+          alert('Salvo com sucesso')
+          this.$router.push({name: 'home'})
         }
       }).catch((err) => {
         console.log(err.response)
