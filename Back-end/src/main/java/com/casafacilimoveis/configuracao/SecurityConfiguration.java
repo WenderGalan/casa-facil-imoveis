@@ -5,9 +5,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * The type Security configuration.
- *
- * @author Wender Galan Created on: 10/08/2018
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: SecurityConfiguration.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {

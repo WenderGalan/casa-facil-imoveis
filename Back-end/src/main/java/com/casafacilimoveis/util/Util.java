@@ -11,7 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The type Util.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: Util.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 public class Util {
 

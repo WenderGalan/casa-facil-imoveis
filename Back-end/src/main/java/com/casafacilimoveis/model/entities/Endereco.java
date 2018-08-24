@@ -10,7 +10,15 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The type Endereco.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: Endereco.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Entity
 @Table(name = "endereco", schema = "public")

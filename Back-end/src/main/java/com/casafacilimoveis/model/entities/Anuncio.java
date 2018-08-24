@@ -10,7 +10,15 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The type Anuncio.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: Anuncio.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Entity
 @Table(name = "anuncios", schema = "public")

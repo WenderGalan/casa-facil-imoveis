@@ -11,7 +11,15 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The type Usuario.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: Usuario.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Entity
 @Table(name = "usuarios", schema = "public")

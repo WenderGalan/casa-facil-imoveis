@@ -22,7 +22,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 /**
- * The type Usuario controller.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: UsuarioController.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Api(description = "Controller de requisições de usuário")
 @CrossOrigin

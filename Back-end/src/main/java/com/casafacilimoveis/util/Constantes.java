@@ -1,7 +1,15 @@
 package com.casafacilimoveis.util;
 
 /**
- * The type Constantes.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: Constantes.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 public class Constantes {
 

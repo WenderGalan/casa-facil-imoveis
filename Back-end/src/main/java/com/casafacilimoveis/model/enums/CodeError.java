@@ -1,7 +1,15 @@
 package com.casafacilimoveis.model.enums;
 
 /**
- * The enum Code error.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: CodeError.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 public enum CodeError {
     /**

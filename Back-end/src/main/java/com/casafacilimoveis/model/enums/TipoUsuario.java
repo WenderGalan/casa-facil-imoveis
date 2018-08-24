@@ -1,7 +1,15 @@
 package com.casafacilimoveis.model.enums;
 
 /**
- * The enum Tipo usuario.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: TipoUsuario.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 public enum TipoUsuario {
     /**

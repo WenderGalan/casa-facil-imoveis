@@ -3,9 +3,15 @@ package com.casafacilimoveis.util;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * The type Senha utils.
- *
- * @author Wender Galan Em 09/08/2018 Exemplo de utilização: String senhaEncoded = SenhaUtil.gerarBCrypt("senhaDoUsuario"); boolean senhaValida = SenhaUtil.senhaValida("senhaDoUsuario", senhaEncoded);
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: SenhaUtil.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 public class SenhaUtil {
 
