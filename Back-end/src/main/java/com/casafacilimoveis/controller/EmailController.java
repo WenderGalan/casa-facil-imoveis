@@ -15,12 +15,15 @@ import java.io.File;
 import java.util.Random;
 
 /**
- * The type Email controller.
- * <p>
- * O email que faz o envio de e-mail tem as seguintes configurações:
- * <p>
- *
- * @author Wender Galan created on 11/08/2018
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: EmailController.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Api(description = "Controller de requisições de email")
 @RestController

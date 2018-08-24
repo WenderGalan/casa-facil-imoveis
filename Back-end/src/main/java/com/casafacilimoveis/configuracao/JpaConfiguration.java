@@ -16,7 +16,15 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * Created by @author Wender Galan on 28/02/2018.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: JpaConfiguration.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @EnableJpaRepositories(basePackages = "com.casafacilimoveis.repository")
 @EnableTransactionManagement

@@ -18,7 +18,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 /**
- * The type Anuncio controller.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: AnuncioController.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Api(description = "Controller de requisições de anúncios")
 @RestController

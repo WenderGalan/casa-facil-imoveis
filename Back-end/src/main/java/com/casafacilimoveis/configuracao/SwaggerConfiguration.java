@@ -12,9 +12,15 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * The type Swagger configuration.
- *
- * @author Wender Galan Created on: 10/08/2018
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: SwaggerConfiguration.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Configuration
 @EnableSwagger2

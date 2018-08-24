@@ -8,7 +8,15 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * The type Imagem.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: Imagem.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Entity
 @Table(name = "imagens", schema = "public")

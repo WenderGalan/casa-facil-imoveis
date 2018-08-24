@@ -22,7 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The type Imagem controller.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: ImagemController.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Api(description = "Controller de requisições de imagens")
 @RestController

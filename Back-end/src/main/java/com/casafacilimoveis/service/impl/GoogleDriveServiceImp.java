@@ -20,7 +20,15 @@ import java.nio.file.Paths;
 import java.util.Collections;
 
 /**
- * The type Google drive service imp.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: GoogleDriveServiceImpl.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @Service
 public class GoogleDriveServiceImp implements GoogleDriveService {

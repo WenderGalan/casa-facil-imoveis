@@ -11,7 +11,15 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
 /**
- * The type Casa facil imoveis application.
+ * casa-facil-imoveis
+ * Wender Galan
+ * Todos os direitos reservados ©
+ **********************************************
+ * Nome do arquivo: CasaFacilImoveisApplication.java
+ * Criado por : Wender Galan
+ * Data da criação :
+ * Observação :
+ **********************************************
  */
 @SpringBootApplication
 public class CasaFacilImoveisApplication extends SpringBootServletInitializer {
