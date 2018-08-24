@@ -19,3 +19,5 @@ export const alterarAnuncio = (anuncio) => http.put('/anuncios/v1', anuncio)
 export const excluirAnuncio = (idAnuncio) => http.delete(`/anuncios/v1/${idAnuncio}`)
 
 export const salvarImagensAnuncio = (idAnuncio, imagens) => http.post(`/file/v1/enviar-imagens-anuncio/${idAnuncio}`, imagens)
+
+export const salvarImagemUsuario = (idUser, imagem) => http.post(`/file/v1/enviar-imagem-user/${idUser}`, imagem)

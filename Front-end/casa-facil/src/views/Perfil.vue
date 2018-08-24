@@ -4,9 +4,9 @@
       <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <b-img rounded src="https://picsum.photos/1024/400/?image=41" width="130" height="130" blank-color="#777"
+            <b-img rounded="circle" :src="perfilUsuario.urlImagem" width="200" height="200" blank-color="#777"
                    alt="img" class="m-1"></b-img>
-            <input type="file" class="upload"/>
+            <b-form-file v-if="verificarUrl" v-model="novaFoto" id="file" placeholder="Escolha uma foto"></b-form-file>
           </div>
         </div>
       </div>
@@ -65,8 +65,9 @@
 </template>
 
 <script>
-import {alterarUsuario} from '../services/requestServices'
+import {alterarUsuario, salvarImagemUsuario} from '../services/requestServices'
 import Utils from '../util/Utils'
+import constantes from '../util/constantes'
 export default {
   name: 'perfil',
   data () {
@@ -78,9 +79,11 @@ export default {
         nome: '',
         numero: '',
         tipoUsuario: '',
-        senha: ''
+        senha: '',
+        urlImagem: ''
       },
-      permEditar: false
+      permEditar: false,
+      novaFoto: null
     }
   },
   methods: {
@@ -108,6 +111,22 @@ export default {
   watch: {
     permEditar (val) {
       this.disabled = !val
+    },
+    novaFoto (foto) {
+      const formData = new FormData()
+      formData.append('file', foto)
+      salvarImagemUsuario(this.perfilUsuario.id, formData).then((response) => {
+        if (response.data) {
+          this.perfilUsuario.urlImagem = response.data
+        }
+      }).catch((err) => {
+        console.log(err.response)
+      })
+    }
+  },
+  computed: {
+    verificarUrl () {
+      return constantes.URL_IMG_DEFAULT === this.perfilUsuario.urlImagem
     }
   }
 }
