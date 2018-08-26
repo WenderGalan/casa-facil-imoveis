@@ -102,7 +102,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <b-form-select id="tipoDomicilio" v-model="infoImovel.tipoImovel" :options="tiposDeDomicilio"
+            <b-form-select id="file" v-model="infoImovel.tipoImovel" :options="tiposDeDomicilio"
                            class="mb-3"></b-form-select>
           </div>
 
@@ -154,7 +154,7 @@ export default {
         localidade: '',
         bairro: ''
       },
-      fotos: [],
+      fotos: null,
       infoImovel: {
         titulo: '',
         descricao: '',
@@ -207,7 +207,13 @@ export default {
       })
     },
     adicionarAnuncio () {
+      debugger
+      let formData = new FormData()
+      for (let i = 0, max = this.fotos.length; i < max; i++) {
+        formData.append('file', this.fotos[i])
+      }
       const anuncio = {
+        imagensAnuncios: formData,
         descricao: this.infoImovel.descricao,
         endereco: {
           bairro: this.localizacao.bairro,
