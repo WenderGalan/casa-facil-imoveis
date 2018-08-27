@@ -140,7 +140,7 @@
 
 <script>
 import Axios from 'axios'
-import {salvarAnuncio} from '../services/requestServices'
+import {salvarAnuncio, salvarImagensAnuncio} from '../services/requestServices'
 export default {
   name: 'CadastroDomicilio',
   data () {
@@ -200,20 +200,14 @@ export default {
         method: 'GET',
         url: `http://viacep.com.br/ws/${this.localizacao.cep}/json/`
       }).then((response) => {
-        console.log(response.data)
         this.localizacao = response.data
       }).catch((err) => {
         console.log(err.response)
       })
     },
     adicionarAnuncio () {
-      debugger
-      let formData = new FormData()
-      for (let i = 0, max = this.fotos.length; i < max; i++) {
-        formData.append('file', this.fotos[i])
-      }
+
       const anuncio = {
-        imagensAnuncios: formData,
         descricao: this.infoImovel.descricao,
         endereco: {
           bairro: this.localizacao.bairro,
@@ -230,13 +224,26 @@ export default {
         titulo: this.infoImovel.titulo,
         valor: this.infoImovel.valor
       }
-      console.log(anuncio)
       salvarAnuncio(this.$store.state.sessao.id, anuncio).then((response) => {
         if (response.data) {
-          console.log(response.data)
-          alert('Salvo com sucesso')
-          this.$router.push({name: 'home'})
+          this.salvarImagens(response.data.id)
         }
+      }).catch((err) => {
+        console.log(err.response)
+      })
+    },
+    salvarImagens (id) {
+      debugger
+      let formData = new FormData()
+      for (let i = 0, max = this.fotos.length; i < max; i++) {
+        formData.append('files', this.fotos[i])
+      }
+      salvarImagensAnuncio(id, formData)
+        .then((response) => {
+        console.log('ABAIXO FICA AS FOTOS')
+        console.log('FOTOS ->', response.data)
+        this.$router.push({name: 'home'})
+        alert('Salvo com sucesso')
       }).catch((err) => {
         console.log(err.response)
       })
