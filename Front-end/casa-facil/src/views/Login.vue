@@ -41,7 +41,7 @@
 
           <div class="col-sm-12 col-md-4 col-lg-12">
             <input type="password" id="senha" v-model="senha" placeholder="Senha (mínimo 8 caracteres)"
-                   class="form-control col-sm-12 col-md-4 col-lg-12"/>
+                   @keyup.enter="logIn" class="form-control col-sm-12 col-md-4 col-lg-12"/>
           </div>
 
           <div class="container" style="margin-top: 25px">
