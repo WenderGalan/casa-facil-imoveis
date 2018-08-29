@@ -1,10 +1,20 @@
 # Casa Fácil Imóveis 
 
-[![Build Status](https://travis-ci.org/WenderGalan/casa-facil-imoveis.svg?branch=master)](https://travis-ci.org/WenderGalan/casa-facil-imoveis) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8c042476b08747baa4d6ece7b16f0708)](https://www.codacy.com/project/WenderGalan/casa-facil-imoveis/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WenderGalan/casa-facil-imoveis&amp;utm_campaign=Badge_Grade_Dashboard)
+[![Build Status](https://travis-ci.org/WenderGalan/casa-facil-imoveis.svg?branch=master)](https://travis-ci.org/WenderGalan/casa-facil-imoveis) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8c042476b08747baa4d6ece7b16f0708)](https://www.codacy.com/project/WenderGalan/casa-facil-imoveis/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WenderGalan/casa-facil-imoveis&amp;utm_campaign=Badge_Grade_Dashboard) [![Front-end Developer](https://img.shields.io/badge/Front--end%20developer-Matheus%20Pimentel-brightgreen.svg)](https://github.com/MatheusPimentel) [![Front-end Developer](https://img.shields.io/badge/Back--end%20developer-Wender%20Galan-brightgreen.svg)](https://github.com/WenderGalan)
 
-O projeto consiste em construir uma aplicação de compra/venda de imóveis parecido com alguns sites já existentes. 
+O projeto consiste em construir uma aplicação de compra/venda de imóveis parecido com alguns sites já existentes, a aplicação back-end não foi feita autenticação via Token, apenas utilizando o spring security para poder criptografar as senhas, quem controla a sessão do cliente é o front-end com o Vuex.
 
-O projeto está divido da seguinte maneira, o front-end foi desenvolvido pelo [Matheus Pimentel](https://github.com/MatheusPimentel) e o back-end por [Wender Galan](https://github.com/WenderGalan). 
+Para a instalação do spring boot é necessário fazer o download das dependências utilizadas e em seguida estartar a aplicação. Os comandos para poder rodar a aplicação front-end são:
+
+```
+- npm install
+- npm run serve
+```
+
+## Documentação:
+ - #### Documento de Visão e Escopo: [Sistema de venda e aluguel de imóveis](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Documento%20de%20Vis%C3%A3o%20e%20Escopo.pdf)
+ - #### Sprint 1: [Anunciar Imóveis](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%201%20-%20Anunciar%20im%C3%B3veis.pdf)
+ - #### Sprint 2: [Gerenciar anúncio e anunciante](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%202%20-%20Gerenciar%20an%C3%BAncio%20e%20anunciante.pdf)
 
 ## Tecnologias Utilizadas:
 
@@ -38,3 +48,20 @@ O projeto está divido da seguinte maneira, o front-end foi desenvolvido pelo [M
 
      ### Back-end: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://casa-facil-imoveis.herokuapp.com/swagger-ui.html)
      ### Front-end: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://casa-facil-imoveis.herokuapp.com/)
+
+- ### License:
+```
+Copyright 2018 Wender Galan - Matheus Pimentel
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

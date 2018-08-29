@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="col-sm-12 col-md-4 col-lg-5  center">
+    <div class="col-sm-12 col-md-4 col-lg-4 center">
       <b-card title="Cadastre-se">
         <div class="row">
           <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
@@ -98,7 +98,8 @@
       </b-card>
     </div>
     <div>
-      <b-modal ref="myModalRef" hide-footer title="Código de validação da conta">
+      <b-modal ref="myModalRef" hide-footer title="Código de validação da conta"
+               centered hide-footer no-close-on-backdrop hide-header-close>
         <div class="d-block text-center">
           <p class="text-left">Enviamos o código de validação para seu email, por favor, digite o código abaixo</p>
 
@@ -239,5 +240,14 @@ export default {
     width: 50%;
     padding: 10px;
     margin: auto;
+  }
+
+  input, b-form-select {
+    height: 30px;
+  }
+
+  #tipoUsuario {
+    height: 30px;
+    padding-bottom: 5px;
   }
 </style>
