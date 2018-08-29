@@ -31,7 +31,7 @@ public class Anuncio implements Serializable {
     private Integer id;
 
     @Column(name = "titulo", nullable = false)
-    @Length(min = 1, max = 200, message = "O titulo deve ter no minímo {min} e no máximo {max} caracteres")
+    @Length(min = 1, max = 50, message = "O titulo deve ter no minímo {min} e no máximo {max} caracteres")
     @NotNull(message = "O titulo não foi informado.")
     private String titulo;
 

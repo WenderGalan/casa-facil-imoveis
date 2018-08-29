@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -39,6 +40,7 @@ public class Usuario implements Serializable {
     @Column(name = "email", nullable = false)
     @Length(min = 1, max = 200, message = "O email deve ter no minímo {min} e no máximo {max} caracteres")
     @NotNull(message = "O email não foi informado.")
+    @Email
     private String email;
 
     @Column(name = "numero")
