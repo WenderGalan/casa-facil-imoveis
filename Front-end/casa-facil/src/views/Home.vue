@@ -36,20 +36,33 @@
 
         <div class="col-sm-12 col-md-4 col-lg-8">
           <b-card title="">
-            <div class="row">
-              <b-card v-for="anuncio in anuncios" style="margin-top: 15px">
-                <div class="row">
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-                    <img src="../assets/logo.png"/>
-                  </div>
-                  <div class="col-sm-12 col-md-4 col-lg-8">
-                    <h3>{{anuncio.titulo}}</h3>
-                    <p>{{anuncio.descricao}}</p>
-                    <p class="text-right" style="font-weight: bold">Valor: {{anuncio.valor}}</p>
-                  </div>
+            <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px">
+              <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-5">
+                  <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" style="width: 350px; height: 250px;"/>
+                  <!--<b-carousel id="carousel1"-->
+                              <!--style="text-shadow: 1px 1px 2px #333;"-->
+                              <!--controls-->
+                              <!--indicators-->
+                              <!--background="#ababab"-->
+                              <!--:interval="4000"-->
+                              <!--img-width="350"-->
+                              <!--img-height="250"-->
+                              <!--@sliding-start="onSlideStart"-->
+                              <!--@sliding-end="onSlideEnd">-->
+
+                    <!--&lt;!&ndash; Text slides with image &ndash;&gt;-->
+                    <!--<b-carousel-slide v-for="img in anuncio.imagensAnuncios" :img-src="img.imagemUrl"-->
+                    <!--&gt;</b-carousel-slide>-->
+                  <!--</b-carousel>-->
                 </div>
-              </b-card>
-            </div>
+                <div class="col-sm-12 col-md-4 col-lg-7">
+                  <h3>{{anuncio.titulo}}</h3>
+                  <p class="col-sm-12 col-md-4 col-lg-12" style="width: 100%">{{anuncio.descricao}}</p>
+                  <p class="text-right text-bottom" style="font-weight: bold">Valor: {{anuncio.valor}}</p>
+                </div>
+              </div>
+            </b-card>
           </b-card>
         </div>
       </div>
