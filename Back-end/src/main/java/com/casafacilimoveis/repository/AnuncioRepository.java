@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * casa-facil-imoveis
  * Wender Galan
@@ -36,4 +38,7 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Integer> {
      */
     @Query("SELECT a FROM Anuncio a WHERE a.id = ?1 ")
     public Anuncio findOneById(Integer id);
+
+    @Query("SELECT a FROM Anuncio a WHERE a.anunciante.id = ?1")
+    public List<Anuncio> buscarTodosPorIdAnunciante(Integer id);
 }

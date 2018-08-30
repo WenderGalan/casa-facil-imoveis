@@ -21,12 +21,12 @@ import javax.validation.Valid;
  * casa-facil-imoveis
  * Wender Galan
  * Todos os direitos reservados ©
- **********************************************
+ * *********************************************
  * Nome do arquivo: AnuncioController.java
  * Criado por : Wender Galan
  * Data da criação :
  * Observação :
- **********************************************
+ * *********************************************
  */
 @Api(description = "Controller de requisições de anúncios")
 @RestController
@@ -43,14 +43,14 @@ public class AnuncioController {
     /**
      * Buscar todos response entity.
      *
-     * @param search the search
+     * @param id the id to search
      * @return the response entity
      */
     @ApiOperation("Busca todos os anúncios da aplicação")
     @GetMapping("/v1")
-    public ResponseEntity buscarTodos(@RequestParam(value = "search", required = false) String search) {
-        if (search != null && !search.isEmpty()) {
-            return ResponseEntity.ok(anuncioRepository.findByNome(search));
+    public ResponseEntity buscarTodos(@RequestParam(value = "search", required = false) Integer id) {
+        if (id != null && id != 0) {
+            return ResponseEntity.ok(anuncioRepository.buscarTodosPorIdAnunciante(id));
         } else {
             return ResponseEntity.ok(anuncioRepository.findAll());
         }
