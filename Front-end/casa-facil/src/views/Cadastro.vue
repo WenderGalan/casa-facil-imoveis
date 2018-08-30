@@ -99,7 +99,7 @@
     </div>
     <div>
       <b-modal ref="myModalRef" hide-footer title="Código de validação da conta"
-               centered hide-footer no-close-on-backdrop hide-header-close>
+               centered no-close-on-backdrop hide-header-close>
         <div class="d-block text-center">
           <p class="text-left">Enviamos o código de validação para seu email, por favor, digite o código abaixo</p>
 

@@ -8,6 +8,8 @@ export const enviarEmail = (nome, email) => http.get(`/email/v1/email-enviar-cod
 
 export const alterarUsuario = (user) => http.put('/usuarios/v1', user)
 
+export const deletarUsuario = (id) => http.delete(`usuarios/v1/${id}`)
+
 export const buscarTodosAnuncios = () => http.get('/anuncios/v1')
 
 export const buscarAnuncio = (id) => http.get(`/anuncios/v1/${id}`)
