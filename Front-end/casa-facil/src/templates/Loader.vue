@@ -1,40 +1,25 @@
 <template>
-    <div class="container">
-        <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
-        <ring-loader :loading="loading" :color="color1" :size="size"></ring-loader>
-        <bounce-loader :loading="loading" :color="color" :size="size"></bounce-loader>
+    <div id="loaderAqui">
+      <b-modal ref="myModalRef" hide-footer title="Aguarde um instande"
+               centered no-close-on-backdrop hide-header-close>
+        <moon-loader :loading="true" :color="'#3F51B5'" :size="'100px'"></moon-loader>
+      </b-modal>
     </div>
 </template>
 
 <script>
-  import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-  import RingLoader from 'vue-spinner/src/RingLoader.vue'
-  import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
+  import MoonLoader from 'vue-spinner/src/MoonLoader'
   export default {
-    name: 'Loader',
-    data () {
-      return {
-        color: '#cc181e',
-        color1: '#5bc0de',
-        size: '45px',
-        margin: '2px',
-        radius: '2px'
+    components: {
+      MoonLoader
+    },
+    methods: {
+      abrirModal() {
+        this.$refs.myModalRef.show()
       }
     },
-    components: {
-      PulseLoader,
-      RingLoader,
-
-
-
-
-
-
-
-
-
-
-      BounceLoader
+    mounted () {
+      this.abrirModal()
     }
   }
 </script>

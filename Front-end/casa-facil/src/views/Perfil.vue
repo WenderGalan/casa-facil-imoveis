@@ -1,5 +1,6 @@
 <template>
   <div style="padding: 15px" class="container">
+    <loader-perfil></loader-perfil>
     <div class="row">
       <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="row">
@@ -61,7 +62,6 @@
           </div>
         </b-card>
       </div>
-      <loader-perfil></loader-perfil>
     </div>
   </div>
 </template>
