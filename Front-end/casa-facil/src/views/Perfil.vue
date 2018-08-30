@@ -56,6 +56,7 @@
 
             <div class="col-sm-12 col-md-4 col-lg-12">
               <b-btn :disabled="disabled" variant="success" @click="salvarAlteracoes">Salvar</b-btn>
+              <b-btn :disabled="disabled" variant="danger" style="margin-left: 15px" @click="salvarAlteracoes">Excluir usuário</b-btn>
             </div>
           </div>
         </b-card>

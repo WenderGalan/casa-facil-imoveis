@@ -39,7 +39,7 @@
             <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px">
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-5">
-                  <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" style="width: 350px; height: 250px;"/>
+                  <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" style="width: 300px; height: 250px;"/>
                   <!--<b-carousel id="carousel1"-->
                               <!--style="text-shadow: 1px 1px 2px #333;"-->
                               <!--controls-->

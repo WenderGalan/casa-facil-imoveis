@@ -109,4 +109,8 @@ export default {
     padding: 10px;
     margin: auto;
   }
+
+  input {
+    height: 30px;
+  }
 </style>
