@@ -48,7 +48,7 @@ public class AnuncioController {
      */
     @ApiOperation("Busca todos os anúncios da aplicação")
     @GetMapping("/v1")
-    public ResponseEntity buscarTodos(@RequestParam(value = "search", required = false) Integer id) {
+    public ResponseEntity buscarTodos(@RequestParam(value = "id", required = false) Integer id) {
         if (id != null && id != 0) {
             return ResponseEntity.ok(anuncioRepository.buscarTodosPorIdAnunciante(id));
         } else {
