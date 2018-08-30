@@ -56,21 +56,26 @@
 
             <div class="col-sm-12 col-md-4 col-lg-12">
               <b-btn :disabled="disabled" variant="success" @click="salvarAlteracoes">Salvar</b-btn>
-              <b-btn :disabled="disabled" variant="danger" style="margin-left: 15px" @click="salvarAlteracoes">Excluir usuário</b-btn>
+              <b-btn :disabled="disabled" variant="danger" style="margin-left: 15px" @click="excluirUsuario">Excluir usuário</b-btn>
             </div>
           </div>
         </b-card>
       </div>
+      <loader-perfil></loader-perfil>
     </div>
   </div>
 </template>
 
 <script>
-import {alterarUsuario, salvarImagemUsuario} from '../services/requestServices'
+import {alterarUsuario, salvarImagemUsuario, deletarUsuario} from '../services/requestServices'
 import Utils from '../util/Utils'
 import constantes from '../util/constantes'
+import loaderPerfil from '../templates/Loader'
 export default {
   name: 'perfil',
+  components: {
+    loaderPerfil
+  },
   data () {
     return {
       disabled: true,
@@ -101,6 +106,13 @@ export default {
           this.$store.commit('alterarSessao', this.perfilUsuario)
           alert('Seu perfil foi alterado com sucesso!')
         }
+      }).catch((err) => {
+        console.log(err.response)
+      })
+    },
+    excluirUsuario () {
+      deletarUsuario(this.perfilUsuario.id).then((response) => {
+        alert('Usuário excluído com sucesso')
       }).catch((err) => {
         console.log(err.response)
       })
