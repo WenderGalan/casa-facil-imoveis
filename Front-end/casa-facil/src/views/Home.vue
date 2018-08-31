@@ -59,8 +59,8 @@
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-7">
                   <h3>{{anuncio.titulo}}</h3>
-                  <p class="col-sm-12 col-md-4 col-lg-12" style="width: 100%">{{anuncio.descricao}}</p>
-                  <p class="text-right text-bottom" style="font-weight: bold">Valor: {{anuncio.valor}}</p>
+                  <p class="col-sm-12 col-md-4 col-lg-12" id="descricao" style="width: 100%">{{anuncio.descricao}}</p>
+                  <p id="valor">Valor: {{anuncio.valor}}</p>
                 </div>
               </div>
             </b-card>
@@ -106,3 +106,20 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  #descricao {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-height: 140px;
+  }
+
+  #valor {
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 10px;
+  }
+</style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-      <b-modal v-model="showModal" hide-footer title="Aguarde um instande"
+      <b-modal v-model="showModal" hide-footer title="Aguarde um instante"
                centered no-close-on-backdrop hide-header-close>
         <div class="center" id="loading">
             <moon-loader :loading="true" :color="'#3F51B5'" :size="'100px'"></moon-loader>
