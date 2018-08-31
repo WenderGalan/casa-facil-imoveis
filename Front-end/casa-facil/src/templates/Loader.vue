@@ -1,5 +1,5 @@
 <template>
-    <div id="loaderAqui">
+    <div>
       <b-modal v-model="showModal" hide-footer title="Aguarde um instande"
                centered no-close-on-backdrop hide-header-close>
         <div class="center" id="loading">
@@ -13,13 +13,11 @@
   import MoonLoader from 'vue-spinner/src/MoonLoader'
   export default {
     props:  {
-      showModal: {type: Boolean, default: false}
+      showModal: {type: Boolean, default: false, required: true}
     },
     components: {
       MoonLoader
-    },
-    methods: {
-    },
+    }
   }
 </script>
 

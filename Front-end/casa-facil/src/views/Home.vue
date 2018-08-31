@@ -3,6 +3,7 @@
     <div style="padding: 15px;">
       <div class="row" >
         <div class="col-sm-12 col-md-4 col-lg-4">
+          <loader :show-modal="showModal"></loader>
           <b-card title="">
             <div class="row">
               <div class="col-sm-12 col-md-4 col-lg-12">
@@ -72,21 +73,30 @@
 
 <script>
 import {buscarTodosAnuncios} from '../services/requestServices'
+import loader from '../templates/Loader'
 export default {
   name: 'home',
+  components: {loader},
+  props: {
+    loader
+  },
   data () {
     return {
-      anuncios: []
+      anuncios: [],
+      showModal: false
     }
   },
   methods: {
     buscarAnuncios () {
+      this.showModal = true
       buscarTodosAnuncios().then((response) => {
+        this.showModal = false
         if (response.data) {
           this.anuncios = response.data
           console.log(response.data)
         }
       }).catch((err) => {
+        this.showModal = false
         console.log(err.response)
       })
     }
