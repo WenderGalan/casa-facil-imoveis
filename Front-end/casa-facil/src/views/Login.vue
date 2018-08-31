@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loader-modal :show-modal="showModal"></loader-modal>
     <div class="col-sm-12 col-md-4 col-lg-4  center">
       <b-card title="Login">
         <div class="row">
@@ -58,12 +59,17 @@ import mixinsGoogle from '../mixins/googleServiceMixins'
 import mixinsFacebook from '../mixins/facebookServiceMixins'
 import {login} from '../services/requestServices'
 import Utils from '../util/Utils'
+import loaderModal from '../templates/Loader'
 export default {
   name: 'login',
+  components: {
+    loaderModal
+  },
   data () {
     return {
       email: '',
-      senha: ''
+      senha: '',
+      showModal: false
     }
   },
   mixins: [
@@ -89,8 +95,10 @@ export default {
     },
     logIn () {
       if (this.validarCampos()) {
+        this.showModal = true
         login(this.email, this.senha).then((response) => {
           if (response.data) {
+            this.showModal = false
             this.$store.commit('alterarSessao', response.data)
             this.$router.push({name: 'home'})
           }

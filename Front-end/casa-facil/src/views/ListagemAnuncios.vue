@@ -1,7 +1,8 @@
 <template>
   <div style="padding: 15px">
+    <loader-modal :show-modal="showModal"></loader-modal>
     <b-card title="Anuncios cadastrados">
-      <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px">
+      <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px; cursor: pointer">
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-5">
             <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" style="width: 300px; height: 250px;"/>
@@ -18,8 +19,37 @@
 </template>
 
 <script>
+import {buscarAnunciosUsuario} from "../services/requestServices";
+import loaderModal from '../templates/Loader'
+
 export default {
-  name: 'ListagemAnuncios'
+  name: 'ListagemAnuncios',
+  components: {
+    loaderModal
+  },
+  data () {
+    return {
+      anuncios: null,
+      showModal: false
+    }
+  },
+  methods: {
+    listarAnuncios () {
+      this.showModal = true
+      buscarAnunciosUsuario(this.$store.state.sessao.id).then((response) => {
+        if (response) {
+          this.anuncios = response.data
+          this.showModal = false
+        }
+      }).catch((err) => {
+        console.log(err.response)
+        this.showModal = false
+      })
+    }
+  },
+  mounted () {
+    this.listarAnuncios()
+  }
 }
 </script>
 

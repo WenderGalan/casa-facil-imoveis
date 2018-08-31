@@ -119,24 +119,29 @@ export default {
           switch (value) {
             case 'sim':
               this.showModal = true
-              deletarUsuario(this.perfilUsuario.id).then((response) => {
-                this.showModal = false
-                Swal.alertUmButton('Conta excluida com sucesso!', '', 'success')
-                  .then((value) => {
-                    switch (value) {
-                      case 'ok':
-                        break;
-                    }
-                  })
-              }).catch((err) => {
-                this.showModal = false
-                console.log(err.response)
-              })
+              this.deleteUser()
               break;
             case 'nao':
               break;
           }
         })
+    },
+    deleteUser () {
+      deletarUsuario(this.perfilUsuario.id).then((response) => {
+        this.showModal = false
+        Swal.alertUmButton('Conta excluida com sucesso!', '', 'success')
+          .then((value) => {
+            switch (value) {
+              case 'ok':
+                this.$store.commit('alterarSessao', undefined)
+                this.$router.push({name: 'home'})
+                break;
+            }
+          })
+      }).catch((err) => {
+        this.showModal = false
+        console.log(err.response)
+      })
     }
   },
   mounted () {
