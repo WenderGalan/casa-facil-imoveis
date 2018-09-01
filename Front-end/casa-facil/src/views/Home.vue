@@ -1,10 +1,12 @@
 <template>
-  <div class="home">
+  <div class="home" style="margin-top: 45px">
     <div style="padding: 15px;">
       <div class="row" >
         <div class="col-sm-12 col-md-4 col-lg-4">
           <loader :show-modal="showModal"></loader>
-          <b-card title="">
+          <b-card
+              class="col-sm-12 col-md-4 col-lg-4"
+              title="" style="position: fixed">
             <div class="row">
               <div class="col-sm-12 col-md-4 col-lg-12">
                 <p class="text-left">Digite a cidade, bairro ou rua</p>
@@ -36,7 +38,9 @@
       <br>
 
         <div class="col-sm-12 col-md-4 col-lg-8">
-          <b-card title="">
+          <b-card
+              style="margin-left: 10px"
+              title="">
             <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px">
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-5">

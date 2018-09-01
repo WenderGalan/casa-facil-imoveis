@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar type="dark" variant="primary" toggleable>
+    <b-navbar type="dark" variant="primary" toggleable  id="navbar">
       <b-navbar-brand href="#" @click="irHome">Casa fácil</b-navbar-brand>
 
       <b-collapse is-nav id="nav_dropdown_collapse">
@@ -72,5 +72,10 @@ export default {
 </script>
 
 <style scoped>
-
+  #navbar {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
 </style>
