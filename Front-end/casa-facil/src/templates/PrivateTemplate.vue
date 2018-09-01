@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="divNavBar">
     <b-navbar type="dark" variant="primary" toggleable  id="navbar">
       <b-navbar-brand href="#" @click="irHome">Casa fácil</b-navbar-brand>
 
@@ -77,5 +77,6 @@ export default {
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 9999;
   }
 </style>

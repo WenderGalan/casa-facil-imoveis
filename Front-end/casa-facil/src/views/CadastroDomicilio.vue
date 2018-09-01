@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="padding: 15px">
+    <div style="padding: 15px; margin-top: 45px">
       <b-card id="tile" title="Cadastro de Imóvel">
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-12">

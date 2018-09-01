@@ -41,7 +41,7 @@
           <b-card
               style="margin-left: 10px"
               title="">
-            <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px">
+            <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px; cursor: pointer">
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-5">
                   <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" style="width: 300px; height: 250px;"/>

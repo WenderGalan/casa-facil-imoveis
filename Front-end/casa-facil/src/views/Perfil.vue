@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 15px" class="container">
+  <div style="padding: 15px; margin-top: 45px" class="container">
     <loader-perfil :show-modal="showModal"></loader-perfil>
     <div class="row">
       <div class="col-sm-12 col-md-4 col-lg-4">

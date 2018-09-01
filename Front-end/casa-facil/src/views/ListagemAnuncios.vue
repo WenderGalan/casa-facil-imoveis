@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 15px">
+  <div style="padding: 15px; margin-top: 45px;">
     <loader-modal :show-modal="showModal"></loader-modal>
     <b-card title="Anuncios cadastrados">
       <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px; cursor: pointer">
