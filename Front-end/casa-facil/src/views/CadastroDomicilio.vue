@@ -1,6 +1,7 @@
 <template>
   <div>
     <div style="padding: 15px; margin-top: 45px">
+      <loader-modal :show-modal="showModal"></loader-modal>
       <b-card id="tile" title="Cadastro de Imóvel">
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-12">
@@ -132,7 +133,7 @@
         </div>
         <b-button style="margin-top: 10px"
                   variant="success"
-                  @click="adicionarAnuncio" @keyup.enter="adicionarAnuncio">Salvar</b-button>
+                  @click="adicionarAnuncio" @keyup.enter="adicionarAnuncio">Inserir anúncio</b-button>
       </b-card>
     </div>
   </div>
@@ -141,8 +142,14 @@
 <script>
 import Axios from 'axios'
 import {salvarAnuncio, salvarImagensAnuncio} from '../services/requestServices'
+import loaderModal from '../templates/Loader'
+import Swal from '../util/Swal'
+
 export default {
   name: 'CadastroDomicilio',
+  components: {
+    loaderModal
+  },
   data () {
     return {
       localizacao: {
@@ -191,7 +198,8 @@ export default {
         campo: '',
         mensagem: ''
       },
-      inputValidacao: ''
+      inputValidacao: '',
+      showModal: false
     }
   },
   methods: {
@@ -206,7 +214,7 @@ export default {
       })
     },
     adicionarAnuncio () {
-
+      this.showModal = true
       const anuncio = {
         descricao: this.infoImovel.descricao,
         endereco: {
@@ -233,19 +241,20 @@ export default {
       })
     },
     salvarImagens (id) {
-      debugger
       let formData = new FormData()
       for (let i = 0, max = this.fotos.length; i < max; i++) {
         formData.append('files', this.fotos[i])
       }
       salvarImagensAnuncio(id, formData)
         .then((response) => {
-        console.log('ABAIXO FICA AS FOTOS')
-        console.log('FOTOS ->', response.data)
-        this.$router.push({name: 'home'})
-        alert('Salvo com sucesso')
+          this.showModal = false
+          console.log('ABAIXO FICA AS FOTOS')
+          console.log('FOTOS ->', response.data)
+          this.$router.push({name: 'home'})
+          Swal.alertUmButton('Salvo com sucesso', '', 'success')
       }).catch((err) => {
         console.log(err.response)
+        this.showModal = false
       })
     }
   }
