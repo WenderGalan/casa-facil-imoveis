@@ -2,10 +2,12 @@ package com.casafacilimoveis.controller;
 
 import com.casafacilimoveis.model.beans.ResponseError;
 import com.casafacilimoveis.model.entities.Anuncio;
+import com.casafacilimoveis.model.entities.Imagem;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.CodeError;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.UsuarioRepository;
+import com.casafacilimoveis.service.GoogleDriveService;
 import com.casafacilimoveis.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,6 +41,9 @@ public class AnuncioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private GoogleDriveService driveService;
 
     /**
      * Buscar todos response entity.
@@ -130,6 +135,11 @@ public class AnuncioController {
         }
 
         try {
+            for (Imagem imagem : anuncio.getImagensAnuncios()) {
+                if (!driveService.deleteFile(imagem.getId())) {
+                    driveService.deleteFile(imagem.getId());
+                }
+            }
             anuncioRepository.delete(anuncio);
         } catch (Exception ex) {
             return new ResponseEntity(new ResponseError(CodeError.NAO_PERMITIDO_EXCLUIR, ex.getMessage()), HttpStatus.BAD_REQUEST);

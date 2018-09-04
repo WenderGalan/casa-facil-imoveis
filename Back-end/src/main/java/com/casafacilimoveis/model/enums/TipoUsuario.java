@@ -25,6 +25,18 @@ public enum TipoUsuario {
      */
     JURIDICA(2);
 
-    TipoUsuario(int i) {
+    private int code;
+
+    TipoUsuario(int code) {
+        this.code = code;
+    }
+
+    /**
+     * Gets code.
+     *
+     * @return the code
+     */
+    public int getCode() {
+        return code;
     }
 }

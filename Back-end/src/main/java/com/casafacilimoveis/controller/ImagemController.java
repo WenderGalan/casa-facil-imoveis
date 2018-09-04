@@ -141,13 +141,7 @@ public class ImagemController {
     }
 
 
-    /**
-     * DELETA UMA LISTA DE IMAGENS
-     *
-     * @param imagens the imagens
-     * @return the boolean
-     */
-    public boolean deletarImagensAnuncio(List<Imagem> imagens) {
+    /*public boolean deletarImagensAnuncio(List<Imagem> imagens) {
         if (imagens != null && imagens.size() > 0) {
             for (Imagem imagem : imagens) {
                 try {
@@ -162,5 +156,5 @@ public class ImagemController {
             }
         }
         return true;
-    }
+    }*/
 }

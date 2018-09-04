@@ -30,8 +30,7 @@ public class Imagem implements Serializable {
     private String imagemUrl;
 
     @JsonIgnore
-    @NotNull
-    @JoinColumn(referencedColumnName = "id", name = "id_anuncio", nullable = false)
+    @JoinColumn(referencedColumnName = "id", name = "id_anuncio")
     @ManyToOne(fetch = FetchType.LAZY)
     private Anuncio anuncio;
 
