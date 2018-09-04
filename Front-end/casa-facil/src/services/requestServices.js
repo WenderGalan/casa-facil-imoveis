@@ -12,6 +12,8 @@ export const deletarUsuario = (id) => http.delete(`usuarios/v1/${id}`)
 
 export const buscarTodosAnuncios = () => http.get('/anuncios/v1')
 
+export const buscarAnunciosUsuario = (id) => http.get(`/anuncios/v1?id=${id}`)
+
 export const buscarAnuncio = (id) => http.get(`/anuncios/v1/${id}`)
 
 export const salvarAnuncio = (idUsuario, anuncio) => http.post(`/anuncios/v1/${idUsuario}`, anuncio)

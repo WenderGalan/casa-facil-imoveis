@@ -1,44 +1,29 @@
 <template>
-    <div class="container">
-        <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
-        <ring-loader :loading="loading" :color="color1" :size="size"></ring-loader>
-        <bounce-loader :loading="loading" :color="color" :size="size"></bounce-loader>
+    <div>
+      <b-modal v-model="showModal" hide-footer title="Aguarde um instante"
+               centered no-close-on-backdrop hide-header-close>
+        <div class="center" id="loading">
+            <moon-loader :loading="true" :color="'#3F51B5'" :size="'100px'"></moon-loader>
+        </div>
+      </b-modal>
     </div>
 </template>
 
 <script>
-  import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-  import RingLoader from 'vue-spinner/src/RingLoader.vue'
-  import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
+  import MoonLoader from 'vue-spinner/src/MoonLoader'
   export default {
-    name: 'Loader',
-    data () {
-      return {
-        color: '#cc181e',
-        color1: '#5bc0de',
-        size: '45px',
-        margin: '2px',
-        radius: '2px'
-      }
+    props:  {
+      showModal: {type: Boolean, default: false, required: true}
     },
     components: {
-      PulseLoader,
-      RingLoader,
-
-
-
-
-
-
-
-
-
-
-      BounceLoader
+      MoonLoader
     }
   }
 </script>
 
 <style scoped>
+    #loading {
+        margin-left: 38%;
+    }
 
 </style>

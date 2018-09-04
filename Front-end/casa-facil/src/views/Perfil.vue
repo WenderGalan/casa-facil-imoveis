@@ -1,5 +1,6 @@
 <template>
-  <div style="padding: 15px" class="container">
+  <div style="padding: 15px; margin-top: 45px" class="container">
+    <loader-perfil :show-modal="showModal"></loader-perfil>
     <div class="row">
       <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="row">
@@ -61,7 +62,6 @@
           </div>
         </b-card>
       </div>
-      <loader-perfil></loader-perfil>
     </div>
   </div>
 </template>
@@ -71,6 +71,8 @@ import {alterarUsuario, salvarImagemUsuario, deletarUsuario} from '../services/r
 import Utils from '../util/Utils'
 import constantes from '../util/constantes'
 import loaderPerfil from '../templates/Loader'
+import Swal from '../util/Swal'
+
 export default {
   name: 'perfil',
   components: {
@@ -89,7 +91,8 @@ export default {
         urlImagem: ''
       },
       permEditar: false,
-      novaFoto: null
+      novaFoto: null,
+      showModal: false
     }
   },
   methods: {
@@ -111,9 +114,32 @@ export default {
       })
     },
     excluirUsuario () {
+      Swal.alertDoisButtons('Atenção!', 'Deseja mesmo deletar sua conta?', 'warning')
+        .then((value) => {
+          switch (value) {
+            case 'sim':
+              this.showModal = true
+              this.deleteUser()
+              break;
+            case 'nao':
+              break;
+          }
+        })
+    },
+    deleteUser () {
       deletarUsuario(this.perfilUsuario.id).then((response) => {
-        alert('Usuário excluído com sucesso')
+        this.showModal = false
+        Swal.alertUmButton('Conta excluida com sucesso!', '', 'success')
+          .then((value) => {
+            switch (value) {
+              case 'ok':
+                this.$store.commit('alterarSessao', undefined)
+                this.$router.push({name: 'home'})
+                break;
+            }
+          })
       }).catch((err) => {
+        this.showModal = false
         console.log(err.response)
       })
     }
