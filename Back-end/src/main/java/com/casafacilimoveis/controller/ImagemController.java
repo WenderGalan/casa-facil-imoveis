@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -138,6 +139,32 @@ public class ImagemController {
             }
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+
+    /**
+     * Remove apenas um imagem do anúncio na edição do anúncio...
+     *
+     * **/
+    @ApiOperation("Deleção de apenas uma imagem")
+    @DeleteMapping("/v1/deletar-imagem-anuncio/{id}")
+    public ResponseEntity deletarImagemAnuncio(@PathVariable("id") String id){
+        if (id != null){
+            Imagem imagem = imagemRepository.findOneById(id);
+            try {
+                if (imagem != null && driveService.deleteFile(imagem.getId())){
+                    imagemRepository.delete(imagem);
+                    List<Imagem> imagens = imagemRepository.findAllByIdAnuncio(imagem.getAnuncio().getId());
+                    return ResponseEntity.ok(imagens);
+                } else {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                }
+            }catch (Exception e){
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
 
