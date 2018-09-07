@@ -44,8 +44,8 @@ public class Anuncio implements Serializable {
     @NotNull(message = "O valor não foi informado.")
     private Double valor;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_anunciante", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_anuncio_anunciante"))
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_anunciante", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_anuncio_anunciante"))
     private Usuario anunciante;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
