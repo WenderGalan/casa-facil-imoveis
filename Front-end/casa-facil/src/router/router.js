@@ -9,6 +9,7 @@ import Home from '../views/Home.vue'
 import Perfil from '../views/Perfil'
 import DetalheImovel from '../views/DetalheImovel'
 import ListaAnuncios from '../views/ListagemAnuncios'
+import EditarAnuncio from '../views/EditarAnuncio'
 
 Vue.use(Router)
 
@@ -67,6 +68,11 @@ export default new Router({
               next(from.name)
             }
           }
+        },
+        {
+          path: '/private/editaranuncio/:id',
+          name: 'editarAnuncio',
+          component: EditarAnuncio
         }
       ]
     },

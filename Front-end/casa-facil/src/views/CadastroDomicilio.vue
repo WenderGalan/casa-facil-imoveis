@@ -194,11 +194,6 @@ export default {
           text: 'Imovel Comercial'
         }
       ],
-      responseEmail: {
-        campo: '',
-        mensagem: ''
-      },
-      inputValidacao: '',
       showModal: false
     }
   },

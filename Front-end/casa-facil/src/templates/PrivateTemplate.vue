@@ -1,11 +1,11 @@
 <template>
   <div id="divNavBar">
     <b-navbar type="dark" variant="primary" toggleable  id="navbar">
-      <b-navbar-brand href="#" @click="irHome">Casa fácil</b-navbar-brand>
+      <b-navbar-brand href="#" @click="irHome" style="padding: 0px"><img src="../assets/logo.png" style="max-height: 40px"></b-navbar-brand>
 
       <b-collapse is-nav id="nav_dropdown_collapse">
         <b-navbar-nav>
-          <b-nav-item style="margin-left: 50px" href="#" @click="irHome">Início</b-nav-item>
+          <b-nav-item style="margin-left: 15px" href="#" @click="irHome">Início</b-nav-item>
           <b-nav-item href="#" v-if="verificarSessao" @click="adicionarAnuncio">Adicionar Anúncio</b-nav-item>
           <b-nav-item href="#" v-if="verificarSessao" @click="visualizarAnuncios">Anúncios Cadastrados</b-nav-item>
         </b-navbar-nav>

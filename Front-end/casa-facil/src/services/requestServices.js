@@ -25,3 +25,5 @@ export const excluirAnuncio = (idAnuncio) => http.delete(`/anuncios/v1/${idAnunc
 export const salvarImagensAnuncio = (idAnuncio, imagens) => http.post(`/file/v1/enviar-imagens-anuncio/${idAnuncio}`, imagens)
 
 export const salvarImagemUsuario = (idUser, imagem) => http.post(`/file/v1/enviar-imagem-user/${idUser}`, imagem)
+
+export const excluirImagemAnuncio = (id) => http.delete(`/file/v1/deletar-imagem-anuncio/${id}`)
