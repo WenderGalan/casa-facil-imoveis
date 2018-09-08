@@ -1,25 +1,35 @@
 <template>
   <div style="margin-top: 45px; padding: 15px">
-    <b-card>
-      <div style="display:flex;justify-content:center;align-items:center;width:100%;">
-        <b-carousel id="carousel1"
-                    style="text-shadow: 1px 1px 2px #333; max-width: 70%"
-                    controls
-                    indicators
-                    background="#ababab"
-                    :interval="10000"
-                    img-width="500"
-                    img-height="200"
-                    class="center">
-
-          <!-- Text slides with image -->
-          <b-carousel-slide v-for="img in anuncio.imagensAnuncios" :img-src="img.imagemUrl"
-          ></b-carousel-slide>
-        </b-carousel>
-      </div>
+    <div class="col-sm-12 col-md-4 col-lg-12">
       <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-8">
+          <b-card>
+            <div class="col-sm-12 col-md-4 col-lg-12">
+              <div style="display:flex;justify-content:center;align-items:center;width:100%;">
+                <b-carousel id="carousel1"
+                            style="text-shadow: 1px 1px 2px #333; max-width: 70%"
+                            controls
+                            indicators
+                            background="#ababab"
+                            :interval="10000"
+                            img-width="500"
+                            img-height="200"
+                            class="center">
+                  <!-- Text slides with image -->
+                  <b-carousel-slide v-for="img in anuncio.imagensAnuncios" :img-src="img.imagemUrl">
+                  </b-carousel-slide>
+                </b-carousel>
+              </div>
+            </div>
+          </b-card>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+          <b-card>
+            sidajoijasidj
+          </b-card>
+        </div>
       </div>
-    </b-card>
+    </div>
   </div>
 </template>
 
@@ -30,11 +40,12 @@ export default {
   name: 'DetalheImovel',
   data () {
     return {
-      anuncio: null
+      anuncio: {}
     }
   },
   methods: {
-    procurarAnuncio (id) {
+    procurarAnuncio () {
+      const id = this.$router.history.current.params.id
       buscarAnuncio(id).then((response) => {
         if (response.data) {
           this.anuncio = response.data
@@ -44,9 +55,12 @@ export default {
       })
     }
   },
-  mounted () {
-    const id = this.$router.history.current.params.id
-    this.procurarAnuncio(id)
+  // mounted () {
+  //   const id = this.$router.history.current.params.id
+  //   this.procurarAnuncio(id)
+  // },
+  beforeRouteEnter (to, from, next) {
+    next(vm => vm.procurarAnuncio())
   }
 
 }
