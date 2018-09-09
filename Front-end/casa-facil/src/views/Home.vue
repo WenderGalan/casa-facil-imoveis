@@ -41,25 +41,10 @@
           <b-card
               style="margin-left: 10px"
               title="">
-            <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px; cursor: pointer">
+            <b-card v-for="anuncio in anuncios" @click="detalhesAnuncio(anuncio.id)" style="margin: 15px; padding-left: 0px; cursor: pointer">
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-5" v-if="anuncio.imagensAnuncios.length > 0">
                   <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" style="width: 300px; height: 250px;"/>
-                  <!--<b-carousel id="carousel1"-->
-                              <!--style="text-shadow: 1px 1px 2px #333;"-->
-                              <!--controls-->
-                              <!--indicators-->
-                              <!--background="#ababab"-->
-                              <!--:interval="4000"-->
-                              <!--img-width="350"-->
-                              <!--img-height="250"-->
-                              <!--@sliding-start="onSlideStart"-->
-                              <!--@sliding-end="onSlideEnd">-->
-
-                    <!--&lt;!&ndash; Text slides with image &ndash;&gt;-->
-                    <!--<b-carousel-slide v-for="img in anuncio.imagensAnuncios" :img-src="img.imagemUrl"-->
-                    <!--&gt;</b-carousel-slide>-->
-                  <!--</b-carousel>-->
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-7">
                   <h3>{{anuncio.titulo}}</h3>
@@ -103,6 +88,10 @@ export default {
         this.showModal = false
         console.log(err.response)
       })
+    },
+    detalhesAnuncio (id) {
+      console.log('id ->', id)
+      this.$router.push({name: 'detalheImovel', params: {id}})
     }
   },
   mounted () {
