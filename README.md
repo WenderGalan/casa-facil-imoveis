@@ -16,7 +16,8 @@ Para a instalação do spring boot é necessário fazer o download das dependên
  - #### Sprint 1: [Anunciar Imóveis](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%201%20-%20Anunciar%20im%C3%B3veis.pdf)
  - #### Sprint 2: [Gerenciar anúncio e anunciante](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%202%20-%20Gerenciar%20an%C3%BAncio%20e%20anunciante.pdf)
  - #### Sprint 3: [Visualizar anúncio](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%203%20-%20Visualizar%20an%C3%BAncio.pdf)
-
+  - #### Sprint 4: [Busca e Paginação de imóveis](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%204%20-%20Busca%20e%20Pagina%C3%A7%C3%A3o%20de%20im%C3%B3veis.pdf)
+ 
 ## Tecnologias Utilizadas:
 
  - ### Back-end: [Spring boot](https://spring.io/projects/spring-boot) (dependências):
