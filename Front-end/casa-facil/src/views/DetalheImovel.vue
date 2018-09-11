@@ -3,6 +3,7 @@
     <div class="col-sm-12 col-md-4 col-lg-12">
       <div class="row">
         <div class="col-sm-12 col-md-4 col-lg-8">
+          <loader-modal :show-modal="showModal"></loader-modal>
           <b-card :title="anuncio.titulo">
             <div class="row">
               <div class="col-sm-12 col-md-4 col-lg-10">
@@ -85,19 +86,19 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
-                <textarea class="form-control" rows="4" placeholder="Descrição da mensagem"></textarea>
+                <textarea class="form-control" rows="6" v-model="email.mensagem"></textarea>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <input type="text" class="form-control" placeholder="Nome"/>
+                <input type="text" class="form-control" v-model="email.nome" placeholder="Nome"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <input type="email" class="form-control" placeholder="Email"/>
+                <input type="email" class="form-control" v-model="email.email" placeholder="Email"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <b-button variant="info">CONTATAR ANUNCIANTE</b-button>
+                <b-button variant="info" @click="enviarEmail">CONTATAR ANUNCIANTE</b-button>
               </div>
             </div>
           </b-card>
@@ -108,34 +109,66 @@
 </template>
 
 <script>
-import {buscarAnuncio} from "../services/requestServices";
+import {buscarAnuncio, enviarEmailAnuncio} from "../services/requestServices";
+import loaderModal from '../templates/Loader'
 
 export default {
   name: 'DetalheImovel',
   data () {
     return {
-      anuncio: {}
+      showModal: true,
+      anuncio: {
+        anunciante: {
+          numero: 0
+        },
+        endereco: {
+          endereco: '',
+          numero: 0,
+
+        }
+      },
+      email: {
+        nome: '',
+        email: '',
+        mensagem: ''
+      }
     }
+  },
+  components: {
+    loaderModal
   },
   methods: {
     procurarAnuncio () {
+      this.showModal = true
       const id = this.$router.history.current.params.id
       buscarAnuncio(id).then((response) => {
+        this.showModal = false
         if (response.data) {
           this.anuncio = response.data
+          this.ajustarPlaceHolder()
         }
       }).catch((err) => {
+        this.showModal = false
         console.log(err.response)
+      })
+    },
+    ajustarPlaceHolder () {
+      this.email.mensagem = `Olá ${this.anuncio.anunciante.nome}, tenho interesse neste imóvel: ${this.anuncio.titulo} - ${this.anuncio.endereco.endereco} - ${this.anuncio.endereco.cidade} - ${this.anuncio.endereco.estado}.\n \n Aguardo o contato. Obrigado.`
+    },
+    enviarEmail () {
+      enviarEmailAnuncio(this.email, this.anuncio.id).then((response) => {
+        console.log('enviado com sucesso')
+      }).catch((err) => {
+        console.log(err)
       })
     }
   },
-  // mounted () {
-  //   const id = this.$router.history.current.params.id
-  //   this.procurarAnuncio(id)
-  // },
-  beforeRouteEnter (to, from, next) {
-    next(vm => vm.procurarAnuncio())
-  }
+  mounted () {
+    this.procurarAnuncio()
+  },
+  // beforeRouteEnter (to, from, next) {
+  //   next(vm => vm.procurarAnuncio())
+  // }
 
 }
 </script>
