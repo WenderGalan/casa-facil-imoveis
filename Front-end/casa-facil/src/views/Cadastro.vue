@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="col-sm-12 col-md-4 col-lg-4 center">
+      <loader :show-modal="showModal"></loader>
       <b-card title="Cadastre-se">
         <div class="row">
           <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
@@ -119,10 +120,16 @@ import googleMixins from '../mixins/googleServiceMixins'
 import mixinsFacebook from '../mixins/facebookServiceMixins'
 import {enviarEmail, criarConta} from '../services/requestServices'
 import Utils from '../util/Utils'
+import Loader from '../templates/Loader'
 export default {
   name: 'cadastro',
+  components: {Loader},
+  comments: {
+    Loader
+  },
   data () {
     return {
+      showModal: false,
       novoUsuario: {
         nome: '',
         numero: '',
@@ -201,6 +208,7 @@ export default {
     // ENVIA UM EMAIL DE VALIDAÇÃO PARA O EMAIL DA PESSOA
     validarEmail () {
       if (this.validarCampos()) {
+        this.showModal = true
         enviarEmail(this.novoUsuario.nome, this.novoUsuario.email).then((response) => {
           this.responseEmail = response.data
           this.showModal()
@@ -211,6 +219,7 @@ export default {
     },
     // APARECE A MODAL NA TELA
     showModal () {
+      this.showModal = false
       this.$refs.myModalRef.show()
     },
     // ESCONDE A MODAL DA TELA
@@ -219,7 +228,9 @@ export default {
         if (this.novoUsuario.numero.length > 0) {
           this.novoUsuario.numero = Utils.formatarNumero(this.novoUsuario.numero)
         }
+        thia.showModal = true
         criarConta(this.novoUsuario).then((response) => {
+          this.showModal = false
           if (response.data) {
             this.novoUsuario = response.data
             this.$refs.myModalRef.hide()

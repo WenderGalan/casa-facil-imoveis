@@ -128,7 +128,7 @@
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
-            <textarea v-model="infoImovel.descricao" class="form-control"></textarea>
+            <textarea v-model="infoImovel.descricao" class="form-control" rows="8"></textarea>
           </div>
         </div>
         <b-button style="margin-top: 10px"
@@ -194,11 +194,6 @@ export default {
           text: 'Imovel Comercial'
         }
       ],
-      responseEmail: {
-        campo: '',
-        mensagem: ''
-      },
-      inputValidacao: '',
       showModal: false
     }
   },

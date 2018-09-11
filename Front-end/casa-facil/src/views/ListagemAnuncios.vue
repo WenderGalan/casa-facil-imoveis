@@ -14,6 +14,7 @@
           </div>
           <div class="col-sm-12 col-md-4 col-lg-1">
             <b-button variant="danger" id="excluir" @click="alertaAnuncio(anuncio.id)">Excluir</b-button>
+            <b-button variant="warning" id="editar" @click="editarAnuncio(anuncio.id)">Editar</b-button>
           </div>
         </div>
       </b-card>
@@ -42,6 +43,7 @@ export default {
       this.showModal = true
       buscarAnunciosUsuario(this.$store.state.sessao.id).then((response) => {
         if (response) {
+          console.log('anuncios ->', response.data)
           this.anuncios = response.data
           this.showModal = false
         }
@@ -73,7 +75,11 @@ export default {
       })
     },
     detalhesAnuncio (id) {
-      this.$router.push({name: 'detalheImovel', params: id})
+      console.log('id ->', id)
+      this.$router.push({name: 'detalheImovel', params: {id}})
+    },
+    editarAnuncio (id) {
+      this.$router.push({name: 'editarAnuncio', params: {id}})
     }
   },
   mounted () {
@@ -102,6 +108,13 @@ export default {
     position: absolute;
     top: 50%;
     margin-top: -25px;
+    right: 0;
+  }
+
+  #editar {
+    position: absolute;
+    top: 50%;
+    margin-top: -70px;
     right: 0;
   }
 </style>

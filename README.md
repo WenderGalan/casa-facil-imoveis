@@ -1,4 +1,4 @@
-# Casa Fácil Imóveis 
+[![Casa Fácil Imóveis Logo](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/imagens/logo-photoshop-preto.png?raw=true)](https://github.com/WenderGalan/casa-facil-imoveis)
 
 [![Build Status](https://travis-ci.org/WenderGalan/casa-facil-imoveis.svg?branch=master)](https://travis-ci.org/WenderGalan/casa-facil-imoveis) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8c042476b08747baa4d6ece7b16f0708)](https://www.codacy.com/project/WenderGalan/casa-facil-imoveis/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=WenderGalan/casa-facil-imoveis&amp;utm_campaign=Badge_Grade_Dashboard) [![Front-end Developer](https://img.shields.io/badge/Front--end%20developer-Matheus%20Pimentel-brightgreen.svg)](https://github.com/MatheusPimentel) [![Front-end Developer](https://img.shields.io/badge/Back--end%20developer-Wender%20Galan-brightgreen.svg)](https://github.com/WenderGalan)
 
