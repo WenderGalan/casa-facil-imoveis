@@ -1,8 +1,13 @@
 package com.casafacilimoveis.controller;
 
 import com.casafacilimoveis.CasaFacilImoveisApplicationTests;
+import com.casafacilimoveis.model.entities.Anuncio;
+import com.casafacilimoveis.model.entities.Endereco;
 import com.casafacilimoveis.model.entities.Usuario;
+import com.casafacilimoveis.model.enums.TipoImovel;
 import com.casafacilimoveis.model.enums.TipoUsuario;
+import com.casafacilimoveis.repository.AnuncioRepository;
+import com.casafacilimoveis.repository.EnderecoRepository;
 import com.casafacilimoveis.repository.UsuarioRepository;
 import com.casafacilimoveis.util.SenhaUtil;
 import org.junit.After;
@@ -15,61 +20,47 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 /**
  * casafacilimoveis
  * Wender Galan
  * Todos os direitos reservados ©
  * *********************************************
- * Nome do arquivo: UsuarioControllerTest.java
+ * Nome do arquivo: AnuncioControllerTest.java
  * Criado por : Wender Galan
- * Data da criação : 28/08/2018
+ * Data da criação : 10/09/2018
  * Observação :
  * *********************************************
  */
-public class UsuarioControllerTest extends CasaFacilImoveisApplicationTests {
+public class AnuncioControllerTest extends CasaFacilImoveisApplicationTests {
 
     @Autowired
-    private UsuarioController usuarioController;
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    private static Usuario usuario;
+    private AnuncioController anuncioController;
 
     private MockMvc mockMvc;
 
     @Before
     public void setUp() {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(usuarioController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(anuncioController).build();
     }
 
     @Test
     public void contextLoads() {
-        assertThat(usuarioController).isNotNull();
+        assertThat(anuncioController).isNotNull();
     }
 
     @Test
     public void buscarTodosTest() throws Exception {
-        this.mockMvc.perform(get("/usuarios/v1"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        this.mockMvc.perform(get("/anuncios/v1").param("id", "184954165454"))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
     }
 
     @Test
-    public void buscarUsuarioPorIdTest() throws Exception {
-        this.mockMvc.perform(get("/usuarios/v1/" + 1))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    public void loginTest() throws Exception {
-        this.mockMvc.perform(get("/usuarios/v1/login")
-                .param("email", "")
-                .param("senha", ""))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    public void buscarAnuncioPorIdTest() throws Exception {
+        this.mockMvc.perform(get("/anuncios/v1/" + 565662639))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
     }
 
     @After
-    public void tearDown() {}
+    public void tearDown(){}
 }

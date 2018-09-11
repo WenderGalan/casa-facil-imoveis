@@ -36,7 +36,7 @@ public class UsuarioRepositoryTest extends CasaFacilImoveisApplicationTests {
         usuario = new Usuario();
         usuario.setNome("Wender Galan");
         usuario.setSenha(SenhaUtil.gerarBCrypt("minhasenha"));
-        usuario.setEmail("wendergalan2014@hotmail.com");
+        usuario.setEmail("wendergalan2014444444444@hotmail.com");
         usuario.setNumero("67981121278");
         usuario.setTipoUsuario(TipoUsuario.JURIDICA);
         usuarioRepository.save(usuario);
