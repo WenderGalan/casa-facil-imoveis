@@ -1,16 +1,19 @@
 package com.casafacilimoveis.controller;
 
 import com.casafacilimoveis.model.beans.Validation;
+import com.casafacilimoveis.model.entities.Anuncio;
+import com.casafacilimoveis.model.entities.ContatoAnunciante;
+import com.casafacilimoveis.repository.AnuncioRepository;
+import com.casafacilimoveis.repository.UsuarioRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.File;
 
 import java.util.Random;
 
@@ -18,12 +21,12 @@ import java.util.Random;
  * casa-facil-imoveis
  * Wender Galan
  * Todos os direitos reservados ©
- **********************************************
+ * *********************************************
  * Nome do arquivo: EmailController.java
  * Criado por : Wender Galan
  * Data da criação :
  * Observação :
- **********************************************
+ * *********************************************
  */
 @Api(description = "Controller de requisições de email")
 @RestController
@@ -34,6 +37,12 @@ public class EmailController {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private AnuncioRepository anuncioRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     /**
      * Send email response entity.
      *
@@ -43,7 +52,7 @@ public class EmailController {
      */
     @ApiOperation("Envio de e-mail para confirmar o código de cadastro")
     @GetMapping(path = "/v1/email-enviar-codigo")
-    public ResponseEntity sendEmail(@RequestParam String nome, @RequestParam String email) {
+    public ResponseEntity sendEmailConfirmacao(@RequestParam String nome, @RequestParam String email) {
         SimpleMailMessage message = new SimpleMailMessage();
 
         Integer codigo = new Random().nextInt(999999);
@@ -68,5 +77,35 @@ public class EmailController {
             return ResponseEntity.ok(validation);
         }
 
+    }
+
+    @ApiOperation("Envio de e-mail para contato com o anunciante")
+    @PostMapping("v1/email-enviar-contato/{id}")
+    public ResponseEntity sendEmailContato(@RequestBody ContatoAnunciante contato, @PathVariable("id") Integer idAnuncio) {
+        if (!contato.getMensagem().isEmpty() && !contato.getNome().isEmpty() && !contato.getEmail().isEmpty() && idAnuncio != null) {
+            Anuncio anuncio = anuncioRepository.findOneById(idAnuncio);
+            if (anuncio != null) {
+                SimpleMailMessage message = new SimpleMailMessage();
+                message.setText(contato.getMensagem() + "\n\n" + "Informações para contato:"
+                        + "\nNome: " + contato.getNome() + "\nEmail: " + contato.getEmail());
+                message.setSubject("Contato referente ao anúncio " + anuncio.getTitulo());
+                message.setTo(anuncio.getAnunciante().getEmail());
+                try {
+                    mailSender.send(message);
+                    return ResponseEntity.ok().build();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    if (e instanceof MailParseException) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                    } else {
+                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                    }
+                }
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 }
