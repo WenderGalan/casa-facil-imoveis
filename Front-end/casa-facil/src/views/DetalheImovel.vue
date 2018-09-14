@@ -86,19 +86,19 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
-                <textarea class="form-control" rows="6" v-model="email.mensagem"></textarea>
+                <textarea class="form-control" rows="6" v-model="email.mensagem" :disabled="disabled"></textarea>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <input type="text" class="form-control" v-model="email.nome" placeholder="Nome"/>
+                <input type="text" class="form-control" v-model="email.nome" placeholder="Nome" :disabled="disabled"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <input type="email" class="form-control" v-model="email.email" placeholder="Email"/>
+                <input type="email" class="form-control" v-model="email.email" placeholder="Email" :disabled="disabled"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <b-button variant="info" @click="enviarEmail">CONTATAR ANUNCIANTE</b-button>
+                <b-button variant="info" @click="enviarEmail" :disabled="disabled">{{msgButton}}</b-button>
               </div>
             </div>
           </b-card>
@@ -111,12 +111,15 @@
 <script>
 import {buscarAnuncio, enviarEmailAnuncio} from "../services/requestServices";
 import loaderModal from '../templates/Loader'
+import Swal from '../util/Swal'
 
 export default {
   name: 'DetalheImovel',
   data () {
     return {
       showModal: true,
+      disabled: false,
+      msgButton: 'CONTATAR ANUNCIANTE',
       anuncio: {
         anunciante: {
           numero: 0
@@ -156,9 +159,15 @@ export default {
       this.email.mensagem = `Olá ${this.anuncio.anunciante.nome}, tenho interesse neste imóvel: ${this.anuncio.titulo} - ${this.anuncio.endereco.endereco} - ${this.anuncio.endereco.cidade} - ${this.anuncio.endereco.estado}.\n \n Aguardo o contato. Obrigado.`
     },
     enviarEmail () {
+      this.showModal = true
       enviarEmailAnuncio(this.email, this.anuncio.id).then((response) => {
+        this.showModal = false
+        Swal.alertUmButton('Anunciante contatado com sucesso!', '', 'success')
+        this.msgButton = 'ANUNCIANTE CONTATADO'
+        this.disabled = true
         console.log('enviado com sucesso')
       }).catch((err) => {
+        this.showModal = false
         console.log(err)
       })
     }
