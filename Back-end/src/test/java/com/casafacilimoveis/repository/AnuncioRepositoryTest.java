@@ -81,11 +81,11 @@ public class AnuncioRepositoryTest extends CasaFacilImoveisApplicationTests {
         assertThat(anuncios.size()).isPositive();
     }
 
-    @Test
+    /*@Test
     public void buscarTodosPorIdAnuncianteTest(){
         List<Anuncio> anuncios = anuncioRepository.buscarTodosPorIdAnunciante(usuario.getId());
         assertThat(anuncios.size()).isPositive();
-    }
+    }*/
 
     @After
     public void tearDown(){

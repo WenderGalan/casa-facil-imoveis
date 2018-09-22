@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47d03813-cd25-4394-a162-6a55337a9989" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/model/Validation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/util/Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/configuracao/SwaggerConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/configuracao/SwaggerConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/controller/EmailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/controller/EmailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/controller/ServidorController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-end/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Back-end/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,32 +14,39 @@
     <session id="1391805715">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.0" value="2" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.7" value="2" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="md" value="20" />
+          <entry key="txt" value="222" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="20" />
+          <entry key="PLAIN_TEXT" value="222" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="119">
-                <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              <first_editor relative-caret-position="621">
+                <caret line="46" selection-start-line="46" selection-end-line="46" />
               </first_editor>
               <second_editor />
             </state>
@@ -70,33 +71,58 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/Front-end/casa-facil/node_modules" />
+  </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
       <path value="$PROJECT_DIR$/Front-end/casa-facil/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="1294" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="width" value="1295" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="casa-facil-imoveis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="casa-facil-imoveis" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="casa-facil-imoveis" type="b2602c69:ProjectViewProjectNode" />
+              <item name="casa-facil-imoveis" type="462c0819:PsiDirectoryNode" />
+              <item name="imagens" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536199968242" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\wende\Desktop\casa-facil-imoveis\imagens" />
+      <recent name="C:\Users\wende\Desktop\casa-facil-imoveis\Documentação" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -123,16 +149,52 @@
       <workItem from="1533952666870" duration="4000" />
       <workItem from="1533952694693" duration="7000" />
       <workItem from="1533961273231" duration="304000" />
+      <workItem from="1536024039403" duration="816000" />
+      <workItem from="1536187210857" duration="600000" />
+      <workItem from="1536198563821" duration="913000" />
+      <workItem from="1536620859183" duration="5000" />
+      <workItem from="1536629349978" duration="536000" />
+      <workItem from="1536800830676" duration="493000" />
     </task>
+    <task id="LOCAL-00001" summary="update sprint">
+      <created>1536024287580</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1536024287580</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Novas alterações no código e inserção de imagens no projeto...">
+      <created>1536198710866</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1536198710867</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Alterações nas imagens...">
+      <created>1536198875998</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1536198875998</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Implementação de tests nos controllers e criação do controller para cuidar de envio de contato com o anunciante...">
+      <created>1536629396526</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1536629396526</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="315000" />
+    <option name="totallyTimeSpent" value="3678000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1294" height="1047" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.25769854" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2758389" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -149,7 +211,7 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32907802" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -167,12 +229,19 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update sprint" />
+    <MESSAGE value="Novas alterações no código e inserção de imagens no projeto..." />
+    <MESSAGE value="Alterações nas imagens..." />
+    <MESSAGE value="Implementação de tests nos controllers e criação do controller para cuidar de envio de contato com o anunciante..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementação de tests nos controllers e criação do controller para cuidar de envio de contato com o anunciante..." />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="119">
-            <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <first_editor relative-caret-position="621">
+            <caret line="46" selection-start-line="46" selection-end-line="46" />
           </first_editor>
           <second_editor />
         </state>
