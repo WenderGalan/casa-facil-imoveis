@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -81,11 +83,12 @@ public class AnuncioRepositoryTest extends CasaFacilImoveisApplicationTests {
         assertThat(anuncios.size()).isPositive();
     }
 
-    /*@Test
+    @Test
     public void buscarTodosPorIdAnuncianteTest(){
-        List<Anuncio> anuncios = anuncioRepository.buscarTodosPorIdAnunciante(usuario.getId());
-        assertThat(anuncios.size()).isPositive();
-    }*/
+        PageRequest pageable = PageRequest.of(0, 1);
+        Page<Anuncio> anuncios = anuncioRepository.buscarTodosPorIdAnunciante(usuario.getId(), pageable);
+        assertThat(anuncios.getContent().size()).isPositive();
+    }
 
     @After
     public void tearDown(){
