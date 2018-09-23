@@ -4,10 +4,10 @@
     <b-card title="Anuncios cadastrados">
       <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px; cursor: pointer; position: relative">
         <div class="row">
-          <div class="col-sm-12 col-md-4 col-lg-5" @click="detalhesAnuncio(anuncio.id)" v-if="anuncio.imagensAnuncios.length > 0">
+          <div class="col-sm-12 col-md-4 col-lg-5" @click="detalhesAnuncio(anuncio.titulo, anuncio.id)" v-if="anuncio.imagensAnuncios.length > 0">
             <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" style="width: 300px; height: 250px;"/>
           </div>
-          <div class="col-sm-12 col-md-4 col-lg-6" @click="detalhesAnuncio(anuncio.id)">
+          <div class="col-sm-12 col-md-4 col-lg-6" @click="detalhesAnuncio(anuncio.titulo, anuncio.id)">
             <h3>{{anuncio.titulo}}</h3>
             <p class="col-sm-12 col-md-4 col-lg-12" id="descricao">{{anuncio.descricao}}</p>
             <p class="text-right text-bottom" id="valor">Valor: {{anuncio.valor}}</p>
@@ -74,9 +74,9 @@ export default {
         console.log(err.response)
       })
     },
-    detalhesAnuncio (id) {
+    detalhesAnuncio (title, id) {
       console.log('id ->', id)
-      this.$router.push({name: 'detalheImovel', params: {id}})
+      this.$router.push({name: 'detalheImovel', params: {title, id}})
     },
     editarAnuncio (id) {
       this.$router.push({name: 'editarAnuncio', params: {id}})

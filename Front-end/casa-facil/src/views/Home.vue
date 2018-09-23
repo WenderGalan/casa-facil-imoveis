@@ -54,7 +54,7 @@
           <b-card
               style="margin-left: 10px"
               title="">
-            <b-card v-for="anuncio in anuncios" @click="detalhesAnuncio(anuncio.id)"
+            <b-card v-for="anuncio in anuncios" @click="detalhesAnuncio(anuncio.titulo, anuncio.id)"
                     style="margin: 15px; padding-left: 0px; cursor: pointer">
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-5" v-if="anuncio.imagensAnuncios.length > 0">
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import {buscarTodosAnuncios} from '../services/requestServices'
+import {buscarTodosAnuncios, buscarAnuncios} from '../services/requestServices'
 import loader from '../templates/Loader'
 export default {
   name: 'home',
@@ -97,17 +97,17 @@ export default {
   methods: {
     buscarAnuncios () {
       if (this.requestAnuncio)  {
+        let id = ''
+        // if (this.anuncios.length > 0) {
+        //   const ultimo = this.anuncios[this.anuncios.length -1]
+        //   id = ultimo.id
+        // }
         this.showModal = true
-        buscarTodosAnuncios().then((response) => {
+        buscarTodosAnuncios(id).then((response) => {
           this.showModal = false
           if (response.data) {
-            debugger
-            if (this.anuncios.length === 0) {
-              this.anuncios = response.data
-              console.log(this.anuncios)
-            } else {
-              this.anuncios.push(response.data)
-              console.log(this.anuncios)
+            for (let i = 0; i < response.data.length; i++) {
+              this.anuncios.push(response.data[i])
             }
           } else {
             this.requestAnuncio = false
@@ -118,11 +118,15 @@ export default {
         })
       }
     },
-    detalhesAnuncio (id) {
-      this.$router.push({name: 'detalheImovel', params: {id}})
+    detalhesAnuncio (title, id) {
+      this.$router.push({name: 'detalheImovel', params: {title, id}})
     },
     procurarAnuncio () {
-
+      buscarAnuncios(this.buscar.rua, this.buscar.bairro, this.buscar.cidade).then((response) => {
+        this.anuncios = response.data
+      }).catch((err) => {
+        console.log(err.response)
+      })
     }
   },
   mounted () {
