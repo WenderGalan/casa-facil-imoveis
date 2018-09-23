@@ -1,19 +1,29 @@
 <template>
   <div class="home" style="margin-top: 45px">
     <div style="padding: 15px;">
-      <div class="row" >
+      <div class="row">
         <div class="col-sm-12 col-md-4 col-lg-4">
           <loader :show-modal="showModal"></loader>
           <b-card
               class="col-sm-12 col-md-4 col-lg-4"
               title="" style="position: fixed">
             <div class="row">
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">Digite a cidade, bairro ou rua</p>
+
+              <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
+                <input type="text" placeholder="Rua"
+                       v-model="buscar.rua"
+                       class="form-control col-sm-12 col-md-4 col-lg-12"/>
               </div>
 
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" placeholder="Ex: Campo Grande"
+              <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
+                <input type="text" placeholder="Bairro"
+                       v-model="buscar.bairro"
+                       class="form-control col-sm-12 col-md-4 col-lg-12"/>
+              </div>
+
+              <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
+                <input type="text" placeholder="Cidade"
+                       v-model="buscar.cidade"
                        class="form-control col-sm-12 col-md-4 col-lg-12"/>
               </div>
 
@@ -26,25 +36,30 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-6">
-                <input v-mask="'###.###.###,##'" type="text" placeholder="R$" class="form-control col-sm-12 col-md-4 col-lg-12"/>
+                <input v-mask="'###.###.###,##'" type="text" placeholder="R$"
+                       class="form-control col-sm-12 col-md-4 col-lg-12"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-6">
-                <input v-mask="'###.###.###,##'" type="text" placeholder="R$" class="form-control col-sm-12 col-md-4 col-lg-12"/>
+                <input v-mask="'###.###.###,##'" type="text" placeholder="R$"
+                       class="form-control col-sm-12 col-md-4 col-lg-12"/>
               </div>
             </div>
+            <b-button variant="info" class="form-control col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px" @click="procurarAnuncio">Procurar</b-button>
           </b-card>
         </div>
-      <br>
+        <br>
 
         <div class="col-sm-12 col-md-4 col-lg-8">
           <b-card
               style="margin-left: 10px"
               title="">
-            <b-card v-for="anuncio in anuncios" @click="detalhesAnuncio(anuncio.id)" style="margin: 15px; padding-left: 0px; cursor: pointer">
+            <b-card v-for="anuncio in anuncios" @click="detalhesAnuncio(anuncio.id)"
+                    style="margin: 15px; padding-left: 0px; cursor: pointer">
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-5" v-if="anuncio.imagensAnuncios.length > 0">
-                  <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" style="width: 300px; height: 250px;"/>
+                  <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl"
+                         style="width: 300px; height: 250px;"/>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-7">
                   <h3>{{anuncio.titulo}}</h3>
@@ -53,6 +68,7 @@
                 </div>
               </div>
             </b-card>
+            <b-button variant="info" @click="buscarAnuncios">Carregar mais anúncios</b-button>
           </b-card>
         </div>
       </div>
@@ -72,30 +88,52 @@ export default {
   data () {
     return {
       anuncios: [],
-      showModal: false
+      showModal: false,
+      requestAnuncio: true,
+      buscar: {},
+      disabledButton: false
     }
   },
   methods: {
     buscarAnuncios () {
-      this.showModal = true
-      buscarTodosAnuncios().then((response) => {
-        this.showModal = false
-        if (response.data) {
-          this.anuncios = response.data
-          console.log(response.data)
-        }
-      }).catch((err) => {
-        this.showModal = false
-        console.log(err.response)
-      })
+      if (this.requestAnuncio)  {
+        this.showModal = true
+        buscarTodosAnuncios().then((response) => {
+          this.showModal = false
+          if (response.data) {
+            debugger
+            if (this.anuncios.length === 0) {
+              this.anuncios = response.data
+              console.log(this.anuncios)
+            } else {
+              this.anuncios.push(response.data)
+              console.log(this.anuncios)
+            }
+          } else {
+            this.requestAnuncio = false
+          }
+        }).catch((err) => {
+          this.showModal = false
+          console.log(err.response)
+        })
+      }
     },
     detalhesAnuncio (id) {
-      console.log('id ->', id)
       this.$router.push({name: 'detalheImovel', params: {id}})
+    },
+    procurarAnuncio () {
+
     }
   },
   mounted () {
     this.buscarAnuncios()
+  },
+  watch: {
+    anuncios(anuncios) {
+      if (anuncios === undefined || anuncios === null) {
+        console.log("ficou undefined")
+      }
+    }
   }
 }
 </script>

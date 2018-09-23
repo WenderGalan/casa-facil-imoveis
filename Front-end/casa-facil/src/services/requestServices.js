@@ -10,7 +10,9 @@ export const alterarUsuario = (user) => http.put('/usuarios/v1', user)
 
 export const deletarUsuario = (id) => http.delete(`usuarios/v1/${id}`)
 
-export const buscarTodosAnuncios = () => http.get('/anuncios/v1')
+export const buscarTodosAnuncios = () => http.get('/anuncios/v1?page=0&size=2')
+
+export const buscarAnuncios = (rua, bairro, cidade) => http.get(`/anuncios/v1/search?rua=${rua}&bairro=${bairro}&cidade=${cidade}&page=0&size=2`)
 
 export const buscarAnunciosUsuario = (id) => http.get(`/anuncios/v1?id=${id}`)
 
