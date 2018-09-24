@@ -91,7 +91,8 @@ export default {
       showModal: false,
       requestAnuncio: true,
       buscar: {},
-      disabledButton: false
+      disabledButton: false,
+      page: 0
     }
   },
   methods: {
@@ -103,9 +104,10 @@ export default {
         //   id = ultimo.id
         // }
         this.showModal = true
-        buscarTodosAnuncios(id).then((response) => {
+        buscarTodosAnuncios(id, this.page).then((response) => {
           this.showModal = false
           if (response.data) {
+            this.page++
             for (let i = 0; i < response.data.length; i++) {
               this.anuncios.push(response.data[i])
             }

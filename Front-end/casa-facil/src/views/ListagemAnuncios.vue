@@ -35,14 +35,16 @@ export default {
   data () {
     return {
       anuncios: null,
-      showModal: false
+      showModal: false,
+      page: 0
     }
   },
   methods: {
     listarAnuncios () {
       this.showModal = true
-      buscarAnunciosUsuario(this.$store.state.sessao.id).then((response) => {
-        if (response) {
+      buscarAnunciosUsuario(this.$store.state.sessao.id, this.page).then((response) => {
+        if (response.data) {
+          this.page++
           console.log('anuncios ->', response.data)
           this.anuncios = response.data
           this.showModal = false

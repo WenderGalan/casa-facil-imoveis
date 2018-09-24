@@ -10,11 +10,11 @@ export const alterarUsuario = (user) => http.put('/usuarios/v1', user)
 
 export const deletarUsuario = (id) => http.delete(`usuarios/v1/${id}`)
 
-export const buscarTodosAnuncios = (id) => http.get(`/anuncios/v1?id=${id}&page=0&size=20`)
+export const buscarTodosAnuncios = (id, page) => http.get(`/anuncios/v1?id=${id}&page=${page}&size=2`)
 
 export const buscarAnuncios = (rua, bairro, cidade) => http.get(`/anuncios/v1/search?rua=${rua}&bairro=${bairro}&cidade=${cidade}&page=0&size=20`)
 
-export const buscarAnunciosUsuario = (id) => http.get(`/anuncios/v1?id=${id}&page=0&size=20`)
+export const buscarAnunciosUsuario = (id, page) => http.get(`/anuncios/v1?id=${id}&page=${page}&size=20`)
 
 export const buscarAnuncio = (id) => http.get(`/anuncios/v1/${id}`)
 
