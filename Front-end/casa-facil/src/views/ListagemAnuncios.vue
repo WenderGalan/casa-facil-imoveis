@@ -18,6 +18,7 @@
           </div>
         </div>
       </b-card>
+      <b-button variant="info" :disabled="enableButton" @click="listarAnuncios">Carregar mais anúncios</b-button>
     </b-card>
   </div>
 </template>
@@ -36,23 +37,33 @@ export default {
     return {
       anuncios: null,
       showModal: false,
-      page: 0
+      page: 0,
+      fazerBusca: true,
+      enableButton: false
     }
   },
   methods: {
     listarAnuncios () {
-      this.showModal = true
-      buscarAnunciosUsuario(this.$store.state.sessao.id, this.page).then((response) => {
-        if (response.data) {
-          this.page++
-          console.log('anuncios ->', response.data)
-          this.anuncios = response.data
+      if (this.fazerBusca) {
+        this.showModal = true
+        buscarAnunciosUsuario(this.$store.state.sessao.id, this.page).then((response) => {
+          if (response.data.length > 0) {
+            this.page++
+            console.log('anuncios ->', response.data)
+            this.anuncios = response.data
+            this.showModal = false
+          } else {
+            Swal.alertUmButton('Não existem mais anúncio', '', 'info')
+            this.showModal = false
+            this.fazerBusca = false
+            this.enableButton = true
+          }
+        }).catch((err) => {
+          console.log(err.response)
+          Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
           this.showModal = false
-        }
-      }).catch((err) => {
-        console.log(err.response)
-        this.showModal = false
-      })
+        })
+      }
     },
     alertaAnuncio (id) {
       Swal.alertDoisButtons('Atenção!', 'Deseja mesmo deletar este anuncio?', 'warning')

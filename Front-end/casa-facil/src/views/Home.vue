@@ -9,16 +9,28 @@
               title="" style="position: fixed">
             <div class="row">
 
+              <div class="col-sm-12 col-md-4 col-lg-12">
+                <p style="margin-bottom: -10px" class="text-left">Logradouro</p>
+              </div>
+
               <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <input type="text" placeholder="Rua"
+                <input type="text" placeholder="Ex: Avenida Afonso Pena"
                        v-model="buscar.rua"
                        class="form-control col-sm-12 col-md-4 col-lg-12"/>
               </div>
 
+              <div class="col-sm-12 col-md-4 col-lg-12">
+                <p style="margin-bottom: -10px; margin-top: 5px" class="text-left">Bairro</p>
+              </div>
+
               <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <input type="text" placeholder="Bairro"
+                <input type="text" placeholder="Ex: Centro"
                        v-model="buscar.bairro"
                        class="form-control col-sm-12 col-md-4 col-lg-12"/>
+              </div>
+
+              <div class="col-sm-12 col-md-4 col-lg-12" style="margin-bottom: -10px; margin-top: 5px">
+                <p style="margin-bottom: -10px; margin-top: 5px" class="text-left">Localidade</p>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
@@ -68,7 +80,7 @@
                 </div>
               </div>
             </b-card>
-            <b-button variant="info" @click="buscarAnuncios">Carregar mais anúncios</b-button>
+            <b-button variant="info" @click="buscarAnuncios" :disabled="disabledButton">Carregar mais anúncios</b-button>
           </b-card>
         </div>
       </div>
@@ -79,6 +91,7 @@
 <script>
 import {buscarTodosAnuncios, buscarAnuncios} from '../services/requestServices'
 import loader from '../templates/Loader'
+import Swal from '../util/Swal'
 export default {
   name: 'home',
   components: {loader},
@@ -99,22 +112,21 @@ export default {
     buscarAnuncios () {
       if (this.requestAnuncio)  {
         let id = ''
-        // if (this.anuncios.length > 0) {
-        //   const ultimo = this.anuncios[this.anuncios.length -1]
-        //   id = ultimo.id
-        // }
         this.showModal = true
         buscarTodosAnuncios(id, this.page).then((response) => {
           this.showModal = false
-          if (response.data) {
+          if (response.data.length > 0) {
             this.page++
             for (let i = 0; i < response.data.length; i++) {
               this.anuncios.push(response.data[i])
             }
           } else {
+            this.disabledButton = true
             this.requestAnuncio = false
+            Swal.alertUmButton('Não existem mais anúncios', '', 'info')
           }
         }).catch((err) => {
+          Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
           this.showModal = false
           console.log(err.response)
         })
@@ -124,9 +136,13 @@ export default {
       this.$router.push({name: 'detalheImovel', params: {title, id}})
     },
     procurarAnuncio () {
+      this.showModal = true
       buscarAnuncios(this.buscar.rua, this.buscar.bairro, this.buscar.cidade).then((response) => {
+        this.showModal = false
         this.anuncios = response.data
       }).catch((err) => {
+        this.showModal = false
+        Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
         console.log(err.response)
       })
     }
