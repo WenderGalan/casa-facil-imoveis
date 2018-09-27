@@ -1,6 +1,7 @@
 package com.casafacilimoveis.util;
 
 import com.casafacilimoveis.model.beans.Validation;
+import com.casafacilimoveis.model.entities.SugestaoAutoComplete;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.multipart.MultipartFile;
 

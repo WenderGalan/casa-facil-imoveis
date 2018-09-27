@@ -83,13 +83,6 @@ public class AnuncioRepositoryTest extends CasaFacilImoveisApplicationTests {
         assertThat(anuncios.size()).isPositive();
     }
 
-    @Test
-    public void buscarTodosPorIdAnuncianteTest(){
-        PageRequest pageable = PageRequest.of(0, 1);
-        Page<Anuncio> anuncios = anuncioRepository.buscarTodosPorIdAnunciante(usuario.getId(), pageable);
-        assertThat(anuncios.getContent().size()).isPositive();
-    }
-
     @After
     public void tearDown(){
         anuncioRepository.delete(anuncio);

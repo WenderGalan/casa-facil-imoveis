@@ -1,6 +1,7 @@
 package com.casafacilimoveis.controller;
 
 import com.casafacilimoveis.model.entities.Anuncio;
+import com.casafacilimoveis.model.enums.TipoImovel;
 import com.casafacilimoveis.service.AnuncioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,22 +48,30 @@ public class AnuncioController {
         return anuncioService.buscarTodos(id, page, size);
     }
 
+    /**
+     * Busca as possiveis autocomplete
+     **/
+    @ApiOperation("Busca todos os possíveis autocomplete para o campo desejado")
+    @GetMapping("/v1/autocomplete")
+    public ResponseEntity buscaTodosAutoComplete(@RequestParam(value = "pesquisa") String text) {
+        return anuncioService.buscaTodosAutoComplete(text);
+    }
 
     /**
      * Buscar todos os anúncios by rua, bairro e cidade
      *
+     * @param sort   - ordem de pesquisa
+     * @param page   - pagina selecionada
+     * @param size   - tamanho da pagina selecionada
      * @return List of anuncios
-     * @
      */
     @ApiOperation("Busca todos os anúncios com os parâmetros passados")
     @GetMapping("/v1/search")
     public ResponseEntity buscarTodosPorParametros(
-            @RequestParam(value = "rua", required = false) String rua,
-            @RequestParam(value = "bairro", required = false) String bairro,
-            @RequestParam(value = "cidade", required = false) String cidade,
+            @RequestParam(value = "pesquisa", defaultValue = "") String pesquisa,
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size) {
-        return anuncioService.buscarTodosPorParametros(rua, bairro, cidade, page, size);
+        return anuncioService.buscarTodosPorParametros(pesquisa, page, size);
     }
 
 

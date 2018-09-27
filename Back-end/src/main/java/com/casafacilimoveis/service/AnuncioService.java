@@ -1,6 +1,7 @@
 package com.casafacilimoveis.service;
 
 import com.casafacilimoveis.model.entities.Anuncio;
+import com.casafacilimoveis.model.enums.TipoImovel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 
@@ -19,7 +20,9 @@ public interface AnuncioService {
 
     public ResponseEntity buscarTodos(Integer id, Integer page, Integer size);
 
-    public ResponseEntity buscarTodosPorParametros(String rua, String bairro, String cidade, Integer page, Integer size);
+    public ResponseEntity buscaTodosAutoComplete(String text);
+
+    public ResponseEntity buscarTodosPorParametros(String pesquisa, Integer page, Integer size);
 
     public ResponseEntity buscarPorId(Integer id);
 

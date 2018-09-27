@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 /**
  * casa-facil-imoveis
  * Wender Galan
@@ -42,25 +45,10 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Integer> {
     @Query("SELECT a FROM Anuncio a WHERE a.anunciante.id = ?1")
     public Page<Anuncio> buscarTodosPorIdAnunciante(Integer id, Pageable pageable);
 
-    @Query("SELECT a FROM Anuncio a WHERE a.endereco.endereco LIKE %?1% OR a.endereco.bairro LIKE %?2% OR a.endereco.cidade LIKE %?3%")
-    public Page<Anuncio> findByRuaBairroCidade(String rua, String bairro, String cidade, Pageable pageable);
-
-    @Query("SELECT a FROM Anuncio a WHERE a.endereco.endereco LIKE %?1% OR a.endereco.bairro LIKE %?2%")
-    public Page<Anuncio> findByRuaBairro(String rua, String bairro, Pageable pageable);
-
-    @Query("SELECT a FROM Anuncio a WHERE a.endereco.endereco LIKE %?1% OR a.endereco.cidade LIKE %?2%")
-    public Page<Anuncio> findByRuaCidade(String rua, String cidade, Pageable pageable);
-
-    @Query("SELECT a FROM Anuncio a WHERE a.endereco.bairro LIKE %?1% OR a.endereco.cidade LIKE %?2%")
-    public Page<Anuncio> findByBairroCidade(String bairro, String cidade, Pageable pageable);
-
-    @Query("SELECT a FROM Anuncio a WHERE a.endereco.endereco LIKE %?1%")
-    public Page<Anuncio> findByRua(String rua, Pageable pageable);
-
-    @Query("SELECT a FROM Anuncio a WHERE a.endereco.bairro LIKE %?1%")
-    public Page<Anuncio> findByBairro(String bairro, Pageable pageable);
-
-    @Query("SELECT a FROM Anuncio a WHERE a.endereco.cidade LIKE %?1%")
-    public Page<Anuncio> findByCidade(String cidade, Pageable pageable);
+    @Query(" SELECT a FROM Anuncio a" +
+            " WHERE (?1 IS NULL OR (?1 IS NOT NULL AND LOWER(a.endereco.endereco) LIKE '%'||LOWER(?1)||'%'))" +
+            " OR (?1 IS NULL OR (?1 IS NOT NULL AND LOWER(a.endereco.bairro) LIKE '%'||LOWER(?1)||'%'))" +
+            " OR (?1 IS NULL OR (?1 IS NOT NULL AND LOWER(a.endereco.cidade) LIKE '%'||LOWER(?1)||'%'))")
+    public Page<Anuncio> findAnunciosByParams(@Nullable String pesquisa, Pageable pageable);
 
 }

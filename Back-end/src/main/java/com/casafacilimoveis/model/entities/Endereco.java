@@ -48,7 +48,7 @@ public class Endereco implements Serializable {
     private Integer numero;
 
     @Column(name = "estado", nullable = false)
-    @Length(min = 1, max = 100, message = "O estado deve ter no minímo {min} e no máximo {max} caracteres")
+    @Length(min = 1, max = 2, message = "O estado deve ter no minímo {min} e no máximo {max} caracteres")
     @NotNull(message = "O estado não foi informado.")
     private String estado;
 
