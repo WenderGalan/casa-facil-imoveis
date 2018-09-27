@@ -13,8 +13,12 @@
             <p class="text-right text-bottom" id="valor">Valor: {{anuncio.valor}}</p>
           </div>
           <div class="col-sm-12 col-md-4 col-lg-1">
-            <b-button variant="danger" id="excluir" @click="alertaAnuncio(anuncio.id)">Excluir</b-button>
-            <b-button variant="warning" id="editar" @click="editarAnuncio(anuncio.id)">Editar</b-button>
+            <b-button variant="danger" id="excluir" @click="alertaAnuncio(anuncio.id)">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </b-button>
+            <b-button variant="warning" id="editar" @click="editarAnuncio(anuncio.id)">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </b-button>
           </div>
         </div>
       </b-card>

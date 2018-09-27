@@ -2,70 +2,24 @@
   <div class="home" style="margin-top: 45px">
     <div style="padding: 15px;">
       <div class="row">
-        <div class="col-sm-12 col-md-4 col-lg-4">
-          <loader :show-modal="showModal"></loader>
-          <b-card
-              class="col-sm-12 col-md-4 col-lg-4"
-              title="" style="position: fixed">
-            <div class="row">
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p style="margin-bottom: -10px" class="text-left">Logradouro</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <input type="text" placeholder="Ex: Avenida Afonso Pena"
-                       v-model="buscar.rua"
-                       class="form-control col-sm-12 col-md-4 col-lg-12"/>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p style="margin-bottom: -10px; margin-top: 5px" class="text-left">Bairro</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <input type="text" placeholder="Ex: Centro"
-                       v-model="buscar.bairro"
-                       class="form-control col-sm-12 col-md-4 col-lg-12"/>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12" style="margin-bottom: -10px; margin-top: 5px">
-                <p style="margin-bottom: -10px; margin-top: 5px" class="text-left">Localidade</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px">
-                <input type="text" placeholder="Cidade"
-                       v-model="buscar.cidade"
-                       class="form-control col-sm-12 col-md-4 col-lg-12"/>
-              </div>
-
-              <div style="margin-top: 15px" class="col-sm-12 col-md-4 col-lg-6">
-                <p class="text-left">Preço mínimo</p>
-              </div>
-
-              <div style="margin-top: 15px" class="col-sm-12 col-md-4 col-lg-6">
-                <p class="text-left">Preço máximo</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-6">
-                <input v-mask="'###.###.###,##'" type="text" placeholder="R$"
-                       class="form-control col-sm-12 col-md-4 col-lg-12"/>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-6">
-                <input v-mask="'###.###.###,##'" type="text" placeholder="R$"
-                       class="form-control col-sm-12 col-md-4 col-lg-12"/>
-              </div>
-            </div>
-            <b-button variant="info" class="form-control col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px" @click="procurarAnuncio">Procurar</b-button>
-          </b-card>
-        </div>
-        <br>
-
-        <div class="col-sm-12 col-md-4 col-lg-8">
+        <div class="col-sm-12 col-md-4 col-lg-12">
           <b-card
               style="margin-left: 10px"
               title="">
+
+            <div class="col-sm-12 col-md-4 col-lg-12">
+              <p class="text-left">Pesquisar</p>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-md-4 col-lg-5">
+                <vue-bootstrap-typeahead
+                    style="margin-left: 15px"
+                    v-model="buscar"
+                    :data="resultadoPesquisa"/>
+              </div>
+              <b-button variant="info"><i class="fa fa-search" aria-hidden="true"></i></b-button>
+            </div>
             <b-card v-for="anuncio in anuncios" @click="detalhesAnuncio(anuncio.titulo, anuncio.id)"
                     style="margin: 15px; padding-left: 0px; cursor: pointer">
               <div class="row">
@@ -89,12 +43,16 @@
 </template>
 
 <script>
+import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
 import {buscarTodosAnuncios, buscarAnuncios} from '../services/requestServices'
 import loader from '../templates/Loader'
 import Swal from '../util/Swal'
 export default {
   name: 'home',
-  components: {loader},
+  components: {
+    loader,
+    VueBootstrapTypeahead
+  },
   props: {
     loader
   },
@@ -103,7 +61,16 @@ export default {
       anuncios: [],
       showModal: false,
       requestAnuncio: true,
-      buscar: {},
+      buscar: '',
+      resultadoPesquisa :[
+        'Campo Grande',
+        'São Paulo',
+        'Rio de Janeiro',
+        'Salvador',
+        'Pernambuco',
+        'Uberlandia',
+        'Curitiba'
+      ],
       disabledButton: false,
       page: 0
     }
