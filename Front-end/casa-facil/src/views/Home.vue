@@ -64,15 +64,7 @@
         showModal: false,
         requestAnuncio: true,
         buscar: '',
-        resultadoPesquisa: [
-          'Campo Grande',
-          'São Paulo',
-          'Rio de Janeiro',
-          'Salvador',
-          'Pernambuco',
-          'Uberlandia',
-          'Curitiba'
-        ],
+        resultadoPesquisa: ['Rua campo grande'],
         disabledButton: false,
         page: 0
       }
@@ -142,9 +134,14 @@
         }
       },
       buscar(buscar) {
+
         if (buscar.length === 3 || buscar.length === 6) {
+          debugger;
           autoComplete(buscar).then(response => {
-            this.resultadoPesquisa = response
+            debugger;
+            for (let i = 0, max = response.data.length; i < max; i++) {
+              this.resultadoPesquisa.push(response.data[i].concatenacao)
+            }
           })
         }
       }
