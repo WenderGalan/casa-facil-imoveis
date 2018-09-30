@@ -25,7 +25,7 @@
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-5" v-if="anuncio.imagensAnuncios.length > 0">
                   <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl"
-                         style="width: 300px; height: 250px;"/>
+                         style="width: 300px; height: 250px;"></b-img>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-7">
                   <h3>{{anuncio.titulo}}</h3>
@@ -34,7 +34,8 @@
                 </div>
               </div>
             </b-card>
-            <b-button variant="info" @click="buscarAnuncios" :disabled="disabledButton">Carregar mais anúncios</b-button>
+            <b-button variant="info" @click="buscarAnuncios" :disabled="disabledButton">Carregar mais anúncios
+            </b-button>
           </b-card>
         </div>
       </div>
@@ -43,88 +44,112 @@
 </template>
 
 <script>
-import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
-import {buscarTodosAnuncios, buscarAnuncios} from '../services/requestServices'
-import loader from '../templates/Loader'
-import Swal from '../util/Swal'
-export default {
-  name: 'home',
-  components: {
-    loader,
-    VueBootstrapTypeahead
-  },
-  props: {
-    loader
-  },
-  data () {
-    return {
-      anuncios: [],
-      showModal: false,
-      requestAnuncio: true,
-      buscar: '',
-      resultadoPesquisa :[
-        'Campo Grande',
-        'São Paulo',
-        'Rio de Janeiro',
-        'Salvador',
-        'Pernambuco',
-        'Uberlandia',
-        'Curitiba'
-      ],
-      disabledButton: false,
-      page: 0
-    }
-  },
-  methods: {
-    buscarAnuncios () {
-      if (this.requestAnuncio)  {
-        let id = ''
-        this.showModal = true
-        buscarTodosAnuncios(id, this.page).then((response) => {
-          this.showModal = false
-          if (response.data.length > 0) {
-            this.page++
-            for (let i = 0; i < response.data.length; i++) {
-              this.anuncios.push(response.data[i])
+  import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+  import {autoComplete, buscarAnuncios} from '../services/requestServices'
+  import loader from '../templates/Loader'
+  import Swal from '../util/Swal'
+
+  export default {
+    name: 'home',
+    components: {
+      loader,
+      VueBootstrapTypeahead
+    },
+    props: {
+      loader
+    },
+    data() {
+      return {
+        anuncios: [],
+        showModal: false,
+        requestAnuncio: true,
+        buscar: '',
+        resultadoPesquisa: [
+          'Campo Grande',
+          'São Paulo',
+          'Rio de Janeiro',
+          'Salvador',
+          'Pernambuco',
+          'Uberlandia',
+          'Curitiba'
+        ],
+        disabledButton: false,
+        page: 0
+      }
+    },
+    methods: {
+      buscarAnuncios() {
+        if (this.requestAnuncio) {
+          this.showModal = true;
+          buscarAnuncios('', '', '', this.page).then((response) => {
+            this.showModal = false;
+            if (response.data.length > 0) {
+              this.page++;
+              for (let i = 0; i < response.data.length; i++) {
+                this.anuncios.push(response.data[i])
+              }
+            } else {
+              this.disabledButton = true;
+              this.requestAnuncio = false;
+              Swal.alertUmButton('Não existem mais anúncios', '', 'info')
             }
-          } else {
-            this.disabledButton = true
-            this.requestAnuncio = false
-            Swal.alertUmButton('Não existem mais anúncios', '', 'info')
-          }
+          }).catch((err) => {
+            this.showModal = false;
+            Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error');
+            console.log(err.response);
+          })
+          // buscarTodosAnuncios(id, this.page).then((response) => {
+          //   this.showModal = false
+          //   if (response.data.length > 0) {
+          //     this.page++
+          //     for (let i = 0; i < response.data.length; i++) {
+          //       this.anuncios.push(response.data[i])
+          //     }
+          //   } else {
+          //     this.disabledButton = true
+          //     this.requestAnuncio = false
+          //     Swal.alertUmButton('Não existem mais anúncios', '', 'info')
+          //   }
+          // }).catch((err) => {
+          //   Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
+          //   this.showModal = false
+          //   console.log(err.response)
+          // })
+        }
+      },
+      detalhesAnuncio(title, id) {
+        this.$router.push({name: 'detalheImovel', params: {title, id}})
+      },
+      procurarAnuncio() {
+        this.showModal = true;
+        buscarAnuncios(this.buscar.rua, this.buscar.bairro, this.buscar.cidade).then((response) => {
+          this.showModal = false;
+          this.anuncios = response.data
         }).catch((err) => {
-          Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
-          this.showModal = false
-          console.log(err.response)
+          this.showModal = false;
+          Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error');
+          console.log(err.response);
         })
       }
     },
-    detalhesAnuncio (title, id) {
-      this.$router.push({name: 'detalheImovel', params: {title, id}})
+    mounted() {
+      this.buscarAnuncios()
     },
-    procurarAnuncio () {
-      this.showModal = true
-      buscarAnuncios(this.buscar.rua, this.buscar.bairro, this.buscar.cidade).then((response) => {
-        this.showModal = false
-        this.anuncios = response.data
-      }).catch((err) => {
-        this.showModal = false
-        Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
-        console.log(err.response)
-      })
-    }
-  },
-  mounted () {
-    this.buscarAnuncios()
-  },
-  watch: {
-    anuncios(anuncios) {
-      if (anuncios === undefined || anuncios === null) {
-        console.log("ficou undefined")
+    watch: {
+      anuncios(anuncios) {
+        if (anuncios === undefined || anuncios === null) {
+          console.log("ficou undefined")
+        }
+      },
+      buscar(buscar) {
+        if (buscar.length === 3 || buscar.length === 6) {
+          autoComplete(buscar).then(response => {
+            this.resultadoPesquisa = response
+          })
+        }
       }
     }
   }
-}
 </script>
 
 <style scoped>
