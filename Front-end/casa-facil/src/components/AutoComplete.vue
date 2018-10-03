@@ -54,15 +54,15 @@
     },
     watch: {
       search(search) {
+        debugger;
         if (search.length > 6) {
           this.$emit('alterarValor', search)
         } else if (search.length === 3 || search.length === 6) {
           this.$emit('buscarValores', search)
-        } else if (search.length === 0) {
-          this.$emit('zerarArray', [])
         }
       },
       novoValor(novoValor) {
+        debugger;
         this.search = novoValor
       }
     }

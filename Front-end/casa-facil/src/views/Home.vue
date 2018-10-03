@@ -2,6 +2,7 @@
   <div class="home" style="margin-top: 45px">
     <div style="padding: 15px;">
       <div class="row">
+          <loader :show-modal="showModal"/>
         <div class="col-sm-12 col-md-4 col-lg-12">
           <b-card
               style="margin-left: 10px"
@@ -21,7 +22,6 @@
                 <auto-complete
                         class="col-sm-12 col-md-4 col-lg-12"
                         @buscarValores="receberValor"
-                        @zeraArray="zerarArray"
                         @alterarValor="alterarParametro"
                         :items="resultadoPesquisa"
                         :novo-valor="buscar"/>
@@ -83,6 +83,7 @@
     },
     methods: {
       alterarParametro(param) {
+        debugger;
         for (let i = 0,  max = this.resultadoPesquisa.length; i < max; i++) {
           if (param === this.resultadoAgrupado[i].concatenacao)  {
             this.buscar = this.resultadoAgrupado[i].pesquisa;
@@ -90,19 +91,63 @@
           }
         }
       },
+
       receberValor(value) {
+
         autoComplete(value).then(response => {
-          this.resultadoAgrupado = response.data;
-          for (let i = 0, max = response.data.length; i < max; i++) {
-            this.resultadoPesquisa.push(response.data[i].concatenacao)
+          debugger;
+          let auxResultadoAgrupado = this.resultadoAgrupado;
+          if (auxResultadoAgrupado.length === 0) {
+            this.resultadoAgrupado = response.data;
+
+          } else if (auxResultadoAgrupado.length > 0) {
+
+            for (let j = 0, max = response.data.length; j < max; j++) {
+              let igual = false;
+
+              for (let i = 0, max2 = auxResultadoAgrupado.length; i < max2; i++) {
+
+                if ((response.data[j].concatenacao === auxResultadoAgrupado[i].concatenacao)
+                  && (response.data[j].pesquisa === auxResultadoAgrupado[i].pesquisa)) {
+                  igual = true;
+                  break;
+                }
+              }
+
+              if (!igual) {
+                this.resultadoAgrupado.push(response.data[j]);
+              }
+            }
+          }
+          let auxResultadoPesquisa = this.resultadoPesquisa;
+
+          if (auxResultadoPesquisa.length === 0) {
+
+            for (let i = 0, max = response.data.length; i < max; i++) {
+              this.resultadoPesquisa.push(response.data[i].concatenacao);
+            }
+
+          } else if (auxResultadoPesquisa.length > 0) {
+
+            for (let i = 0, max = response.data.length; i < max; i++) {
+              let igual = false;
+
+              for (let j = 0, max2 = auxResultadoPesquisa.length; j < max2; j++) {
+
+                if (response.data[i].concatenacao === auxResultadoPesquisa[j]) {
+                  igual = true;
+                  break;
+                }
+              }
+
+              if (!igual) {
+                this.resultadoPesquisa.push(response.data[i].concatenacao);
+              }
+            }
           }
         }).catch(err => {
           console.log(err)
         });
-      },
-      zerarArray(value) {
-        this.resultadoPesquisa = [];
-        this.resultadoAgrupado = []
       },
       buscarAnuncios() {
         if (this.requestAnuncio) {
