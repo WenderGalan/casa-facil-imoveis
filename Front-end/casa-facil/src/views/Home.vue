@@ -16,7 +16,7 @@
                 <vue-bootstrap-typeahead
                     style="margin-left: 15px"
                     v-model="buscar"
-                    :data="resultadoPesquisa"/>
+                    :data="resultadoPesquisa"/> {{this.buscar}}
               </div>
               <b-button variant="info"><i class="fa fa-search" aria-hidden="true"></i></b-button>
             </div>
@@ -63,17 +63,18 @@
         anuncios: [],
         showModal: false,
         requestAnuncio: true,
-        buscar: '',
-        resultadoPesquisa: ['Rua campo grande'],
+        buscar: 'teste',
+        resultadoPesquisa: [],
         disabledButton: false,
-        page: 0
+        page: 0,
+        resultadoAgrupado: []
       }
     },
     methods: {
       buscarAnuncios() {
         if (this.requestAnuncio) {
           this.showModal = true;
-          buscarAnuncios('', '', '', this.page).then((response) => {
+          buscarAnuncios(`/anuncios/v1/search?page=${this.page}&size=20`).then((response) => {
             this.showModal = false;
             if (response.data.length > 0) {
               this.page++;
@@ -83,30 +84,13 @@
             } else {
               this.disabledButton = true;
               this.requestAnuncio = false;
-              Swal.alertUmButton('Não existem mais anúncios', '', 'info')
+              Swal.alertUmButton('Não existem mais anúncios', ' ', 'info')
             }
           }).catch((err) => {
             this.showModal = false;
             Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error');
             console.log(err.response);
           })
-          // buscarTodosAnuncios(id, this.page).then((response) => {
-          //   this.showModal = false
-          //   if (response.data.length > 0) {
-          //     this.page++
-          //     for (let i = 0; i < response.data.length; i++) {
-          //       this.anuncios.push(response.data[i])
-          //     }
-          //   } else {
-          //     this.disabledButton = true
-          //     this.requestAnuncio = false
-          //     Swal.alertUmButton('Não existem mais anúncios', '', 'info')
-          //   }
-          // }).catch((err) => {
-          //   Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
-          //   this.showModal = false
-          //   console.log(err.response)
-          // })
         }
       },
       detalhesAnuncio(title, id) {
@@ -114,7 +98,7 @@
       },
       procurarAnuncio() {
         this.showModal = true;
-        buscarAnuncios(this.buscar.rua, this.buscar.bairro, this.buscar.cidade).then((response) => {
+        buscarAnuncios(`/anuncios/v1/search?page=${this.page}&pesquisa=${this.buscar}&size=20`).then((response) => {
           this.showModal = false;
           this.anuncios = response.data
         }).catch((err) => {
@@ -136,13 +120,26 @@
       buscar(buscar) {
 
         if (buscar.length === 3 || buscar.length === 6) {
-          debugger;
           autoComplete(buscar).then(response => {
-            debugger;
+            this.resultadoAgrupado = response.data;
             for (let i = 0, max = response.data.length; i < max; i++) {
               this.resultadoPesquisa.push(response.data[i].concatenacao)
             }
           })
+        } else if (buscar.length === 0) {
+          this.resultadoPesquisa = [];
+          this.resultadoAgrupado = [];
+        }
+
+        if (buscar.length > 3) {
+          debugger;
+
+          for (let i = 0,  max = this.resultadoPesquisa.length; i < max; i++) {
+            if (buscar === this.resultadoAgrupado[i].concatenacao)  {
+              this.buscar = this.resultadoAgrupado[i].pesquisa;
+              break;
+            }
+          }
         }
       }
     }

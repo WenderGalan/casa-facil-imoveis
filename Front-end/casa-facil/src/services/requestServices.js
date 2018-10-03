@@ -10,9 +10,7 @@ export const alterarUsuario = (user) => http.put('/usuarios/v1', user);
 
 export const deletarUsuario = (id) => http.delete(`usuarios/v1/${id}`);
 
-// export const buscarTodosAnuncios = (id, page) => http.get(`/anuncios/v1?id=${id}&page=${page}&size=2`);
-
-export const buscarAnuncios = (rua, bairro, cidade, page) => http.get(`/anuncios/v1/search?rua=${rua}&bairro=${bairro}&cidade=${cidade}&page=${page}&size=20`);
+export const buscarAnuncios = (url) => http.get(url);
 
 export const autoComplete = (search) => http.get(`/anuncios/v1/autocomplete?pesquisa=${search}`);
 
