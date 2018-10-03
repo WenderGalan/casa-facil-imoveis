@@ -13,10 +13,19 @@
 
             <div class="row">
               <div class="col-sm-12 col-md-4 col-lg-5">
-                <vue-bootstrap-typeahead
-                    style="margin-left: 15px"
-                    v-model="buscar"
-                    :data="resultadoPesquisa"/> {{this.buscar}}
+                <!--<vue-bootstrap-typeahead-->
+                    <!--style="margin-left: 15px"-->
+                    <!--v-model="buscar"-->
+                    <!--:data="resultadoPesquisa"/> {{this.buscar}}-->
+
+                <auto-complete
+                        class="col-sm-12 col-md-4 col-lg-12"
+                        @buscarValores="receberValor"
+                        @zeraArray="zerarArray"
+                        @alterarValor="alterarParametro"
+                        :items="resultadoPesquisa"
+                        :novo-valor="buscar"/>
+
               </div>
               <b-button variant="info"><i class="fa fa-search" aria-hidden="true"></i></b-button>
             </div>
@@ -48,12 +57,14 @@
   import {autoComplete, buscarAnuncios} from '../services/requestServices'
   import loader from '../templates/Loader'
   import Swal from '../util/Swal'
+  import AutoComplete from '../components/AutoComplete'
 
   export default {
     name: 'home',
     components: {
       loader,
-      VueBootstrapTypeahead
+      VueBootstrapTypeahead,
+      AutoComplete
     },
     props: {
       loader
@@ -71,6 +82,31 @@
       }
     },
     methods: {
+      alterarParametro(param) {
+        debugger
+        for (let i = 0,  max = this.resultadoPesquisa.length; i < max; i++) {
+          if (param === this.resultadoAgrupado[i].concatenacao)  {
+            this.buscar = this.resultadoAgrupado[i].pesquisa;
+            break;
+          }
+        }
+      },
+      receberValor(value) {
+        debugger
+        autoComplete(value).then(response => {
+          debugger
+          this.resultadoAgrupado = response.data;
+          for (let i = 0, max = response.data.length; i < max; i++) {
+            this.resultadoPesquisa.push(response.data[i].concatenacao)
+          }
+        }).catch(err => {
+          console.log(err)
+        });
+      },
+      zerarArray(value) {
+        this.resultadoPesquisa = [];
+        this.resultadoAgrupado = []
+      },
       buscarAnuncios() {
         if (this.requestAnuncio) {
           this.showModal = true;
@@ -115,31 +151,6 @@
       anuncios(anuncios) {
         if (anuncios === undefined || anuncios === null) {
           console.log("ficou undefined")
-        }
-      },
-      buscar(buscar) {
-
-        if (buscar.length === 3 || buscar.length === 6) {
-          autoComplete(buscar).then(response => {
-            this.resultadoAgrupado = response.data;
-            for (let i = 0, max = response.data.length; i < max; i++) {
-              this.resultadoPesquisa.push(response.data[i].concatenacao)
-            }
-          })
-        } else if (buscar.length === 0) {
-          this.resultadoPesquisa = [];
-          this.resultadoAgrupado = [];
-        }
-
-        if (buscar.length > 3) {
-          debugger;
-
-          for (let i = 0,  max = this.resultadoPesquisa.length; i < max; i++) {
-            if (buscar === this.resultadoAgrupado[i].concatenacao)  {
-              this.buscar = this.resultadoAgrupado[i].pesquisa;
-              break;
-            }
-          }
         }
       }
     }
