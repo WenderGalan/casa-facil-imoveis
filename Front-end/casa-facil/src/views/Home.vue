@@ -83,7 +83,6 @@
     },
     methods: {
       alterarParametro(param) {
-        debugger
         for (let i = 0,  max = this.resultadoPesquisa.length; i < max; i++) {
           if (param === this.resultadoAgrupado[i].concatenacao)  {
             this.buscar = this.resultadoAgrupado[i].pesquisa;
@@ -92,9 +91,7 @@
         }
       },
       receberValor(value) {
-        debugger
         autoComplete(value).then(response => {
-          debugger
           this.resultadoAgrupado = response.data;
           for (let i = 0, max = response.data.length; i < max; i++) {
             this.resultadoPesquisa.push(response.data[i].concatenacao)

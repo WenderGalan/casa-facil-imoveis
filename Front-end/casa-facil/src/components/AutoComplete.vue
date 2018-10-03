@@ -55,13 +55,10 @@
     watch: {
       search(search) {
         if (search.length > 6) {
-          debugger;
           this.$emit('alterarValor', search)
         } else if (search.length === 3 || search.length === 6) {
-          debugger;
           this.$emit('buscarValores', search)
         } else if (search.length === 0) {
-          debugger;
           this.$emit('zerarArray', [])
         }
       },
