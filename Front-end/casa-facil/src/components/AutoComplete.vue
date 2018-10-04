@@ -3,11 +3,12 @@
         <input type="text"
                class="form-control"
                v-model="search"
-               style="width: 500px"
+               placeholder="Pesquisar por endereço, bairro ou cidade"
+               style="width: 550px"
                @input="onChange"/>
         <ul class="autocomplete-results"
             v-show="isOpen"
-            style="width: 500px">
+            style="width: 550px">
             <li class="autocomplete-result"
                 v-for="(result, i) in results"
                 @click="setResult(result)"
@@ -54,6 +55,7 @@
     },
     watch: {
       search(search) {
+        this.$emit('recebeValor', search);
         debugger;
         if (search.length > 6) {
           this.$emit('alterarValor', search)
