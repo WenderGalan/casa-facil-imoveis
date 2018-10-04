@@ -10,11 +10,16 @@ import com.casafacilimoveis.repository.ImagemRepository;
 import com.casafacilimoveis.repository.UsuarioRepository;
 import com.casafacilimoveis.service.GoogleDriveService;
 import com.casafacilimoveis.service.UsuarioService;
+import com.casafacilimoveis.util.Constantes;
 import com.casafacilimoveis.util.SenhaUtil;
 import com.casafacilimoveis.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -34,6 +39,7 @@ import javax.validation.Valid;
  **********************************************
  */
 @Api(description = "Controller de requisições de usuário")
+@CacheConfig(cacheNames = {Constantes.CACHE_USUARIOS})
 @CrossOrigin
 @RestController
 @RequestMapping("/usuarios")
@@ -49,6 +55,7 @@ public class UsuarioController {
      * @return the response entity
      */
     @ApiOperation("Busca todos os usuários do sistema")
+    @Cacheable
     @GetMapping("/v1")
     public ResponseEntity buscarTodos(@RequestParam(value = "search", required = false) String search) {
         return usuarioService.buscarTodos(search);
@@ -61,6 +68,7 @@ public class UsuarioController {
      * @return the response entity
      */
     @ApiOperation("Busca apenas um usuário pelo o ID")
+    @Cacheable
     @GetMapping("/v1/{id}")
     public ResponseEntity buscarPorId(@PathVariable("id") Integer id) {
         return usuarioService.buscarPorId(id);
@@ -74,6 +82,7 @@ public class UsuarioController {
      * @return the response entity
      */
     @ApiOperation("Salva o usuário")
+    @CacheEvict(value = Constantes.CACHE_USUARIOS, allEntries = true)
     @PostMapping("/v1")
     public ResponseEntity salvar(@Valid @RequestBody Usuario usuario, BindingResult result) {
         return usuarioService.salvar(usuario, result);
@@ -87,6 +96,7 @@ public class UsuarioController {
      * @return the response entity
      */
     @ApiOperation("Altera o usuário")
+    @CacheEvict(value = Constantes.CACHE_USUARIOS, allEntries = true)
     @PutMapping("/v1")
     public ResponseEntity alterar(@Valid @RequestBody Usuario usuario, BindingResult result) {
         return usuarioService.alterar(usuario, result);
@@ -99,6 +109,7 @@ public class UsuarioController {
      * @return the response entity
      */
     @ApiOperation("Exclui o usuário pelo ID (deleta todos os anúncios e imagens vinculados a ele)")
+    @CacheEvict(value = Constantes.CACHE_USUARIOS, allEntries = true)
     @DeleteMapping("/v1/{id}")
     public ResponseEntity excluirPorId(@PathVariable("id") Integer id) {
         return usuarioService.excluirPorId(id);
@@ -112,6 +123,7 @@ public class UsuarioController {
      * @return the response entity
      */
     @ApiOperation("Login do usuário")
+    @Cacheable
     @GetMapping("/v1/login")
     public ResponseEntity logarUsuario(@RequestParam(value = "email") String email, @RequestParam(value = "senha") String senha) {
         return usuarioService.logarUsuario(email, senha);
