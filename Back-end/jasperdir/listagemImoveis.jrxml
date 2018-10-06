@@ -8,18 +8,19 @@
 	<parameter name="usuario" class="java.lang.String"/>
 	<parameter name="titulo" class="java.lang.String"/>
 	<field name="descricao" class="java.lang.String"/>
-	<field name="endereco.endereco" class="java.lang.String"/>
+	<field name="titulo" class="java.lang.String"/>
 	<field name="endereco.bairro" class="java.lang.String"/>
 	<field name="endereco.cidade" class="java.lang.String"/>
 	<field name="endereco.estado" class="java.lang.String"/>
 	<field name="valor" class="java.lang.Double"/>
+	<field name="endereco.endereco" class="java.lang.String"/>
 	<variable name="SUM_VALOR" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
 	</variable>
 	<pageHeader>
-		<band height="69" splitType="Stretch">
+		<band height="72" splitType="Stretch">
 			<textField>
-				<reportElement x="113" y="0" width="375" height="65" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
+				<reportElement x="180" y="11" width="298" height="45" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -42,6 +43,10 @@
 			<line>
 				<reportElement x="0" y="68" width="555" height="1" uuid="c97951a8-8a53-4a7f-a019-2b1cdaf82dfe"/>
 			</line>
+			<image>
+				<reportElement x="0" y="19" width="150" height="31" uuid="74faea9e-9c90-4362-900b-339cfa59664a"/>
+				<imageExpression><![CDATA["https://drive.google.com/uc?id=1-siqXw5QgSmFAiENZgV8FjtIn2SeN9q-"]]></imageExpression>
+			</image>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -51,7 +56,7 @@
 				<textElement verticalAlignment="Middle" markup="none">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ENDEREÇO DO IMÓVEL]]></text>
+				<text><![CDATA[TÍTULO E ENDEREÇO DO IMÓVEL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="488" y="0" width="67" height="15" uuid="9f06dc5f-291b-4d06-ad0e-fd042e9edd0c"/>
@@ -82,7 +87,7 @@
 				<textElement verticalAlignment="Middle" markup="none">
 					<font fontName="Arial" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{endereco.endereco} + ", " + $F{endereco.bairro} + ", " + $F{endereco.cidade} + "/" + $F{endereco.estado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{titulo} + ", " + $F{endereco.endereco} + ", " + $F{endereco.bairro} + ", " + $F{endereco.cidade} + "/" + $F{endereco.estado}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -93,7 +98,7 @@
 				<textElement verticalAlignment="Top" markup="none">
 					<font fontName="Arial" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Impresso por " + $P{usuario}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Gerado por " + $P{usuario}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="428" y="1" width="100" height="15" uuid="decb909a-919b-48fd-b87c-8eea9f2085f9"/>

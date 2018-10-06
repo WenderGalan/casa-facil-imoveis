@@ -11,23 +11,19 @@ import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.EnderecoRepository;
 import com.casafacilimoveis.repository.UsuarioRepository;
 import com.casafacilimoveis.service.AnuncioService;
+import com.casafacilimoveis.service.EmailService;
 import com.casafacilimoveis.service.GoogleDriveService;
 import com.casafacilimoveis.util.ReportParameter;
 import com.casafacilimoveis.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.net.MalformedURLException;
 import java.util.List;
 
 /**
@@ -55,6 +51,10 @@ public class AnuncioServiceImpl implements AnuncioService {
 
     @Autowired
     private GoogleDriveService driveService;
+
+    @Autowired
+    private EmailService emailService;
+
 
     @Override
     public ResponseEntity buscarTodos(Integer id, Integer page, Integer size) {
@@ -147,27 +147,28 @@ public class AnuncioServiceImpl implements AnuncioService {
         List<Anuncio> anuncios = anuncioRepository.findAllAnunciosByUserAndTipoNegocio(idUsuario, tipoNegocio);
         Usuario usuario = usuarioRepository.findOneById(idUsuario);
         if (anuncios != null && anuncios.size() > 0 && usuario != null) {
-            try {
-                Resource file = new UrlResource(
-                        new File(
-                                Util.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario,
-                                        new ReportParameter("titulo", "Listagem de Imóveis para Venda/Aluguel")
-                                )
-                        ).toURI()
-                );
-
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-                        .body(file);
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            String subject = null;
+            String titulo = null;
+            if (tipoNegocio == TipoNegocio.VENDA) {
+                subject = "Relatório de vendas - Casa Fácil Imóveis";
+                titulo = "Relatório de imóveis à venda";
+            } else {
+                subject = "Relatório de aluguéis - Casa Fácil Imóveis";
+                titulo = "Relatório de imóveis para alugar";
             }
+
+            String text = "Olá " + usuario.getNome() + " segue anexo o relatório solicitado!\n" +
+                    "Caso tenha alguma sugestão para incluir nos relatórios por favor responda a este e-mail!\n\n\n\n" +
+                    "Atenciosamente,\nEquipe Casa Fácil Imóveis.";
+
+
+            String pdfGerado = Util.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario,
+                    new ReportParameter("titulo", titulo)
+            );
+            return emailService.sendEmailWithAttachement(pdfGerado, usuario.getEmail(), subject, text);
         } else {
             return new ResponseEntity(new ResponseError(CodeError.USUARIO_NAO_POSSUI_ANUNCIOS,
                     "O usuário não possui anúncios suficientes para gerar relatório"), HttpStatus.BAD_REQUEST);
-
         }
     }
 

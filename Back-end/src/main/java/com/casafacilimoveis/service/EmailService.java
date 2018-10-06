@@ -1,6 +1,7 @@
 package com.casafacilimoveis.service;
 
 import com.casafacilimoveis.model.entities.ContatoAnunciante;
+import com.casafacilimoveis.model.enums.TipoNegocio;
 import org.springframework.http.ResponseEntity;
 
 /**
@@ -19,4 +20,6 @@ public interface EmailService {
     public ResponseEntity sendEmailConfirmacao(String nome, String email);
 
     public ResponseEntity sendEmailContato(ContatoAnunciante contato, Integer idAnuncio);
+
+    public ResponseEntity sendEmailWithAttachement(String arquivo, String to, String subject, String text);
 }
