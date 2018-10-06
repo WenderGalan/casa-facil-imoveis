@@ -22,7 +22,9 @@ public interface AnuncioService {
 
     public ResponseEntity buscarTodos(Integer id, Integer page, Integer size);
 
-    public ResponseEntity buscarTodosPorParametros(String rua, String bairro, String cidade, Integer page, Integer size);
+    public ResponseEntity buscaTodosAutoComplete(String text);
+
+    public ResponseEntity buscarTodosPorParametros(String pesquisa, Integer page, Integer size);
 
     public ResponseEntity buscarPorId(Integer id);
 
@@ -32,6 +34,6 @@ public interface AnuncioService {
 
     public ResponseEntity excluirPorId(Integer id);
 
-    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio,  HttpServletResponse response);
+    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, HttpServletResponse response);
 
 }

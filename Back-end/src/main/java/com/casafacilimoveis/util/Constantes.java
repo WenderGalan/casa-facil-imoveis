@@ -18,4 +18,7 @@ public class Constantes {
      */
     public static final String MIME_TYPE_IMAGE = "image/jpg";
 
+    public static final String CACHE_ANUNCIOS = "cache_anuncios";
+    public static final String CACHE_USUARIOS = "cache_usuarios";
+
 }

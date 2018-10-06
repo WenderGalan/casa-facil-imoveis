@@ -4,20 +4,25 @@
     <b-card title="Anuncios cadastrados">
       <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px; cursor: pointer; position: relative">
         <div class="row">
-          <div class="col-sm-12 col-md-4 col-lg-5" @click="detalhesAnuncio(anuncio.id)" v-if="anuncio.imagensAnuncios.length > 0">
+          <div class="col-sm-12 col-md-4 col-lg-5" @click="detalhesAnuncio(anuncio.titulo, anuncio.id)" v-if="anuncio.imagensAnuncios.length > 0">
             <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" style="width: 300px; height: 250px;"/>
           </div>
-          <div class="col-sm-12 col-md-4 col-lg-6" @click="detalhesAnuncio(anuncio.id)">
+          <div class="col-sm-12 col-md-4 col-lg-6" @click="detalhesAnuncio(anuncio.titulo, anuncio.id)">
             <h3>{{anuncio.titulo}}</h3>
             <p class="col-sm-12 col-md-4 col-lg-12" id="descricao">{{anuncio.descricao}}</p>
             <p class="text-right text-bottom" id="valor">Valor: {{anuncio.valor}}</p>
           </div>
           <div class="col-sm-12 col-md-4 col-lg-1">
-            <b-button variant="danger" id="excluir" @click="alertaAnuncio(anuncio.id)">Excluir</b-button>
-            <b-button variant="warning" id="editar" @click="editarAnuncio(anuncio.id)">Editar</b-button>
+            <b-button variant="danger" id="excluir" @click="alertaAnuncio(anuncio.id)">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </b-button>
+            <b-button variant="warning" id="editar" @click="editarAnuncio(anuncio.id)">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </b-button>
           </div>
         </div>
       </b-card>
+      <b-button variant="info" :disabled="enableButton" @click="listarAnuncios">Carregar mais anúncios</b-button>
     </b-card>
   </div>
 </template>
@@ -35,22 +40,34 @@ export default {
   data () {
     return {
       anuncios: null,
-      showModal: false
+      showModal: false,
+      page: 0,
+      fazerBusca: true,
+      enableButton: false
     }
   },
   methods: {
     listarAnuncios () {
-      this.showModal = true
-      buscarAnunciosUsuario(this.$store.state.sessao.id).then((response) => {
-        if (response) {
-          console.log('anuncios ->', response.data)
-          this.anuncios = response.data
+      if (this.fazerBusca) {
+        this.showModal = true
+        buscarAnunciosUsuario(this.$store.state.sessao.id, this.page).then((response) => {
+          if (response.data.length > 0) {
+            this.page++
+            console.log('anuncios ->', response.data)
+            this.anuncios = response.data
+            this.showModal = false
+          } else {
+            Swal.alertUmButton('Não existem mais anúncio', '', 'info')
+            this.showModal = false
+            this.fazerBusca = false
+            this.enableButton = true
+          }
+        }).catch((err) => {
+          console.log(err.response)
+          Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
           this.showModal = false
-        }
-      }).catch((err) => {
-        console.log(err.response)
-        this.showModal = false
-      })
+        })
+      }
     },
     alertaAnuncio (id) {
       Swal.alertDoisButtons('Atenção!', 'Deseja mesmo deletar este anuncio?', 'warning')
@@ -74,9 +91,9 @@ export default {
         console.log(err.response)
       })
     },
-    detalhesAnuncio (id) {
+    detalhesAnuncio (title, id) {
       console.log('id ->', id)
-      this.$router.push({name: 'detalheImovel', params: {id}})
+      this.$router.push({name: 'detalheImovel', params: {title, id}})
     },
     editarAnuncio (id) {
       this.$router.push({name: 'editarAnuncio', params: {id}})

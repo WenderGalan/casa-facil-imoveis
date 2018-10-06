@@ -53,7 +53,7 @@ export default new Router({
           }
         },
         {
-          path: '/private/detalhes/:id',
+          path: '/private/detalhes/:title/:id',
           name: 'detalheImovel',
           component: DetalheImovel
         },

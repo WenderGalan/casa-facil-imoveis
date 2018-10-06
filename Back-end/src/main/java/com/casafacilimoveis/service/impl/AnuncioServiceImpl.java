@@ -7,30 +7,27 @@ import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.CodeError;
 import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.repository.AnuncioRepository;
+import com.casafacilimoveis.repository.EnderecoRepository;
 import com.casafacilimoveis.repository.UsuarioRepository;
 import com.casafacilimoveis.service.AnuncioService;
 import com.casafacilimoveis.service.GoogleDriveService;
 import com.casafacilimoveis.util.ReportParameter;
 import com.casafacilimoveis.util.Util;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
+import com.casafacilimoveis.model.enums.TipoNegocio;
 import java.util.List;
 
 /**
@@ -54,6 +51,9 @@ public class AnuncioServiceImpl implements AnuncioService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
+    private EnderecoRepository enderecoRepository;
+
+    @Autowired
     private GoogleDriveService driveService;
 
     @Override
@@ -70,31 +70,19 @@ public class AnuncioServiceImpl implements AnuncioService {
     }
 
     @Override
-    public ResponseEntity buscarTodosPorParametros(String rua, String bairro, String cidade, Integer page, Integer size) {
+    public ResponseEntity buscaTodosAutoComplete(String text) {
+        if (text != null && !text.isEmpty() && text.length() > 2) {
+            List<String> cidades = enderecoRepository.findCidadesAutoComplete(text.toLowerCase());
+            List<String> bairros = enderecoRepository.findBairroAutoComplete(text.toLowerCase());
+            List<String> enderecos = enderecoRepository.findEnderecoAutoComplete(text.toLowerCase());
+            return ResponseEntity.ok(SugestaoAutoComplete.criaSugestaoAutoComplete(cidades, bairros, enderecos));
+        } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @Override
+    public ResponseEntity buscarTodosPorParametros(String pesquisa, Integer page, Integer size) {
         PageRequest pageable = PageRequest.of(page, size);
-        Page<Anuncio> anuncios = null;
-        if (rua != null && !rua.isEmpty() && bairro != null && !bairro.isEmpty() && cidade != null && !cidade.isEmpty()) {
-            //busca com todos os parametros
-            anuncios = anuncioRepository.findByRuaBairroCidade(rua, bairro, cidade, pageable);
-        } else if (rua != null && !rua.isEmpty() && bairro != null && !bairro.isEmpty() && cidade == null) {
-            //busca pela rua e bairro
-            anuncios = anuncioRepository.findByRuaBairro(rua, bairro, pageable);
-        } else if (rua != null && !rua.isEmpty() && bairro == null && cidade != null && !cidade.isEmpty()) {
-            //busca pela rua e cidade
-            anuncios = anuncioRepository.findByRuaCidade(rua, cidade, pageable);
-        } else if (rua == null && bairro != null && !bairro.isEmpty() && cidade != null && !cidade.isEmpty()) {
-            //busca pelo bairro e cidade
-            anuncios = anuncioRepository.findByBairroCidade(bairro, cidade, pageable);
-        } else if (rua != null && !rua.isEmpty() && bairro == null && cidade == null) {
-            //busca somente pela rua
-            anuncios = anuncioRepository.findByRua(rua, pageable);
-        } else if (rua == null && bairro != null && !bairro.isEmpty() && cidade == null) {
-            //busca somente pelo bairro
-            anuncios = anuncioRepository.findByBairro(bairro, pageable);
-        } else if (rua == null && bairro == null && cidade != null && !cidade.isEmpty()) {
-            //busca somente pela cidade
-            anuncios = anuncioRepository.findByCidade(cidade, pageable);
-        }
+        Page<Anuncio> anuncios = anuncioRepository.findAnunciosByParams(pesquisa, pageable);
         return ResponseEntity.ok(anuncios.getContent());
     }
 
@@ -155,7 +143,7 @@ public class AnuncioServiceImpl implements AnuncioService {
     }
 
     @Override
-    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio,  HttpServletResponse response) {
+    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, HttpServletResponse response) {
         List<Anuncio> anuncios = anuncioRepository.findAllAnunciosByUserAndTipoNegocio(idUsuario, tipoNegocio);
         Usuario usuario = usuarioRepository.findOneById(idUsuario);
         if (anuncios != null && anuncios.size() > 0 && usuario != null) {
@@ -172,7 +160,7 @@ public class AnuncioServiceImpl implements AnuncioService {
                         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                         .body(file);
 
-            }catch (MalformedURLException e){
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }

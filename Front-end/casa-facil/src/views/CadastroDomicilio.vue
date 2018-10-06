@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="col-sm-12 col-md-4 col-lg-12">
-                      <input type="text" v-model="localizacao.uf" class="form-control"/>
+                      <input type="text" id="uf" v-model="localizacao.uf" class="form-control"/>
                     </div>
                   </div>
 
@@ -52,7 +52,7 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" v-model="localizacao.localidade" class="form-control"/>
+                <input type="text" id="localidade" v-model="localizacao.localidade" class="form-control"/>
               </div>
             </div>
           </div>
@@ -64,7 +64,7 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" v-model="localizacao.logradouro" class="form-control"/>
+                <input type="text" id="logradouro" v-model="localizacao.logradouro" class="form-control"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
@@ -144,6 +144,7 @@ import Axios from 'axios'
 import {salvarAnuncio, salvarImagensAnuncio} from '../services/requestServices'
 import loaderModal from '../templates/Loader'
 import Swal from '../util/Swal'
+import Utils from '../util/Utils'
 
 export default {
   name: 'CadastroDomicilio',
@@ -208,32 +209,68 @@ export default {
         console.log(err.response)
       })
     },
-    adicionarAnuncio () {
-      this.showModal = true
-      const anuncio = {
-        descricao: this.infoImovel.descricao,
-        endereco: {
-          bairro: this.localizacao.bairro,
-          cep: this.localizacao.cep,
-          cidade: this.localizacao.localidade,
-          complemento: this.localizacao.complemento,
-          endereco: this.localizacao.logradouro,
-          estado: this.localizacao.uf,
-          latitude: 0.0,
-          longitude: 0.0,
-          numero: this.localizacao.numero
-        },
-        tipoImovel: this.infoImovel.tipoImovel,
-        titulo: this.infoImovel.titulo,
-        valor: this.infoImovel.valor
+    validarCadastro() {
+      debugger
+      let result = true
+      if(this.localizacao.cep === null || this.localizacao.cep === '') {
+        Utils.alertInput('cep')
+        result = false
+      } else {
+        Utils.alertInputValid('cep')
       }
-      salvarAnuncio(this.$store.state.sessao.id, anuncio).then((response) => {
-        if (response.data) {
-          this.salvarImagens(response.data.id)
+
+      if (this.localizacao.logradouro === null || this.localizacao.logradouro === '') {
+        Utils.alertInput('logradouro')
+        result = false
+      } else {
+        Utils.alertInputValid('logradouro')
+      }
+
+      if (this.localizacao.uf === null || this.localizacao.uf === '') {
+        Utils.alertInput('uf')
+        result = false
+      } else {
+        Utils.alertInputValid('uf')
+      }
+
+      if (this.localizacao.localidade === null || this.localizacao.localidade === '') {
+        Utils.alertInput('localidade')
+        result = false
+      } else {
+        Utils.alertInputValid('localidade')
+      }
+      return result
+    },
+    adicionarAnuncio () {
+      debugger
+      if (this.validarCadastro()) {
+        this.showModal = true
+        const anuncio = {
+          descricao: this.infoImovel.descricao,
+          endereco: {
+            bairro: this.localizacao.bairro,
+            cep: this.localizacao.cep,
+            cidade: this.localizacao.localidade,
+            complemento: this.localizacao.complemento,
+            endereco: this.localizacao.logradouro,
+            estado: this.localizacao.uf,
+            latitude: 0.0,
+            longitude: 0.0,
+            numero: this.localizacao.numero
+          },
+          tipoImovel: this.infoImovel.tipoImovel,
+          titulo: this.infoImovel.titulo,
+          valor: this.infoImovel.valor
         }
-      }).catch((err) => {
-        console.log(err.response)
-      })
+        salvarAnuncio(this.$store.state.sessao.id, anuncio).then((response) => {
+          if (response.data) {
+            this.salvarImagens(response.data.id)
+          }
+        }).catch((err) => {
+          console.log(err.response)
+          Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
+        })
+      }
     },
     salvarImagens (id) {
       let formData = new FormData()
@@ -248,6 +285,7 @@ export default {
           this.$router.push({name: 'home'})
           Swal.alertUmButton('Salvo com sucesso', '', 'success')
       }).catch((err) => {
+        Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
         console.log(err.response)
         this.showModal = false
       })

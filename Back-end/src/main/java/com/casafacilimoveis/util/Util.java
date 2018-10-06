@@ -18,12 +18,12 @@ import java.util.*;
  * casa-facil-imoveis
  * Wender Galan
  * Todos os direitos reservados ©
- **********************************************
+ * *********************************************
  * Nome do arquivo: Util.java
  * Criado por : Wender Galan
  * Data da criação :
  * Observação :
- **********************************************
+ * *********************************************
  */
 public class Util {
 
@@ -38,10 +38,10 @@ public class Util {
      * @param erros the erros
      * @return the list
      */
-    public static List<Validation> criarListaDeErrosDaValidacao(List<ObjectError> erros){
+    public static List<Validation> criarListaDeErrosDaValidacao(List<ObjectError> erros) {
         List<Validation> lista = new ArrayList<>();
-        if(erros != null && !erros.isEmpty()){
-            for(ObjectError error : erros){
+        if (erros != null && !erros.isEmpty()) {
+            for (ObjectError error : erros) {
                 lista.add(new Validation(error.getObjectName(), error.getDefaultMessage()));
             }
         }
