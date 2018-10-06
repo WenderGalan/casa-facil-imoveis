@@ -1,6 +1,7 @@
 package com.casafacilimoveis.controller;
 
 import com.casafacilimoveis.model.entities.Anuncio;
+import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.service.AnuncioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -116,4 +118,18 @@ public class AnuncioController {
     public ResponseEntity excluirPorId(@PathVariable("id") Integer id) {
         return anuncioService.excluirPorId(id);
     }
+
+    /**
+     * Cria o relátorio da listagem de imoveis a venda
+     *
+     * @param idUsuario   - id do usuário logado
+     * @param tipoNegocio - é o tipo de negócio que será baseado o relatorio
+     * @return relatorio
+     **/
+    @ApiOperation("Gera o relatório de listagem de anúncios a venda ou para alugar do usuário")
+    @GetMapping("/relatorio/venda/{idUsuario}")
+    public ResponseEntity listagemVendaAluguel(@PathVariable("idUsuario") Integer idUsuario, @RequestParam TipoNegocio tipoNegocio, HttpServletResponse response) {
+        return anuncioService.relatorioVendaAluguel(idUsuario, tipoNegocio, response);
+    }
+
 }

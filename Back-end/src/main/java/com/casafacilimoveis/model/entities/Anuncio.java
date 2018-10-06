@@ -1,6 +1,7 @@
 package com.casafacilimoveis.model.entities;
 
 import com.casafacilimoveis.model.enums.TipoImovel;
+import com.casafacilimoveis.model.enums.TipoNegocio;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -13,12 +14,12 @@ import java.util.Objects;
  * casa-facil-imoveis
  * Wender Galan
  * Todos os direitos reservados ©
- **********************************************
+ * *********************************************
  * Nome do arquivo: Anuncio.java
  * Criado por : Wender Galan
  * Data da criação :
  * Observação :
- **********************************************
+ * *********************************************
  */
 @Entity
 @Table(name = "anuncios", schema = "public")
@@ -55,6 +56,10 @@ public class Anuncio implements Serializable {
     @Column(name = "tipo_imovel", nullable = false)
     @NotNull(message = "O tipo de imóvel não foi informado.")
     private TipoImovel tipoImovel;
+
+    @Column(name = "tipo_negocio", nullable = false)
+    @NotNull(message = "O tipo do negócio não foi informado.")
+    private TipoNegocio tipoNegocio;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "anuncio")
     private List<Imagem> imagensAnuncios;
@@ -201,6 +206,14 @@ public class Anuncio implements Serializable {
      */
     public void setImagensAnuncios(List<Imagem> imagensAnuncios) {
         this.imagensAnuncios = imagensAnuncios;
+    }
+
+    public TipoNegocio getTipoNegocio() {
+        return tipoNegocio;
+    }
+
+    public void setTipoNegocio(TipoNegocio tipoNegocio) {
+        this.tipoNegocio = tipoNegocio;
     }
 
     @Override

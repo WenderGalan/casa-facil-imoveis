@@ -5,18 +5,33 @@ import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Imagem;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.CodeError;
+import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.UsuarioRepository;
 import com.casafacilimoveis.service.AnuncioService;
 import com.casafacilimoveis.service.GoogleDriveService;
+import com.casafacilimoveis.util.ReportParameter;
 import com.casafacilimoveis.util.Util;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.util.List;
 
 /**
  * casa-facil-imoveis
@@ -138,4 +153,34 @@ public class AnuncioServiceImpl implements AnuncioService {
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @Override
+    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio,  HttpServletResponse response) {
+        List<Anuncio> anuncios = anuncioRepository.findAllAnunciosByUserAndTipoNegocio(idUsuario, tipoNegocio);
+        Usuario usuario = usuarioRepository.findOneById(idUsuario);
+        if (anuncios != null && anuncios.size() > 0 && usuario != null) {
+            try {
+                Resource file = new UrlResource(
+                        new File(
+                                Util.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario,
+                                        new ReportParameter("titulo", "Listagem de Imóveis para Venda/Aluguel")
+                                )
+                        ).toURI()
+                );
+
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                        .body(file);
+
+            }catch (MalformedURLException e){
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        } else {
+            return new ResponseEntity(new ResponseError(CodeError.USUARIO_NAO_POSSUI_ANUNCIOS,
+                    "O usuário não possui anúncios suficientes para gerar relatório"), HttpStatus.BAD_REQUEST);
+
+        }
+    }
+
 }

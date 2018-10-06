@@ -1,8 +1,11 @@
 package com.casafacilimoveis.service;
 
 import com.casafacilimoveis.model.entities.Anuncio;
+import com.casafacilimoveis.model.enums.TipoNegocio;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * casa-facil-imoveis
@@ -28,4 +31,7 @@ public interface AnuncioService {
     public ResponseEntity alterar(Anuncio anuncio, BindingResult result);
 
     public ResponseEntity excluirPorId(Integer id);
+
+    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio,  HttpServletResponse response);
+
 }

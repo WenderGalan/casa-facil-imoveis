@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listagemImoveis" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="30e8a3cd-ccd5-42e3-8584-f8894b1b68eb">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataAtual" class="java.util.Date"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="endereco.endereco" class="java.lang.String"/>
+	<field name="endereco.bairro" class="java.lang.String"/>
+	<field name="endereco.cidade" class="java.lang.String"/>
+	<field name="endereco.estado" class="java.lang.String"/>
+	<field name="valor" class="java.lang.Double"/>
+	<variable name="SUM_VALOR" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="69" splitType="Stretch">
+			<textField>
+				<reportElement x="113" y="0" width="375" height="65" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="488" y="0" width="67" height="15" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataAtual}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="488" y="15" width="67" height="15" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataAtual}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="68" width="555" height="1" uuid="c97951a8-8a53-4a7f-a019-2b1cdaf82dfe"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="488" height="15" uuid="9f06dc5f-291b-4d06-ad0e-fd042e9edd0c"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENDEREÇO DO IMÓVEL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="488" y="0" width="67" height="15" uuid="9f06dc5f-291b-4d06-ad0e-fd042e9edd0c"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="15" width="555" height="1" uuid="c97951a8-8a53-4a7f-a019-2b1cdaf82dfe"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="488" y="0" width="67" height="15" uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="488" height="15" uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endereco.endereco} + ", " + $F{endereco.bairro} + ", " + $F{endereco.cidade} + "/" + $F{endereco.estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="384" height="15" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Impresso por " + $P{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="1" width="100" height="15" uuid="decb909a-919b-48fd-b87c-8eea9f2085f9"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página  "+$V{PAGE_NUMBER}+"  de  "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="528" y="1" width="27" height="15" uuid="f65c1c02-741f-4bc9-8cf0-be711812860f"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="c97951a8-8a53-4a7f-a019-2b1cdaf82dfe"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="c97951a8-8a53-4a7f-a019-2b1cdaf82dfe"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="488" y="1" width="67" height="15" uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_VALOR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

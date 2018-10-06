@@ -1,11 +1,14 @@
 package com.casafacilimoveis.repository;
 
 import com.casafacilimoveis.model.entities.Anuncio;
+import com.casafacilimoveis.model.enums.TipoNegocio;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * casa-facil-imoveis
@@ -62,5 +65,10 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Integer> {
 
     @Query("SELECT a FROM Anuncio a WHERE a.endereco.cidade LIKE %?1%")
     public Page<Anuncio> findByCidade(String cidade, Pageable pageable);
+
+    @Query("SELECT a FROM Anuncio a JOIN FETCH a.endereco e " +
+            "WHERE a.anunciante.id = ?1 AND a.tipoNegocio = ?2 " +
+            "ORDER BY e.estado, e.cidade, e.bairro, e.endereco, e.numero")
+    public List<Anuncio> findAllAnunciosByUserAndTipoNegocio(Integer idUsuario, TipoNegocio tipoNegocio);
 
 }
