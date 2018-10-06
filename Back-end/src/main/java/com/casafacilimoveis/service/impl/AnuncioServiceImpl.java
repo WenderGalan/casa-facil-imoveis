@@ -143,7 +143,7 @@ public class AnuncioServiceImpl implements AnuncioService {
     }
 
     @Override
-    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, HttpServletResponse response) {
+    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio) {
         List<Anuncio> anuncios = anuncioRepository.findAllAnunciosByUserAndTipoNegocio(idUsuario, tipoNegocio);
         Usuario usuario = usuarioRepository.findOneById(idUsuario);
         if (anuncios != null && anuncios.size() > 0 && usuario != null) {

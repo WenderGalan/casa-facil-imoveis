@@ -6,6 +6,7 @@ import com.casafacilimoveis.model.entities.Endereco;
 import com.casafacilimoveis.model.entities.Imagem;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.TipoImovel;
+import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.model.enums.TipoUsuario;
 import com.casafacilimoveis.util.SenhaUtil;
 import org.junit.After;
@@ -72,6 +73,7 @@ public class ImagemRepositoryTest extends CasaFacilImoveisApplicationTests {
         anuncio.setDescricao("Aqui fica a descrição");
         anuncio.setEndereco(endereco);
         anuncio.setImagensAnuncios(null);
+        anuncio.setTipoNegocio(TipoNegocio.VENDA);
         anuncio.setTipoImovel(TipoImovel.IMOVEL_COMERCIAL);
         anuncio.setTitulo("Aqui fica o titulo");
         anuncio.setValor(250000.00);

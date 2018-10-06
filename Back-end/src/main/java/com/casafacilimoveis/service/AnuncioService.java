@@ -5,8 +5,6 @@ import com.casafacilimoveis.model.enums.TipoNegocio;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * casa-facil-imoveis
  * Wender Galan
@@ -34,6 +32,6 @@ public interface AnuncioService {
 
     public ResponseEntity excluirPorId(Integer id);
 
-    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, HttpServletResponse response);
+    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio);
 
 }
