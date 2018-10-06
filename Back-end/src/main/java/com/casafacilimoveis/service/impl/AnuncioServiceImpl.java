@@ -3,6 +3,7 @@ package com.casafacilimoveis.service.impl;
 import com.casafacilimoveis.model.beans.ResponseError;
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Imagem;
+import com.casafacilimoveis.model.entities.SugestaoAutoComplete;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.CodeError;
 import com.casafacilimoveis.model.enums.TipoNegocio;
@@ -27,7 +28,6 @@ import org.springframework.validation.BindingResult;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.net.MalformedURLException;
-import com.casafacilimoveis.model.enums.TipoNegocio;
 import java.util.List;
 
 /**
