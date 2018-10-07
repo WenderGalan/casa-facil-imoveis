@@ -22,21 +22,21 @@
 			<textField>
 				<reportElement x="180" y="11" width="298" height="45" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="488" y="0" width="67" height="15" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-					<font fontName="Arial" size="8" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dataAtual}]]></textFieldExpression>
 			</textField>
 			<textField pattern="HH:mm">
 				<reportElement x="488" y="15" width="67" height="15" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-					<font fontName="Arial" size="8" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dataAtual}]]></textFieldExpression>
 			</textField>
@@ -54,14 +54,14 @@
 			<staticText>
 				<reportElement x="0" y="0" width="488" height="15" uuid="9f06dc5f-291b-4d06-ad0e-fd042e9edd0c"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="Arial" size="8" isBold="true"/>
+					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TÍTULO E ENDEREÇO DO IMÓVEL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="488" y="0" width="67" height="15" uuid="9f06dc5f-291b-4d06-ad0e-fd042e9edd0c"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="Arial" size="8" isBold="true"/>
+					<font fontName="SansSerif" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VALOR]]></text>
 			</staticText>
@@ -78,14 +78,14 @@
 			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
 				<reportElement x="488" y="0" width="67" height="15" uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="Arial" size="8" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="488" height="15" uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="Arial" size="8" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{titulo} + ", " + $F{endereco.endereco} + ", " + $F{endereco.bairro} + ", " + $F{endereco.cidade} + "/" + $F{endereco.estado}]]></textFieldExpression>
 			</textField>
@@ -96,21 +96,21 @@
 			<textField>
 				<reportElement x="0" y="1" width="384" height="15" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
 				<textElement verticalAlignment="Top" markup="none">
-					<font fontName="Arial" size="8" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Gerado por " + $P{usuario}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="428" y="1" width="100" height="15" uuid="decb909a-919b-48fd-b87c-8eea9f2085f9"/>
 				<textElement textAlignment="Right" verticalAlignment="Top">
-					<font fontName="Arial" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Página  "+$V{PAGE_NUMBER}+"  de  "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="528" y="1" width="27" height="15" uuid="f65c1c02-741f-4bc9-8cf0-be711812860f"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["  " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
@@ -133,7 +133,7 @@
 			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
 				<reportElement x="488" y="1" width="67" height="15" uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9"/>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="Arial" size="8" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{SUM_VALOR}]]></textFieldExpression>
 			</textField>
