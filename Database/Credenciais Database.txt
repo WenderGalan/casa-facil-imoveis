@@ -1,8 +1,8 @@
-Host: ec2-54-225-76-201.compute-1.amazonaws.com
-Database: d6lhr24e7nudg7
+Host: ec2-54-225-97-112.compute-1.amazonaws.com
+Database: dep3ele3ei4luk
 User: zxebwestoynydb
 Port: 5432
-Password: d34c0eb85f03b41d9560aa2b1655c6bbcb30a9dea0a8fdd9985ab06be5016a73
-URI: postgres://zxebwestoynydb:d34c0eb85f03b41d9560aa2b1655c6bbcb30a9dea0a8fdd9985ab06be5016a73@ec2-54-225-76-201.compute-1.amazonaws.com:5432/d6lhr24e7nudg7
+Password: 0dd6f4527ec482e3cb151715535009bd23688dfc186f3e5ad014a66641c690ff
+URI: postgres://tbxklcdkrqxaly:0dd6f4527ec482e3cb151715535009bd23688dfc186f3e5ad014a66641c690ff@ec2-54-225-97-112.compute-1.amazonaws.com:5432/dep3ele3ei4luk
 Heroku CLI: heroku pg:psql postgresql-flat-79732 --app casa-facil-imoveis
-URL: jdbc:postgresql://ec2-54-225-76-201.compute-1.amazonaws.com:5432/d6lhr24e7nudg7?sslmode=require
+URL: jdbc:postgresql://ec2-54-225-97-112.compute-1.amazonaws.com:5432/dep3ele3ei4luk?sslmode=require
