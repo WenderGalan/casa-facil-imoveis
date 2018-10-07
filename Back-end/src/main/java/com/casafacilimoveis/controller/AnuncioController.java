@@ -149,7 +149,7 @@ public class AnuncioController {
     @Cacheable
     @GetMapping("/relatorio/venda/{idUsuario}")
     public ResponseEntity listagemVendaAluguel(@PathVariable("idUsuario") Integer idUsuario, @RequestParam TipoNegocio tipoNegocio, HttpServletResponse response) {
-        return anuncioService.relatorioVendaAluguel(idUsuario, tipoNegocio, response);
+        return anuncioService.relatorioVendaAluguel(idUsuario, tipoNegocio);
     }
 
 }
