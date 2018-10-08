@@ -79,6 +79,7 @@
 
 <script>
   import {alterarUsuario, salvarImagemUsuario, deletarUsuario, gerarRelatorio} from '../services/requestServices'
+  import http from '../services/http'
   import Utils from '../util/Utils'
   import constantes from '../util/constantes'
   import loaderPerfil from '../templates/Loader'
@@ -109,16 +110,16 @@
     methods: {
 
       atribuirInformacoes() {
-        const user = this.$store.state.sessao
+        const user = this.$store.state.sessao;
         this.perfilUsuario = user
       },
       salvarAlteracoes() {
-        this.perfilUsuario.numero = Utils.formatarNumero(this.perfilUsuario.numero)
-        console.log(this.perfilUsuario.numero)
+        this.perfilUsuario.numero = Utils.formatarNumero(this.perfilUsuario.numero);
+        console.log(this.perfilUsuario.numero);
         alterarUsuario(this.perfilUsuario).then((response) => {
           if (response.data) {
-            this.perfilUsuario = response.data
-            this.$store.commit('alterarSessao', this.perfilUsuario)
+            this.perfilUsuario = response.data;
+            this.$store.commit('alterarSessao', this.perfilUsuario);
             alert('Seu perfil foi alterado com sucesso!')
           }
         }).catch((err) => {
@@ -130,8 +131,8 @@
           .then((value) => {
             switch (value) {
               case 'sim':
-                this.showModal = true
-                this.deleteUser()
+                this.showModal = true;
+                this.deleteUser();
                 break;
               case 'nao':
                 break;
@@ -140,7 +141,7 @@
       },
       deleteUser() {
         deletarUsuario(this.perfilUsuario.id).then((response) => {
-          this.showModal = false
+          this.showModal = false;
           Swal.alertUmButton('Conta excluida com sucesso!', '', 'success')
             .then((value) => {
               switch (value) {
@@ -159,7 +160,9 @@
         this.showModal = true;
         gerarRelatorio(tipoNegocio, this.perfilUsuario.id).then(response => {
           this.showModal = false;
-          Swal.alertUmButton('', 'Relatório gerado com sucesso, verifique seu email para mais informações', 'success')
+          // Swal.alertUmButton('', 'Relatório gerado com sucesso, verifique seu email para mais informações', 'success')
+          window.URL.createObjectURL(new Blob([response.data]));
+          window.open(`${http.baseURL}reports?token=${response.data}`, '_blank')
         }).catch(err => {
           this.showModal = false;
           if (err.data.code === 1003) {

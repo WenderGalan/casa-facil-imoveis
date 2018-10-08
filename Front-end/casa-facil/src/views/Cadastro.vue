@@ -6,18 +6,18 @@
         <div class="row">
           <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
             <fb-signin-button
-              :params="fbSignInParams"
-              @success="onSignInSuccess"
-              @error="onSignInError">
+                :params="fbSignInParams"
+                @success="onSignInSuccess"
+                @error="onSignInError">
               <b>Entre com uma conta facebook</b>
             </fb-signin-button>
           </div>
 
           <div style="margin-top: 15px" class="col-sm-12 col-md-4 col-lg-12">
             <g-signin-button
-              :params="googleSignInParams"
-              @success="onSignInSuccessGoogle"
-              @error="onSignInErrorGoogle">
+                :params="googleSignInParams"
+                @success="onSignInSuccessGoogle"
+                @error="onSignInErrorGoogle">
               <b>Cadastre-se com uma conta google</b>
             </g-signin-button>
           </div>
@@ -26,32 +26,15 @@
             <p>ou</p>
           </div>
 
-          <div style="margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
-            <p class="text-left">Digite seu nome e sobrenome:*</p>
-          </div>
+          <input-component :tipo="'text'" :holder="'Nome'" :id="'nome'" :label="'Digite seu nome e sobrenome:*'"
+                           @resultadoText="atribuirResultado"/>
 
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="text" id="nome" placeholder="Nome" v-model="novoUsuario.nome"
-                   class="form-control col-sm-12 col-md-4 col-lg-12"/>
-          </div>
+          <input-number-component :holder="'Número (opcional)'" :id="'numero'" :tipo="'text'" :label="'Digite seu número de telefone:'"
+                           :mask="'(##) #####-####'"
+                           @resultadoText="atribuirResultado"/>
 
-          <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
-            <p class="text-left">Digite seu número de telefone:</p>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="text" placeholder="Número (opcional)" v-model="novoUsuario.numero" v-mask="'(##) #####-####'"
-                   class="form-control col-sm-12 col-md-4 col-lg-12"/>
-          </div>
-
-          <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
-            <p class="text-left">Digite seu Email:*</p>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <input type="text" id="email" placeholder="exemplo@dominio.com" v-model="novoUsuario.email"
-                   class="form-control col-sm-12 col-md-4 col-lg-12"/>
-          </div>
+          <input-component :holder="'exemplo@dominio.com'" :id="'email'" :tipo="'text'" :label="'Digite seu Email:*'"
+                           @resultadoNumber="atribuirResultado"/>
 
           <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
             <p class="text-left">Que tipo de usuário você é?</p>
@@ -81,7 +64,9 @@
           </div>
 
           <div class="container" style="margin-top: 25px">
-            <b-button class="form-control col-sm-12 col-md-4 col-lg-12" @click="validarEmail()" variant="info">Cadastrar</b-button>
+            <b-button class="form-control col-sm-12 col-md-4 col-lg-12" @click="validarEmail()" variant="info">
+              Cadastrar
+            </b-button>
           </div>
 
           <div class="container">
@@ -116,135 +101,148 @@
 </template>
 
 <script>
-import googleMixins from '../mixins/googleServiceMixins'
-import mixinsFacebook from '../mixins/facebookServiceMixins'
-import {enviarEmail, criarConta} from '../services/requestServices'
-import Utils from '../util/Utils'
-import Loader from '../templates/Loader'
-export default {
-  name: 'cadastro',
-  components: {Loader},
-  comments: {
-    Loader
-  },
-  data () {
-    return {
-      showModal: false,
-      novoUsuario: {
-        nome: '',
-        numero: '',
-        email: '',
-        senha: '',
-        tipoUsuario: null
-      },
-      confirmaSenha: '',
-      tiposDeUsuario: [
-        {
-          value: 0,
-          text: 'Sou pessoa física'
+  import googleMixins from '../mixins/googleServiceMixins'
+  import mixinsFacebook from '../mixins/facebookServiceMixins'
+  import inputComponent from '../components/inputTextComponent'
+  import inputNumberComponent from '../components/InputNumberComponent'
+  import {enviarEmail, criarConta} from '../services/requestServices'
+  import Utils from '../util/Utils'
+  import Loader from '../templates/Loader'
+
+  export default {
+    name: 'cadastro',
+    components: {
+      Loader,
+      inputComponent,
+      inputNumberComponent
+    },
+    data() {
+      return {
+        showModal: false,
+        novoUsuario: {
+          nome: '',
+          numero: '',
+          email: '',
+          senha: '',
+          tipoUsuario: null
         },
-        {
-          value: 1,
-          text: 'Sou corretor'
-        },
-        {
-          value: 2,
-          text: 'Sou uma empresa'
-        }
-      ],
-      responseEmail: {
-        campo: '',
-        mensagem: ''
-      },
-      inputValidacao: ''
-    }
-  },
-  mixins: [
-    googleMixins,
-    mixinsFacebook
-  ],
-  methods: {
-    // DIRECIONA O USUARIO PARA A TELA DE LOGIN
-    irLogin () {
-      this.$router.push({name: 'login'})
-    },
-    // FAZ A VALIDAÇÃO DOS CAMPOS
-    validarCampos () {
-      let validacao = true
-      if (this.novoUsuario.nome === null || this.novoUsuario.nome.length < 4) {
-        Utils.alertInput('nome')
-        validacao = false
-      } else {
-        Utils.alertInputValid('nome')
-      }
-      if (Utils.validateEmail(this.novoUsuario.email) === false) {
-        Utils.alertInput('email')
-        validacao = false
-      } else {
-        Utils.alertInputValid('email')
-      }
-      if (this.novoUsuario.senha === null || this.novoUsuario.senha.length < 8) {
-        Utils.alertInput('senha')
-        validacao = false
-      } else {
-        Utils.alertInputValid('senha')
-      }
-      if (this.novoUsuario.tipoUsuario === null) {
-        Utils.alertInput('tipoUsuario')
-        validacao = false
-      } else {
-        Utils.alertInputValid('tipoUsuario')
-      }
-      if (this.novoUsuario.senha.length < 8 || this.novoUsuario.senha !== this.confirmaSenha) {
-        Utils.alertInput('senha')
-        Utils.alertInput('confirmaSenha')
-        validacao = false
-      } else {
-        Utils.alertInputValid('senha')
-        Utils.alertInputValid('confirmaSenha')
-      }
-      return validacao
-    },
-    // ENVIA UM EMAIL DE VALIDAÇÃO PARA O EMAIL DA PESSOA
-    validarEmail () {
-      if (this.validarCampos()) {
-        this.showModal = true;
-        enviarEmail(this.novoUsuario.nome, this.novoUsuario.email).then((response) => {
-          this.responseEmail = response.data;
-          this.mostrarModal()
-        }).catch((err) => {
-          console.log(err)
-        })
-      }
-    },
-    // APARECE A MODAL NA TELA
-    mostrarModal () {
-      debugger;
-      this.showModal = false;
-      this.$refs.myModalRef.show()
-    },
-    // ESCONDE A MODAL DA TELA
-    hideModal () {
-      if (this.inputValidacao === this.responseEmail.mensagem) {
-        if (this.novoUsuario.numero.length > 0) {
-          this.novoUsuario.numero = Utils.formatarNumero(this.novoUsuario.numero)
-        }
-        this.showModal = true;
-        criarConta(this.novoUsuario).then((response) => {
-          this.showModal = false;
-          if (response.data) {
-            this.novoUsuario = response.data;
-            this.$refs.myModalRef.hide();
-            this.$store.commit('alterarSessao', this.novoUsuario);
-            this.$router.push({name: 'home'})
+        confirmaSenha: '',
+        tiposDeUsuario: [
+          {
+            value: 0,
+            text: 'Sou pessoa física'
+          },
+          {
+            value: 1,
+            text: 'Sou corretor'
+          },
+          {
+            value: 2,
+            text: 'Sou uma empresa'
           }
-        }).catch((err) => {
-          console.log(err.response)
-        })
+        ],
+        responseEmail: {
+          campo: '',
+          mensagem: ''
+        },
+        inputValidacao: ''
+      }
+    },
+    mixins: [
+      googleMixins,
+      mixinsFacebook
+    ],
+    methods: {
+      atribuirResultado(result) {
+        if (result.id === 'nome') {
+          this.novoUsuario.nome = result.message;
+        } else if (result.id === 'email') {
+          this.novoUsuario.email = result.message;
+        } else if (result.id === 'numero') {
+          this.novoUsuario.numero = result.message;
+        }
+      },
+      // DIRECIONA O USUARIO PARA A TELA DE LOGIN
+      irLogin() {
+        this.$router.push({name: 'login'})
+      },
+      // FAZ A VALIDAÇÃO DOS CAMPOS
+      validarCampos() {
+        let validacao = true
+        if (this.novoUsuario.nome === null || this.novoUsuario.nome.length < 4) {
+          Utils.alertInput('nome')
+          validacao = false
+        } else {
+          Utils.alertInputValid('nome')
+        }
+        if (Utils.validateEmail(this.novoUsuario.email) === false) {
+          Utils.alertInput('email')
+          validacao = false
+        } else {
+          Utils.alertInputValid('email')
+        }
+        if (this.novoUsuario.senha === null || this.novoUsuario.senha.length < 8) {
+          Utils.alertInput('senha')
+          validacao = false
+        } else {
+          Utils.alertInputValid('senha')
+        }
+        if (this.novoUsuario.tipoUsuario === null) {
+          Utils.alertInput('tipoUsuario')
+          validacao = false
+        } else {
+          Utils.alertInputValid('tipoUsuario')
+        }
+        if (this.novoUsuario.senha.length < 8 || this.novoUsuario.senha !== this.confirmaSenha) {
+          Utils.alertInput('senha')
+          Utils.alertInput('confirmaSenha')
+          validacao = false
+        } else {
+          Utils.alertInputValid('senha')
+          Utils.alertInputValid('confirmaSenha')
+        }
+        return validacao
+      },
+      // ENVIA UM EMAIL DE VALIDAÇÃO PARA O EMAIL DA PESSOA
+      validarEmail() {
+        if (this.validarCampos()) {
+          this.showModal = true;
+          enviarEmail(this.novoUsuario.nome, this.novoUsuario.email).then((response) => {
+            this.responseEmail = response.data;
+            this.mostrarModal()
+          }).catch((err) => {
+            console.log(err)
+          })
+        }
+      },
+      // APARECE A MODAL NA TELA
+      mostrarModal() {
+        debugger;
+        this.showModal = false;
+        this.$refs.myModalRef.show()
+      },
+      // ESCONDE A MODAL DA TELA
+      hideModal() {
+        if (this.inputValidacao === this.responseEmail.mensagem) {
+          if (this.novoUsuario.numero.length > 0) {
+            this.novoUsuario.numero = Utils.formatarNumero(this.novoUsuario.numero)
+          }
+          this.showModal = true;
+          criarConta(this.novoUsuario).then((response) => {
+            this.showModal = false;
+            if (response.data) {
+              this.novoUsuario = response.data;
+              this.$refs.myModalRef.hide();
+              this.$store.commit('alterarSessao', this.novoUsuario);
+              this.$router.push({name: 'home'})
+            }
+          }).catch((err) => {
+            console.log(err.response)
+          })
+        }
       }
     }
   }
-}
 </script>
 
 <style scoped>

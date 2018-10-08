@@ -298,8 +298,11 @@
           })
       }
     },
-    beforeRouteEnter(to, from, next) {
-      next(vm => vm.findAnuncio())
+    // beforeRouteEnter(to, from, next) {
+    //   next(vm => vm.findAnuncio())
+    // },
+    beforeMount() {
+      this.findAnuncio();
     },
     watch: {
       fotos(fotos) {
