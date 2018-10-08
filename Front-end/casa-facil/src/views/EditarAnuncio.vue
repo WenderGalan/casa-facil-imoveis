@@ -16,7 +16,8 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-10">
-                <input type="text" id="cep" @keyup.enter="buscarCep" v-model="localizacao.cep" v-mask="'#####-###'" class="form-control"/>
+                <input type="text" id="cep" @keyup.enter="buscarCep" v-model="localizacao.cep" v-mask="'#####-###'"
+                       class="form-control"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-2">
@@ -145,7 +146,8 @@
         </div>
         <b-button style="margin-top: 10px"
                   variant="warning"
-                  @click="editarAnuncio" @keyup.enter="editarAnuncio">Salvar alterações</b-button>
+                  @click="editarAnuncio" @keyup.enter="editarAnuncio">Salvar alterações
+        </b-button>
       </b-card>
     </div>
   </div>
@@ -162,7 +164,7 @@
     components: {
       loaderModal
     },
-    data () {
+    data() {
       return {
         fotos: null,
         anuncio: null,
@@ -205,7 +207,7 @@
       }
     },
     methods: {
-      buscarCep () {
+      buscarCep() {
         Axios({
           method: 'GET',
           url: `http://viacep.com.br/ws/${this.localizacao.cep}/json/`
@@ -215,25 +217,28 @@
           console.log(err.response)
         })
       },
-      findAnuncio (id) {
-        this.showModal = true
+      findAnuncio() {
+        debugger;
+        const id = this.$router.history.current.params.id;
+        this.showModal = true;
         buscarAnuncio(id).then((response) => {
-          this.anuncio = response.data
-          this.showModal = false
+          debugger;
+          this.anuncio = response.data;
+          this.showModal = false;
           this.atribuirInformacoes()
         }).catch((err) => {
-          console.log(err.response)
+          console.log(err.response);
           this.showModal = false
         })
       },
-      atribuirInformacoes () {
-        this.localizacao.bairro = this.anuncio.endereco.bairro
-        this.localizacao.cep = this.anuncio.endereco.cep
-        this.localizacao.localidade = this.anuncio.endereco.cidade
-        this.localizacao.complemento = this.anuncio.endereco.complemento
-        this.localizacao.logradouro = this.anuncio.endereco.endereco
-        this.localizacao.numero = this.anuncio.endereco.numero
-        this.localizacao.uf = this.anuncio.endereco.estado
+      atribuirInformacoes() {
+        this.localizacao.bairro = this.anuncio.endereco.bairro;
+        this.localizacao.cep = this.anuncio.endereco.cep;
+        this.localizacao.localidade = this.anuncio.endereco.cidade;
+        this.localizacao.complemento = this.anuncio.endereco.complemento;
+        this.localizacao.logradouro = this.anuncio.endereco.endereco;
+        this.localizacao.numero = this.anuncio.endereco.numero;
+        this.localizacao.uf = this.anuncio.endereco.estado;
 
         if (this.anuncio.tiposImovel === 'Casa') {
           this.anuncio.tiposImovel = this.tiposDeDomicilio[0].value
@@ -254,38 +259,38 @@
           this.anuncio.tiposImovel = this.tiposDeDomicilio[5].value
         }
       },
-      editarAnuncio () {
-        this.showModal = true
-        this.anuncio.endereco.bairro = this.localizacao.bairro
-        this.anuncio.endereco.cep = this.localizacao.cep
-        this.anuncio.endereco.cidade = this.localizacao.localidade
-        this.anuncio.endereco.complemento = this.localizacao.complemento
-        this.anuncio.endereco.endereco = this.localizacao.logradouro
-        this.anuncio.endereco.numero = this.localizacao.numero
-        this.anuncio.endereco.estado = this.localizacao.uf
+      editarAnuncio() {
+        this.showModal = true;
+        this.anuncio.endereco.bairro = this.localizacao.bairro;
+        this.anuncio.endereco.cep = this.localizacao.cep;
+        this.anuncio.endereco.cidade = this.localizacao.localidade;
+        this.anuncio.endereco.complemento = this.localizacao.complemento;
+        this.anuncio.endereco.endereco = this.localizacao.logradouro;
+        this.anuncio.endereco.numero = this.localizacao.numero;
+        this.anuncio.endereco.estado = this.localizacao.uf;
 
         alterarAnuncio(this.anuncio).then((response) => {
-          this.showModal = false
+          this.showModal = false;
           this.$router.push({name: 'home'})
         }).catch((err) => {
-          this.showModal = false
+          this.showModal = false;
           console.log(err.response)
         })
       },
-      deletarImagemAnuncio (id) {
+      deletarImagemAnuncio(id) {
         Swal.alertDoisButtons('Atenção!', 'Deseja realmente excluir esta foto?', 'warning')
           .then((value) => {
             switch (value) {
               case 'sim':
-                this.showModal = true
+                this.showModal = true;
                 excluirImagemAnuncio(id).then((response) => {
-                  console.log('imagens retornadas -> ',response.data)
-                  this.anuncio.imagensAnuncios = response.data
+                  console.log('imagens retornadas -> ', response.data);
+                  this.anuncio.imagensAnuncios = response.data;
                   this.showModal = false
                 }).catch((err) => {
-                  this.showModal = false
+                  this.showModal = false;
                   console.log(err.response)
-                })
+                });
                 break;
               case 'nao':
                 break;
@@ -293,28 +298,19 @@
           })
       }
     },
-    mounted () {
-      const id = this.$router.history.current.params.id
-      this.findAnuncio (id)
+    beforeRouteEnter(to, from, next) {
+      next(vm => vm.findAnuncio())
     },
     watch: {
-      fotos (fotos) {
+      fotos(fotos) {
         let formData = new FormData();
         formData.append('files', fotos)
         this.showModal = true
         salvarImagensAnuncio(this.anuncio.id, formData).then((response) => {
-          this.anuncio.imagensAnuncios.push(response.data)
-          const imagens = this.anuncio.imagensAnuncios
-          this.anuncio.imagensAnuncios = null
-          this.anuncio.imagensAnuncios = null
-          this.anuncio.imagensAnuncios = null
-          this.anuncio.imagensAnuncios = null
-          this.anuncio.imagensAnuncios = null
-          this.anuncio.imagensAnuncios = null
-          this.anuncio.imagensAnuncios = null
-          this.anuncio.imagensAnuncios = null
-          this.anuncio.imagensAnuncios = null
-          this.anuncio.imagensAnuncios = imagens
+          this.anuncio.imagensAnuncios.push(response.data);
+          const imagens = this.anuncio.imagensAnuncios;
+          this.anuncio.imagensAnuncios = null;
+          this.anuncio.imagensAnuncios = imagens;
           this.showModal = false
         }).catch((err) => {
           console.log(err.response)
@@ -334,7 +330,6 @@
     margin-bottom: -2px;
   }
 
-
   #imagem {
     padding: 15px;
     min-height: 197px;
@@ -342,7 +337,7 @@
   }
 
   #imagem:hover {
-  opacity: 0.3
+    opacity: 0.3
   }
 
   #excluirImagem:hover {

@@ -8,6 +8,15 @@
             <b-img rounded="circle" :src="perfilUsuario.urlImagem" width="200" height="200" blank-color="#777"
                    alt="img" class="m-1"></b-img>
             <b-form-file v-if="verificarUrl" v-model="novaFoto" id="file" placeholder="Escolha uma foto"></b-form-file>
+
+            <b-button class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px" variant="info"
+                      @click="gerarRelatorioVenda('VENDA')">Gerar relatório de
+              venda
+            </b-button>
+            <b-button class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px" variant="info"
+                      @click="gerarRelatorioVenda('ALUGUEL')">Gerar relatório de
+              aluguel
+            </b-button>
           </div>
         </div>
       </div>
@@ -57,7 +66,9 @@
 
             <div class="col-sm-12 col-md-4 col-lg-12">
               <b-btn :disabled="disabled" variant="success" @click="salvarAlteracoes">Salvar</b-btn>
-              <b-btn :disabled="disabled" variant="danger" style="margin-left: 15px" @click="excluirUsuario">Excluir usuário</b-btn>
+              <b-btn :disabled="disabled" variant="danger" style="margin-left: 15px" @click="excluirUsuario">Excluir
+                usuário
+              </b-btn>
             </div>
           </div>
         </b-card>
@@ -67,108 +78,123 @@
 </template>
 
 <script>
-import {alterarUsuario, salvarImagemUsuario, deletarUsuario} from '../services/requestServices'
-import Utils from '../util/Utils'
-import constantes from '../util/constantes'
-import loaderPerfil from '../templates/Loader'
-import Swal from '../util/Swal'
+  import {alterarUsuario, salvarImagemUsuario, deletarUsuario, gerarRelatorio} from '../services/requestServices'
+  import Utils from '../util/Utils'
+  import constantes from '../util/constantes'
+  import loaderPerfil from '../templates/Loader'
+  import Swal from '../util/Swal'
 
-export default {
-  name: 'perfil',
-  components: {
-    loaderPerfil
-  },
-  data () {
-    return {
-      disabled: true,
-      perfilUsuario: {
-        email: '',
-        id: '',
-        nome: '',
-        numero: '',
-        tipoUsuario: '',
-        senha: '',
-        urlImagem: ''
+  export default {
+    name: 'perfil',
+    components: {
+      loaderPerfil
+    },
+    data() {
+      return {
+        disabled: true,
+        perfilUsuario: {
+          email: '',
+          id: '',
+          nome: '',
+          numero: '',
+          tipoUsuario: '',
+          senha: '',
+          urlImagem: ''
+        },
+        permEditar: false,
+        novaFoto: null,
+        showModal: false
+      }
+    },
+    methods: {
+
+      atribuirInformacoes() {
+        const user = this.$store.state.sessao
+        this.perfilUsuario = user
       },
-      permEditar: false,
-      novaFoto: null,
-      showModal: false
-    }
-  },
-  methods: {
-    atribuirInformações () {
-      const user = this.$store.state.sessao
-      this.perfilUsuario = user
-    },
-    salvarAlteracoes () {
-      this.perfilUsuario.numero = Utils.formatarNumero(this.perfilUsuario.numero)
-      console.log(this.perfilUsuario.numero)
-      alterarUsuario(this.perfilUsuario).then((response) => {
-        if (response.data) {
-          this.perfilUsuario = response.data
-          this.$store.commit('alterarSessao', this.perfilUsuario)
-          alert('Seu perfil foi alterado com sucesso!')
-        }
-      }).catch((err) => {
-        console.log(err.response)
-      })
-    },
-    excluirUsuario () {
-      Swal.alertDoisButtons('Atenção!', 'Deseja mesmo deletar sua conta?', 'warning')
-        .then((value) => {
-          switch (value) {
-            case 'sim':
-              this.showModal = true
-              this.deleteUser()
-              break;
-            case 'nao':
-              break;
+      salvarAlteracoes() {
+        this.perfilUsuario.numero = Utils.formatarNumero(this.perfilUsuario.numero)
+        console.log(this.perfilUsuario.numero)
+        alterarUsuario(this.perfilUsuario).then((response) => {
+          if (response.data) {
+            this.perfilUsuario = response.data
+            this.$store.commit('alterarSessao', this.perfilUsuario)
+            alert('Seu perfil foi alterado com sucesso!')
           }
+        }).catch((err) => {
+          console.log(err.response)
         })
-    },
-    deleteUser () {
-      deletarUsuario(this.perfilUsuario.id).then((response) => {
-        this.showModal = false
-        Swal.alertUmButton('Conta excluida com sucesso!', '', 'success')
+      },
+      excluirUsuario() {
+        Swal.alertDoisButtons('Atenção!', 'Deseja mesmo deletar sua conta?', 'warning')
           .then((value) => {
             switch (value) {
-              case 'ok':
-                this.$store.commit('alterarSessao', undefined)
-                this.$router.push({name: 'home'})
+              case 'sim':
+                this.showModal = true
+                this.deleteUser()
+                break;
+              case 'nao':
                 break;
             }
           })
-      }).catch((err) => {
-        this.showModal = false
-        console.log(err.response)
-      })
-    }
-  },
-  mounted () {
-    this.atribuirInformações()
-  },
-  watch: {
-    permEditar (val) {
-      this.disabled = !val
+      },
+      deleteUser() {
+        deletarUsuario(this.perfilUsuario.id).then((response) => {
+          this.showModal = false
+          Swal.alertUmButton('Conta excluida com sucesso!', '', 'success')
+            .then((value) => {
+              switch (value) {
+                case 'ok':
+                  this.$store.commit('alterarSessao', undefined);
+                  this.$router.push({name: 'home'});
+                  break;
+              }
+            })
+        }).catch((err) => {
+          this.showModal = false;
+          console.log(err.response)
+        })
+      },
+      gerarRelatorioVenda(tipoNegocio) {
+        this.showModal = true;
+        gerarRelatorio(tipoNegocio, this.perfilUsuario.id).then(response => {
+          this.showModal = false;
+          Swal.alertUmButton('', 'Relatório gerado com sucesso, verifique seu email para mais informações', 'success')
+        }).catch(err => {
+          this.showModal = false;
+          if (err.data.code === 1003) {
+            Swal.alertUmButton('', err.data.message, 'error')
+          }
+
+          console.log(err)
+        })
+      }
     },
-    novaFoto (foto) {
-      const formData = new FormData()
-      formData.append('file', foto)
-      salvarImagemUsuario(this.perfilUsuario.id, formData).then((response) => {
-        if (response.data) {
-          this.perfilUsuario.urlImagem = response.data
-        }
-      }).catch((err) => {
-        console.log(err.response)
-      })
-    }
-  },
-  computed: {
-    verificarUrl () {
-      return constantes.URL_IMG_DEFAULT === this.perfilUsuario.urlImagem
+    mounted() {
+      this.atribuirInformacoes()
+    },
+    watch: {
+      permEditar(val) {
+        this.disabled = !val
+      },
+      novaFoto(foto) {
+        const formData = new FormData();
+        formData.append('file', foto);
+        salvarImagemUsuario(this.perfilUsuario.id, formData).then((response) => {
+          if (response.data) {
+            this.perfilUsuario.urlImagem = response.data
+          }
+        }).catch((err) => {
+          console.log(err.response)
+        })
+      }
+    },
+    computed: {
+      verificarUrl() {
+        return constantes.URL_IMG_DEFAULT === this.perfilUsuario.urlImagem
+      }
     }
   }
-}
 </script>
 
 <style scoped>

@@ -59,6 +59,7 @@ import mixinsGoogle from '../mixins/googleServiceMixins'
 import mixinsFacebook from '../mixins/facebookServiceMixins'
 import {login} from '../services/requestServices'
 import Utils from '../util/Utils'
+import Swal from '../util/Swal'
 import loaderModal from '../templates/Loader'
 export default {
   name: 'login',
@@ -78,15 +79,15 @@ export default {
   ],
   methods: {
     validarCampos () {
-      let validacao = true
+      let validacao = true;
       if (Utils.validateEmail(this.email) === false) {
-        Utils.alertInput('email')
+        Utils.alertInput('email');
         validacao = false
       } else {
         Utils.alertInputValid('email')
       }
       if (this.senha === null || this.senha.length < 8) {
-        Utils.alertInput('senha')
+        Utils.alertInput('senha');
         validacao = false
       } else {
         Utils.alertInputValid('senha')
@@ -95,15 +96,16 @@ export default {
     },
     logIn () {
       if (this.validarCampos()) {
-        this.showModal = true
+        this.showModal = true;
         login(this.email, this.senha).then((response) => {
           if (response.data) {
-            this.showModal = false
-            this.$store.commit('alterarSessao', response.data)
+            this.showModal = false;
+            this.$store.commit('alterarSessao', response.data);
             this.$router.push({name: 'home'})
           }
         }).catch((err) => {
-          console.log(err.response)
+          Swal.alertUmButton('Atenção', 'Usuário ou senha inválidos', 'error');
+          console.log(err.response);
           this.showModal = false
         })
       }

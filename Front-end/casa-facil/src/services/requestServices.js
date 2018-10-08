@@ -24,6 +24,8 @@ export const alterarAnuncio = (anuncio) => http.put('/anuncios/v1', anuncio);
 
 export const excluirAnuncio = (idAnuncio) => http.delete(`/anuncios/v1/${idAnuncio}`);
 
+export const gerarRelatorio = (tipoNegocio, id) => http.delete(`/anuncios/relatorio/venda/${id}?tipoNegocio=${tipoNegocio}`);
+
 export const enviarEmailAnuncio = (email, idAnuncio) => http.post(`email/v1/email-enviar-contato/${idAnuncio}`, email);
 
 export const salvarImagensAnuncio = (idAnuncio, imagens) => http.post(`/file/v1/enviar-imagens-anuncio/${idAnuncio}`, imagens);

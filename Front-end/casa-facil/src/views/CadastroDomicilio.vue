@@ -16,7 +16,8 @@
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-10">
-                <input type="text" id="cep" @keyup.enter="buscarCep" v-model="localizacao.cep" v-mask="'#####-###'" class="form-control"/>
+                <input type="text" id="cep" @keyup.enter="buscarCep" v-model="localizacao.cep" v-mask="'#####-###'"
+                       class="form-control"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-2">
@@ -107,6 +108,15 @@
                            class="mb-3"></b-form-select>
           </div>
 
+          <div class="col-sm-12 col-md-4 col-lg-12">
+            <p class="text-left">Escolha o tipo de negócio</p>
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-12">
+            <b-form-select id="file" v-model="infoImovel.tipoNegocio" :options="tiposDeNegocio"
+                           class="mb-3"></b-form-select>
+          </div>
+
           <div class="col-sm-12 col-md-4 col-lg-6">
             <p class="text-left">Defina um título</p>
           </div>
@@ -133,165 +143,178 @@
         </div>
         <b-button style="margin-top: 10px"
                   variant="success"
-                  @click="adicionarAnuncio" @keyup.enter="adicionarAnuncio">Inserir anúncio</b-button>
+                  @click="adicionarAnuncio" @keyup.enter="adicionarAnuncio">Inserir anúncio
+        </b-button>
       </b-card>
     </div>
   </div>
 </template>
 
 <script>
-import Axios from 'axios'
-import {salvarAnuncio, salvarImagensAnuncio} from '../services/requestServices'
-import loaderModal from '../templates/Loader'
-import Swal from '../util/Swal'
-import Utils from '../util/Utils'
+  import Axios from 'axios'
+  import {salvarAnuncio, salvarImagensAnuncio} from '../services/requestServices'
+  import loaderModal from '../templates/Loader'
+  import Swal from '../util/Swal'
+  import Utils from '../util/Utils'
 
-export default {
-  name: 'CadastroDomicilio',
-  components: {
-    loaderModal
-  },
-  data () {
-    return {
-      localizacao: {
-        cep: '',
-        logradouro: '',
-        uf: '',
-        numero: '',
-        complemento: '',
-        localidade: '',
-        bairro: ''
-      },
-      fotos: null,
-      infoImovel: {
-        titulo: '',
-        descricao: '',
-        valor: 0,
-        tipoImovel: null
-      },
-      tiposDeDomicilio: [
-        {
-          value: 0,
-          text: 'Casa'
-        },
-        {
-          value: 1,
-          text: 'Apartamento'
-        },
-        {
-          value: 2,
-          text: 'Loja'
-        },
-        {
-          value: 3,
-          text: 'Terreno'
-        },
-        {
-          value: 4,
-          text: 'Fazenda'
-        },
-        {
-          value: 5,
-          text: 'Imovel Comercial'
-        }
-      ],
-      showModal: false
-    }
-  },
-  methods: {
-    buscarCep () {
-      Axios({
-        method: 'GET',
-        url: `http://viacep.com.br/ws/${this.localizacao.cep}/json/`
-      }).then((response) => {
-        this.localizacao = response.data
-      }).catch((err) => {
-        console.log(err.response)
-      })
+  export default {
+    name: 'CadastroDomicilio',
+    components: {
+      loaderModal
     },
-    validarCadastro() {
-      debugger
-      let result = true
-      if(this.localizacao.cep === null || this.localizacao.cep === '') {
-        Utils.alertInput('cep')
-        result = false
-      } else {
-        Utils.alertInputValid('cep')
-      }
-
-      if (this.localizacao.logradouro === null || this.localizacao.logradouro === '') {
-        Utils.alertInput('logradouro')
-        result = false
-      } else {
-        Utils.alertInputValid('logradouro')
-      }
-
-      if (this.localizacao.uf === null || this.localizacao.uf === '') {
-        Utils.alertInput('uf')
-        result = false
-      } else {
-        Utils.alertInputValid('uf')
-      }
-
-      if (this.localizacao.localidade === null || this.localizacao.localidade === '') {
-        Utils.alertInput('localidade')
-        result = false
-      } else {
-        Utils.alertInputValid('localidade')
-      }
-      return result
-    },
-    adicionarAnuncio () {
-      debugger
-      if (this.validarCadastro()) {
-        this.showModal = true
-        const anuncio = {
-          descricao: this.infoImovel.descricao,
-          endereco: {
-            bairro: this.localizacao.bairro,
-            cep: this.localizacao.cep,
-            cidade: this.localizacao.localidade,
-            complemento: this.localizacao.complemento,
-            endereco: this.localizacao.logradouro,
-            estado: this.localizacao.uf,
-            latitude: 0.0,
-            longitude: 0.0,
-            numero: this.localizacao.numero
+    data() {
+      return {
+        localizacao: {
+          cep: '',
+          logradouro: '',
+          uf: '',
+          numero: '',
+          complemento: '',
+          localidade: '',
+          bairro: ''
+        },
+        fotos: null,
+        infoImovel: {
+          titulo: '',
+          descricao: '',
+          valor: 0,
+          tipoImovel: null,
+          tipoNegocio: null
+        },
+        tiposDeDomicilio: [
+          {
+            value: 0,
+            text: 'Casa'
           },
-          tipoImovel: this.infoImovel.tipoImovel,
-          titulo: this.infoImovel.titulo,
-          valor: this.infoImovel.valor
-        }
-        salvarAnuncio(this.$store.state.sessao.id, anuncio).then((response) => {
-          if (response.data) {
-            this.salvarImagens(response.data.id)
+          {
+            value: 1,
+            text: 'Apartamento'
+          },
+          {
+            value: 2,
+            text: 'Loja'
+          },
+          {
+            value: 3,
+            text: 'Terreno'
+          },
+          {
+            value: 4,
+            text: 'Fazenda'
+          },
+          {
+            value: 5,
+            text: 'Imovel Comercial'
           }
+        ],
+        tiposDeNegocio: [
+          {
+            value: 0,
+            text: 'Venda'
+          },
+          {
+            value: 1,
+            text: 'Aluguel'
+          }
+        ],
+        showModal: false
+      }
+    },
+    methods: {
+      buscarCep() {
+        Axios({
+          method: 'GET',
+          url: `http://viacep.com.br/ws/${this.localizacao.cep}/json/`
+        }).then((response) => {
+          this.localizacao = response.data
         }).catch((err) => {
           console.log(err.response)
-          Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
+        })
+      },
+      validarCadastro() {
+        debugger;
+        let result = true;
+        if (this.localizacao.cep === null || this.localizacao.cep === '') {
+          Utils.alertInput('cep');
+          result = false
+        } else {
+          Utils.alertInputValid('cep')
+        }
+
+        if (this.localizacao.logradouro === null || this.localizacao.logradouro === '') {
+          Utils.alertInput('logradouro');
+          result = false
+        } else {
+          Utils.alertInputValid('logradouro')
+        }
+
+        if (this.localizacao.uf === null || this.localizacao.uf === '') {
+          Utils.alertInput('uf');
+          result = false
+        } else {
+          Utils.alertInputValid('uf')
+        }
+
+        if (this.localizacao.localidade === null || this.localizacao.localidade === '') {
+          Utils.alertInput('localidade');
+          result = false
+        } else {
+          Utils.alertInputValid('localidade')
+        }
+        return result
+      },
+      adicionarAnuncio() {
+        debugger;
+        if (this.validarCadastro()) {
+          this.showModal = true;
+          const anuncio = {
+            descricao: this.infoImovel.descricao,
+            endereco: {
+              bairro: this.localizacao.bairro,
+              cep: this.localizacao.cep,
+              cidade: this.localizacao.localidade,
+              complemento: this.localizacao.complemento,
+              endereco: this.localizacao.logradouro,
+              estado: this.localizacao.uf,
+              latitude: 0.0,
+              longitude: 0.0,
+              numero: this.localizacao.numero
+            },
+            tipoImovel: this.infoImovel.tipoImovel,
+            tipoNegocio: this.infoImovel.tipoNegocio,
+            titulo: this.infoImovel.titulo,
+            valor: this.infoImovel.valor
+          };
+          salvarAnuncio(this.$store.state.sessao.id, anuncio).then((response) => {
+            if (response.data) {
+              this.salvarImagens(response.data.id)
+            }
+          }).catch((err) => {
+            console.log(err.response);
+            Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
+          })
+        }
+      },
+      salvarImagens(id) {
+        let formData = new FormData();
+        for (let i = 0, max = this.fotos.length; i < max; i++) {
+          formData.append('files', this.fotos[i])
+        }
+        salvarImagensAnuncio(id, formData)
+          .then((response) => {
+            this.showModal = false;
+            console.log('ABAIXO FICA AS FOTOS');
+            console.log('FOTOS ->', response.data);
+            this.$router.push({name: 'home'});
+            Swal.alertUmButton('Salvo com sucesso', '', 'success')
+          }).catch((err) => {
+          Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error');
+          console.log(err.response);
+          this.showModal = false
         })
       }
-    },
-    salvarImagens (id) {
-      let formData = new FormData()
-      for (let i = 0, max = this.fotos.length; i < max; i++) {
-        formData.append('files', this.fotos[i])
-      }
-      salvarImagensAnuncio(id, formData)
-        .then((response) => {
-          this.showModal = false
-          console.log('ABAIXO FICA AS FOTOS')
-          console.log('FOTOS ->', response.data)
-          this.$router.push({name: 'home'})
-          Swal.alertUmButton('Salvo com sucesso', '', 'success')
-      }).catch((err) => {
-        Swal.alertUmButton('Atenção', 'Ocorreu um erro inesperado, favor atualize a página', 'error')
-        console.log(err.response)
-        this.showModal = false
-      })
     }
   }
-}
 </script>
 
 <style scoped>

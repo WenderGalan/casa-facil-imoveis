@@ -208,18 +208,19 @@ export default {
     // ENVIA UM EMAIL DE VALIDAÇÃO PARA O EMAIL DA PESSOA
     validarEmail () {
       if (this.validarCampos()) {
-        this.showModal = true
+        this.showModal = true;
         enviarEmail(this.novoUsuario.nome, this.novoUsuario.email).then((response) => {
-          this.responseEmail = response.data
-          this.showModal()
+          this.responseEmail = response.data;
+          this.mostrarModal()
         }).catch((err) => {
           console.log(err)
         })
       }
     },
     // APARECE A MODAL NA TELA
-    showModal () {
-      this.showModal = false
+    mostrarModal () {
+      debugger;
+      this.showModal = false;
       this.$refs.myModalRef.show()
     },
     // ESCONDE A MODAL DA TELA
@@ -228,13 +229,13 @@ export default {
         if (this.novoUsuario.numero.length > 0) {
           this.novoUsuario.numero = Utils.formatarNumero(this.novoUsuario.numero)
         }
-        thia.showModal = true
+        this.showModal = true;
         criarConta(this.novoUsuario).then((response) => {
-          this.showModal = false
+          this.showModal = false;
           if (response.data) {
-            this.novoUsuario = response.data
-            this.$refs.myModalRef.hide()
-            this.$store.commit('alterarSessao', this.novoUsuario)
+            this.novoUsuario = response.data;
+            this.$refs.myModalRef.hide();
+            this.$store.commit('alterarSessao', this.novoUsuario);
             this.$router.push({name: 'home'})
           }
         }).catch((err) => {
