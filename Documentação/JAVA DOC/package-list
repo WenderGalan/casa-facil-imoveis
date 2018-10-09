@@ -1,0 +1,10 @@
+com.casafacilimoveis
+com.casafacilimoveis.configuracao
+com.casafacilimoveis.controller
+com.casafacilimoveis.model.beans
+com.casafacilimoveis.model.entities
+com.casafacilimoveis.model.enums
+com.casafacilimoveis.repository
+com.casafacilimoveis.service
+com.casafacilimoveis.service.impl
+com.casafacilimoveis.util

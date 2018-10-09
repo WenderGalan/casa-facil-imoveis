@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -57,6 +56,9 @@ public class AnuncioController {
 
     /**
      * Busca as possiveis autocomplete
+     *
+     * @param text - texto que sera base da pesquisa
+     * @return uma lista de Auto Completes
      **/
     @ApiOperation("Busca todos os possíveis autocomplete para o campo desejado")
     @Cacheable
@@ -68,8 +70,9 @@ public class AnuncioController {
     /**
      * Buscar todos os anúncios by rua, bairro e cidade
      *
-     * @param page - pagina selecionada
-     * @param size - tamanho da pagina selecionada
+     * @param page     - pagina selecionada
+     * @param size     - tamanho da pagina selecionada
+     * @param pesquisa - texto para ser base da pesquisa
      * @return List of anuncios
      */
     @ApiOperation("Busca todos os anúncios com os parâmetros passados")
@@ -148,7 +151,7 @@ public class AnuncioController {
     @ApiOperation("Gera o relatório de listagem de anúncios a venda ou para alugar do usuário")
     @Cacheable
     @GetMapping("/relatorio/venda/{idUsuario}")
-    public ResponseEntity listagemVendaAluguel(@PathVariable("idUsuario") Integer idUsuario, @RequestParam TipoNegocio tipoNegocio, HttpServletResponse response) {
+    public ResponseEntity listagemVendaAluguel(@PathVariable("idUsuario") Integer idUsuario, @RequestParam TipoNegocio tipoNegocio) {
         return anuncioService.relatorioVendaAluguel(idUsuario, tipoNegocio);
     }
 
