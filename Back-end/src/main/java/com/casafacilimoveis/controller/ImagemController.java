@@ -59,6 +59,9 @@ public class ImagemController {
 
     /**
      * Remove apenas um imagem do anúncio na edição do anúncio...
+     *
+     * @param id - id da imagem a ser deletada
+     * @return se a imagem foi deletada ou não
      **/
     @ApiOperation("Deleção de apenas uma imagem")
     @DeleteMapping("/v1/deletar-imagem-anuncio/{id}")

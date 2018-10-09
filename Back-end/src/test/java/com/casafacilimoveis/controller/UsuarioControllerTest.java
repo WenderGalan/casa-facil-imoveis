@@ -56,11 +56,11 @@ public class UsuarioControllerTest extends CasaFacilImoveisApplicationTests {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-    @Test
+    /*@Test
     public void buscarUsuarioPorIdTest() throws Exception {
         this.mockMvc.perform(get("/usuarios/v1/" + 1))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+    }*/
 
     @Test
     public void loginTest() throws Exception {

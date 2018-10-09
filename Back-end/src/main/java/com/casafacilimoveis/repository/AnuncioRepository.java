@@ -54,7 +54,7 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Integer> {
 
     @Query("SELECT a FROM Anuncio a JOIN FETCH a.endereco e " +
             "WHERE a.anunciante.id = ?1 AND a.tipoNegocio = ?2 " +
-            "ORDER BY e.estado, e.cidade, e.bairro, e.endereco, e.numero")
+            "ORDER BY a.titulo, e.endereco, e.bairro, e.cidade, e.estado")
     public List<Anuncio> findAllAnunciosByUserAndTipoNegocio(Integer idUsuario, TipoNegocio tipoNegocio);
 
 }
