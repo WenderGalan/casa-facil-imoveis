@@ -9,10 +9,6 @@
         <option v-for="option in options" :value="option.value">{{option.text}}</option>
       </select>
     </div>
-
-    <div class="col-sm-12 col-md-4 col-lg-12" v-if="label.length > 0">
-      <p class="text-left">{{label}}</p>
-    </div>
   </div>
 </template>
 

@@ -91,6 +91,7 @@
   import inputComponent from '../components/inputTextComponent'
   import inputNumberComponent from '../components/InputNumberComponent'
   import inputSelectComponent from '../components/InputSelectComponent'
+  import {tiposDeUsuario as usuarios} from "../models/Enums";
   import {enviarEmail, criarConta} from '../services/requestServices'
   import Swal from '../util/Swal'
   import Utils from '../util/Utils'
@@ -115,20 +116,7 @@
           tipoUsuario: null
         },
         confirmaSenha: '',
-        tiposDeUsuario: [
-          {
-            value: 0,
-            text: 'Sou pessoa física'
-          },
-          {
-            value: 1,
-            text: 'Sou corretor'
-          },
-          {
-            value: 2,
-            text: 'Sou uma empresa'
-          }
-        ],
+        tiposDeUsuario: usuarios,
         responseEmail: {
           campo: '',
           mensagem: ''

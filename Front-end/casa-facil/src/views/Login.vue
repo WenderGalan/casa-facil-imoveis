@@ -37,6 +37,9 @@
             <b-button class="form-control col-sm-12 col-md-4 col-lg-12" @click="logIn" variant="info">Entrar</b-button>
           </div>
 
+          <div class="col-sm-12 col-md-4 col-lg-12">
+            <p>Não possui uma conta? <a href="#" @click="irCriarConta">cadastre-se aqui</a></p>
+          </div>
         </div>
       </b-card>
     </div>
@@ -69,6 +72,9 @@
       mixinsFacebook
     ],
     methods: {
+      irCriarConta(){
+        this.$router.push({name: 'cadastro'})
+      },
       atribuirInformacao(result) {
         if (result.id === 'email') {
           this.email = result.message
