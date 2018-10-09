@@ -6,7 +6,7 @@
 
     <div class="col-sm-12 col-md-4 col-lg-12">
       <input class="form-control col-sm-12 col-md-4 col-lg-12" v-model="text" :type="tipo" :id="id"
-             :placeholder="holder"/>
+             :placeholder="holder" :disabled="disabledInput"/>
     </div>
   </div>
 </template>
@@ -34,6 +34,14 @@
         type: String,
         default: '',
         required: false
+      },
+      disabledInput: {
+        type: Boolean,
+        default: false
+      },
+      valueInput: {
+        type: String,
+        default: ''
       }
     },
     data () {
@@ -48,6 +56,9 @@
           message: text
         };
         this.$emit('resultadoText', obj);
+      },
+      valueInput(valueInput) {
+        this.text = valueInput;
       }
     }
   }
