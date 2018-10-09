@@ -14,42 +14,23 @@
       <div class="col-sm-12 col-md-4 col-lg-8">
         <b-card title="Dados do usuário">
           <div class="row">
-            <div class="col-sm-12 col-md-4 col-lg-12">
-              <p class="text-left">Nome:</p>
-            </div>
 
-            <div class="col-sm-12 col-md-4 col-lg-12">
-              <input type="text" class="form-control" v-model="perfilUsuario.nome" :disabled="disabled"/>
-            </div>
+            <input-component :id="'nomeUsuario'" :tipo="'text'" :disabled-input="disabled" :label="'Nome:'" :holder="''"
+                             :value-input="perfilUsuario.nome" @resultadoText="atribuirResultado"/>
 
-            <div class="col-sm-12 col-md-4 col-lg-12">
-              <p class="text-left">Email:</p>
-            </div>
+            <input-component :id="'email'" :tipo="'text'" :disabled-input="true" :label="'Email:'" :holder="''"
+                             :value-input="perfilUsuario.email"/>
 
-            <div class="col-sm-12 col-md-4 col-lg-12">
-              <input type="text" class="form-control" v-model="perfilUsuario.email" disabled/>
-            </div>
+            <input-number-component :id="'numeroUsuario'" :disabled-input="disabled" :label="'Número:'"
+                                    :holder="''" :value-input="perfilUsuario.numero" :mask="'(##) #####-####'"
+                                    @resultadoNumber="atribuirResultado"/>
 
-            <div class="col-sm-12 col-md-4 col-lg-12">
-              <p class="text-left">Número:</p>
-            </div>
-
-            <div class="col-sm-12 col-md-4 col-lg-12" v-mask="'(##) #####-####'">
-              <input type="text" class="form-control" v-model="perfilUsuario.numero" :disabled="disabled"/>
-            </div>
-
-            <div class="col-sm-12 col-md-4 col-lg-12">
-              <p class="text-left">Tipo de pessoa:</p>
-            </div>
-
-            <div class="col-sm-12 col-md-4 col-lg-12">
-              <input type="text" class="form-control" v-model="perfilUsuario.tipoUsuario" disabled/>
-            </div>
+            <input-component :id="'tipoPessoa'" :tipo="'text'" :disabled-input="true" :label="'Tipo de pessoa:'"
+                             :holder="''" :value-input="perfilUsuario.tipoUsuario"/>
 
             <div class="col-sm-12 col-md-4 col-lg-12">
               <div class="row" style="padding: 16px">
-                <b-form-checkbox id="checkbox1"
-                                 v-model="permEditar">
+                <b-form-checkbox id="checkbox1" v-model="permEditar">
                   Editar informações
                 </b-form-checkbox>
               </div>
@@ -69,8 +50,9 @@
 </template>
 
 <script>
-  import {alterarUsuario, salvarImagemUsuario, deletarUsuario, gerarRelatorio} from '../services/requestServices'
-  import http from '../services/http'
+  import {alterarUsuario, salvarImagemUsuario, deletarUsuario} from '../services/requestServices'
+  import inputComponent from '../components/inputTextComponent'
+  import inputNumberComponent from '../components/InputNumberComponent'
   import Utils from '../util/Utils'
   import constantes from '../util/constantes'
   import loaderPerfil from '../templates/Loader'
@@ -79,7 +61,9 @@
   export default {
     name: 'perfil',
     components: {
-      loaderPerfil
+      loaderPerfil,
+      inputComponent,
+      inputNumberComponent
     },
     data() {
       return {
@@ -99,7 +83,13 @@
       }
     },
     methods: {
-
+      atribuirResultado(result) {
+        if (result.id === 'nomeUsuario') {
+          this.perfilUsuario.nome = result.message
+        } else if (result.id === 'numeroUsuario') {
+          this.perfilUsuario.numero = result.message
+        }
+      },
       atribuirInformacoes() {
         const user = this.$store.state.sessao;
         this.perfilUsuario = user
