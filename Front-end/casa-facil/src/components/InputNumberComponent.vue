@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-12 col-md-4 col-lg-12">
+  <div :class="classDiv">
     <div class="col-sm-12 col-md-4 col-lg-12" v-if="label.length > 0">
       <p class="text-left">{{label}}</p>
     </div>
@@ -28,20 +28,21 @@
       label: {
         type: String,
         default: '',
-        required: false
       },
       mask: {
         type: String,
         default: '',
-        required: false
       },
       disabledInput: {
         type: Boolean,
-        default: false
       },
       valueInput: {
         type: String,
         default: ''
+      },
+      classDiv: {
+        type: String,
+        default: 'col-sm-12 col-md-4 col-lg-12',
       }
     },
     data() {

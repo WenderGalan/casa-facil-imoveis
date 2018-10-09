@@ -4,7 +4,7 @@
       <p class="text-left">{{label}}</p>
     </div>
 
-    <div class="col-sm-12 col-md-4 col-lg-12">
+    <div :class="classDiv">
       <select v-model="value" :id="id" class="form-control col-sm-12 col-md-4 col-lg-12">
         <option v-for="option in options" :value="option.value">{{option.text}}</option>
       </select>
@@ -31,6 +31,10 @@
       },
       selectedValue: {
         default: ''
+      },
+      classDiv: {
+        type: String,
+        default: 'col-sm-12 col-md-4 col-lg-12',
       }
     },
     data() {

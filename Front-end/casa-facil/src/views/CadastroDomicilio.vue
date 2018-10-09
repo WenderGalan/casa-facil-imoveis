@@ -11,78 +11,45 @@
 
           <div class="col-sm-12 col-md-4 col-lg-6">
             <div class="row">
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">CEP:</p>
-              </div>
 
               <div class="col-sm-12 col-md-4 col-lg-10">
-                <input type="text" id="cep" @keyup.enter="buscarCep" v-model="localizacao.cep" v-mask="'#####-###'"
-                       class="form-control"/>
+                <input-number-component :id="'cep'" :holder="''" :mask="'#####-###'" :label="'CEP:'"
+                                        @resultadoNumber="atribuirResultado"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-2">
-                <b-button variant="info" @click="buscarCep">Buscar</b-button>
+                <b-button variant="info" class="botaoBuscar" @click="buscarCep">Buscar</b-button>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-12">
                 <div class="row">
-                  <div class="col-sm-12 col-md-4 col-lg-6" style="margin-left: -15px">
-                    <div class="col-sm-12 col-md-4 col-lg-12">
-                      <p class="text-left">Estado:</p>
-                    </div>
-
-                    <div class="col-sm-12 col-md-4 col-lg-12">
-                      <input type="text" id="uf" v-model="localizacao.uf" class="form-control"/>
-                    </div>
+                  <div class="col-sm-12 col-md-4 col-lg-6">
+                    <input-component :holder="''" :tipo="'text'" :label="'Estado:'" :value-input="localizacao.uf"
+                                     :id="'uf'" @resultadoText="atribuirResultado"/>
                   </div>
 
-                  <div class="col-sm-12 col-md-4 col-lg-6" style="margin-right: -20px">
-                    <div class="col-sm-12 col-md-4 col-lg-12">
-                      <p class="text-left">Número:</p>
-                    </div>
-
-                    <div class="col-sm-12 col-md-4 col-lg-12">
-                      <input type="number" v-model="localizacao.numero" class="form-control"/>
-                    </div>
+                  <div class="col-sm-12 col-md-4 col-lg-6">
+                    <input-component :holder="''" :tipo="'text'" :label="'Número:'" :value-input="localizacao.numero"
+                                     :id="'numero'" @resultadoText="atribuirResultado"/>
                   </div>
                 </div>
               </div>
 
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">Cidade:</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" id="localidade" v-model="localizacao.localidade" class="form-control"/>
-              </div>
+              <input-component style="margin-left: 15px" :holder="''" :tipo="'text'" :label="'Cidade:'"
+                               :value-input="localizacao.localidade" :id="'cidade'" @resultadoText="atribuirResultado"/>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-6">
             <div class="row">
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">Endereço:</p>
-              </div>
+              <input-component :holder="''" :tipo="'text'" :label="'Endereço:'"
+                               :value-input="localizacao.logradouro" :id="'logradouro'" @resultadoText="atribuirResultado"/>
 
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" id="logradouro" v-model="localizacao.logradouro" class="form-control"/>
-              </div>
+              <input-component :holder="''" :tipo="'text'" :label="'Complemento:'"
+                               :value-input="localizacao.complemento" :id="'complemento'" @resultadoText="atribuirResultado"/>
 
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">Complemento:</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" v-model="localizacao.complemento" class="form-control"/>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">Bairro:</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" v-model="localizacao.bairro" class="form-control"/>
-              </div>
+              <input-component :holder="''" :tipo="'text'" :label="'Bairro:'"
+                               :value-input="localizacao.bairro" :id="'bairro'" @resultadoText="atribuirResultado"/>
             </div>
           </div>
 
@@ -156,11 +123,15 @@
   import loaderModal from '../templates/Loader'
   import Swal from '../util/Swal'
   import Utils from '../util/Utils'
+  import inputComponent from '../components/inputTextComponent'
+  import inputNumberComponent from '../components/InputNumberComponent'
 
   export default {
     name: 'CadastroDomicilio',
     components: {
-      loaderModal
+      loaderModal,
+      inputComponent,
+      inputNumberComponent
     },
     data() {
       return {
@@ -221,6 +192,23 @@
       }
     },
     methods: {
+      atribuirResultado(result) {
+        if (result.id === 'cep') {
+          this.localizacao.cep = result.message
+        } else if (result.id === 'uf') {
+          this.localizacao.uf = result.message
+        } else if (result.id === 'numero') {
+          this.localizacao.numero = result.message
+        } else if (result.id === 'cidade') {
+          this.localizacao.localidade = result.message
+        } else if (result.id === 'logradouro') {
+          this.localizacao.logradouro = result.message
+        } else if (result.id === 'complemento') {
+          this.localizacao.complemento = result.message
+        } else if (result.id === 'bairro') {
+          this.localizacao.bairro = result.message
+        }
+      },
       buscarCep() {
         Axios({
           method: 'GET',
@@ -325,6 +313,12 @@
   p {
     margin-top: 15px;
     margin-bottom: -2px;
+  }
+
+  .botaoBuscar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 
 </style>
