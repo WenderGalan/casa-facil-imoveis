@@ -8,15 +8,6 @@
             <b-img rounded="circle" :src="perfilUsuario.urlImagem" width="200" height="200" blank-color="#777"
                    alt="img" class="m-1"></b-img>
             <b-form-file v-if="verificarUrl" v-model="novaFoto" id="file" placeholder="Escolha uma foto"></b-form-file>
-
-            <b-button class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px" variant="info"
-                      @click="gerarRelatorioVenda('VENDA')">Gerar relatório de
-              venda
-            </b-button>
-            <b-button class="col-sm-12 col-md-4 col-lg-12" style="margin-top: 15px" variant="info"
-                      @click="gerarRelatorioVenda('ALUGUEL')">Gerar relatório de
-              aluguel
-            </b-button>
           </div>
         </div>
       </div>
@@ -154,22 +145,6 @@
         }).catch((err) => {
           this.showModal = false;
           console.log(err.response)
-        })
-      },
-      gerarRelatorioVenda(tipoNegocio) {
-        this.showModal = true;
-        gerarRelatorio(tipoNegocio, this.perfilUsuario.id).then(response => {
-          this.showModal = false;
-          // Swal.alertUmButton('', 'Relatório gerado com sucesso, verifique seu email para mais informações', 'success')
-          window.URL.createObjectURL(new Blob([response.data]));
-          window.open(`${http.baseURL}reports?token=${response.data}`, '_blank')
-        }).catch(err => {
-          this.showModal = false;
-          if (err.data.code === 1003) {
-            Swal.alertUmButton('', err.data.message, 'error')
-          }
-
-          console.log(err)
         })
       }
     },

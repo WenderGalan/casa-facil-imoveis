@@ -2,6 +2,12 @@
   <div style="padding: 15px; margin-top: 45px;">
     <loader-modal :show-modal="showModal"></loader-modal>
     <b-card title="Anuncios cadastrados">
+      <div class="col-sm-12 col-md-4 col-lg-12">
+        <div class="row" style="text-align: right; display: block; margin-top: -50px">
+          <b-button variant="success" @click="gerarRelatorioVenda('VENDA')">Gerar relatório de venda</b-button>
+          <b-button variant="info" style="margin-left: 15px" @click="gerarRelatorioVenda('ALUGUEL')">Gerar relatório de aluguel</b-button>
+        </div>
+      </div>
       <b-card v-for="anuncio in anuncios" style="margin: 15px; padding-left: 0px; cursor: pointer; position: relative">
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-5" @click="detalhesAnuncio(anuncio.titulo, anuncio.id)" v-if="anuncio.imagensAnuncios.length > 0">
@@ -28,7 +34,7 @@
 </template>
 
 <script>
-import {buscarAnunciosUsuario, excluirAnuncio} from "../services/requestServices";
+import {buscarAnunciosUsuario, excluirAnuncio, gerarRelatorio} from "../services/requestServices";
 import loaderModal from '../templates/Loader'
 import Swal from '../util/Swal'
 
@@ -97,6 +103,22 @@ export default {
     },
     editarAnuncio (id) {
       this.$router.push({name: 'editarAnuncio', params: {id}})
+    },
+    gerarRelatorioVenda(tipoNegocio) {
+      this.showModal = true;
+      debugger;
+      const id = this.$store.state.sessao.id;
+      gerarRelatorio(tipoNegocio, id).then(response => {
+        this.showModal = false;
+        Swal.alertUmButton('', 'Relatório gerado com sucesso, verifique seu email para mais informações', 'success')
+      }).catch(err => {
+        this.showModal = false;
+        debugger;
+        if (err.response.data.code === 1003) {
+          Swal.alertUmButton('', err.response.data.message, 'error')
+        }
+        console.log(err)
+      })
     }
   },
   mounted () {
