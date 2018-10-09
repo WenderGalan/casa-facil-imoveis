@@ -29,27 +29,30 @@
           <input-component :tipo="'text'" :holder="'Nome'" :id="'nome'" :label="'Digite seu nome e sobrenome:*'"
                            @resultadoText="atribuirResultado"/>
 
-          <input-number-component :holder="'Número (opcional)'" :id="'numero'" :tipo="'text'" :label="'Digite seu número de telefone:'"
-                           :mask="'(##) #####-####'"
-                           @resultadoNumber="atribuirResultado"/>
+          <input-number-component :holder="'Número (opcional)'" :id="'numero'" :tipo="'text'"
+                                  :label="'Digite seu número de telefone:'"
+                                  :mask="'(##) #####-####'"
+                                  @resultadoNumber="atribuirResultado"/>
 
           <input-component :holder="'exemplo@dominio.com'" :id="'email'" :tipo="'text'" :label="'Digite seu Email:*'"
                            @resultadoText="atribuirResultado"/>
 
-          <div style="margin-top: 15px; margin-bottom: -12px" class="col-sm-12 col-md-4 col-lg-12">
-            <p class="text-left">Que tipo de usuário você é?</p>
-          </div>
+          <input-select-component :id="'tipoUsuario'" :options="tiposDeUsuario" :label="'Que tipo de usuário você é?'"
+                                  @resultadoSelect="atribuirResultado"/>
 
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <b-form-select id="tipoUsuario" v-model="novoUsuario.tipoUsuario" :options="tiposDeUsuario"
-                           class="mb-3"></b-form-select>
-          </div>
-
-          <input-component :holder="'Senha (mínimo 8 caracteres)'" :id="'senha'" :tipo="'password'" :label="'Digite sua senha:*'"
+          <input-component :holder="'Senha (mínimo 8 caracteres)'" :id="'senha'" :tipo="'password'"
+                           :label="'Digite sua senha:*'"
                            @resultadoText="atribuirResultado"/>
 
-          <input-component :holder="'Digite sua senha novamente'" :id="'confirmaSenha'" :tipo="'password'" :label="'Confirme sua senha:*'"
+          <input-component :holder="'Digite sua senha novamente'" :id="'confirmaSenha'" :tipo="'password'"
+                           :label="'Confirme sua senha:*'"
                            @resultadoText="atribuirResultado"/>
+
+          <div class="container" style="margin-top: 25px">
+            <b-button class="form-control col-sm-12 col-md-4 col-lg-12" @click="validarEmail" variant="info">
+              Cadastrar
+            </b-button>
+          </div>
 
           <div class="container">
             <div style="width: 80%; margin: auto" class="col-sm-12 col-md-4 col-lg-12">
@@ -87,6 +90,7 @@
   import mixinsFacebook from '../mixins/facebookServiceMixins'
   import inputComponent from '../components/inputTextComponent'
   import inputNumberComponent from '../components/InputNumberComponent'
+  import inputSelectComponent from '../components/InputSelectComponent'
   import {enviarEmail, criarConta} from '../services/requestServices'
   import Swal from '../util/Swal'
   import Utils from '../util/Utils'
@@ -97,7 +101,8 @@
     components: {
       Loader,
       inputComponent,
-      inputNumberComponent
+      inputNumberComponent,
+      inputSelectComponent
     },
     data() {
       return {
@@ -145,8 +150,10 @@
           this.novoUsuario.numero = result.message;
         } else if (result.id === 'senha') {
           this.novoUsuario.senha = result.message;
-        } else if(result.id === 'confirmaSenha') {
+        } else if (result.id === 'confirmaSenha') {
           this.confirmaSenha = result.message;
+        } else if(result.id === 'tipoUsuario') {
+          this.novoUsuario.tipoUsuario = result.message;
         }
       },
       // DIRECIONA O USUARIO PARA A TELA DE LOGIN
@@ -230,7 +237,7 @@
           })
         }
       }
-    }
+    },
   }
 </script>
 
