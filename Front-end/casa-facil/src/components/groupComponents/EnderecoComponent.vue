@@ -23,7 +23,7 @@
               <div class="col-sm-12 col-md-4 col-lg-6">
 
                 <input-component :holder="''" :tipo="'text'" :label="'Estado:'" :value-input="localizacao.uf"
-                                 :id="'uf'" @resultadoText="atribuirResultadoEndereco"/>
+                                 :id="'uf'" :max="'2'" @resultadoText="atribuirResultadoEndereco"/>
               </div>
 
               <div class="col-sm-12 col-md-4 col-lg-6">
@@ -34,7 +34,7 @@
           </div>
 
           <input-component style="margin-left: 15px" :holder="''" :tipo="'text'" :label="'Cidade:'"
-                           :value-input="localizacao.localidade" :id="'localidade'"
+                           :value-input="localizacao.localidade" :id="'localidade'" :max="'100'"
                            @resultadoText="atribuirResultadoEndereco"/>
         </div>
       </div>
@@ -42,12 +42,12 @@
       <div class="col-sm-12 col-md-4 col-lg-6">
         <div class="row">
           <input-component :holder="''" :tipo="'text'" :label="'Endereço:'" :value-input="localizacao.logradouro"
-                           :id="'logradouro'" @resultadoText="atribuirResultadoEndereco"/>
+                           :id="'logradouro'" @resultadoText="atribuirResultadoEndereco" :max="'200'"/>
 
           <input-component :holder="''" :tipo="'text'" :label="'Complemento:'" :value-input="localizacao.complemento"
-                           :id="'complemento'" @resultadoText="atribuirResultadoEndereco"/>
+                           :id="'complemento'" :max="'100'" @resultadoText="atribuirResultadoEndereco"/>
 
-          <input-component :holder="''" :tipo="'text'" :label="'Bairro:'"
+          <input-component :holder="''" :tipo="'text'" :max="'100'" :label="'Bairro:'"
                            :value-input="localizacao.bairro" :id="'bairro'" @resultadoText="atribuirResultadoEndereco"/>
         </div>
       </div>

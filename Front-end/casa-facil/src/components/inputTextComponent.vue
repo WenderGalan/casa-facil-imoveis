@@ -6,7 +6,7 @@
 
     <div :class="classDiv">
       <input class="form-control col-sm-12 col-md-4 col-lg-12" v-model="text" :type="tipo" :id="id"
-             :placeholder="holder" :disabled="disabledInput"/>
+             :placeholder="holder" :disabled="disabledInput" :maxlength="max"/>
     </div>
   </div>
 </template>
@@ -46,6 +46,10 @@
       classDiv: {
         type: String,
         default: 'col-sm-12 col-md-4 col-lg-12',
+      },
+      max: {
+        type: String,
+        default: '1000'
       }
     },
     data () {

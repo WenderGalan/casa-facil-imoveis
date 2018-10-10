@@ -2,7 +2,7 @@
   <div>
     <div style="padding: 15px; margin-top: 45px">
       <loader-modal :show-modal="showModal"></loader-modal>
-      <b-card id="tile" title="Cadastro de Imóvel" >
+      <b-card id="tile" title="Cadastro de Imóvel">
         <div class="row">
 
           <endereco-component @updateLogradouro="updateLogradouro"/>
@@ -87,7 +87,7 @@
       }
     },
     methods: {
-      updateLogradouro(result){
+      updateLogradouro(result) {
         this.localizacao = result;
         console.log(this.localizacao)
       },
@@ -112,26 +112,65 @@
         } else {
           Utils.alertInputValid('cep')
         }
-
         if (this.localizacao.logradouro === null || this.localizacao.logradouro === '') {
           Utils.alertInput('logradouro');
           result = false
         } else {
           Utils.alertInputValid('logradouro')
         }
-
+        if (this.localizacao.bairro === null || this.localizacao.bairro === '') {
+          Utils.alertInput('bairro');
+          result = false
+        } else {
+          Utils.alertInputValid('bairro')
+        }
         if (this.localizacao.uf === null || this.localizacao.uf === '') {
           Utils.alertInput('uf');
           result = false
         } else {
           Utils.alertInputValid('uf')
         }
-
         if (this.localizacao.localidade === null || this.localizacao.localidade === '') {
           Utils.alertInput('localidade');
           result = false
         } else {
           Utils.alertInputValid('localidade')
+        }
+        if (this.localizacao.complemento === null || this.localizacao.complemento === '') {
+          Utils.alertInput('complemento');
+          result = false
+        } else {
+          Utils.alertInputValid('complemento')
+        }
+        if (this.infoImovel.titulo === null || this.infoImovel.titulo === '') {
+          Utils.alertInput('titulo');
+          result = false
+        } else {
+          Utils.alertInputValid('titulo')
+        }
+        if (this.infoImovel.descricao === null || this.infoImovel.descricao === '') {
+          Utils.alertInput('descricao');
+          result = false
+        } else {
+          Utils.alertInputValid('descricao')
+        }
+        if (this.infoImovel.valor === null || this.infoImovel.valor === 0) {
+          Utils.alertInput('preco');
+          result = false
+        } else {
+          Utils.alertInputValid('preco')
+        }
+        if (this.infoImovel.tipoNegocio === null || this.infoImovel.tipoNegocio === '') {
+          Utils.alertInput('tipoNegocio');
+          result = false
+        } else {
+          Utils.alertInputValid('tipoNegocio')
+        }
+        if (this.infoImovel.tipoImovel === null || this.infoImovel.tipoImovel === '') {
+          Utils.alertInput('tipoImovel');
+          result = false
+        } else {
+          Utils.alertInputValid('tipoImovel')
         }
         return result
       },
