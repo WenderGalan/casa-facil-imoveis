@@ -42,11 +42,11 @@
 
           <div class="col-sm-12 col-md-4 col-lg-6">
             <div class="row">
-              <input-component :holder="''" :tipo="'text'" :label="'Endereço:'"
-                               :value-input="localizacao.logradouro" :id="'logradouro'" @resultadoText="atribuirResultado"/>
+              <input-component :holder="''" :tipo="'text'" :label="'Endereço:'" :value-input="localizacao.logradouro"
+                               :id="'logradouro'" @resultadoText="atribuirResultado"/>
 
-              <input-component :holder="''" :tipo="'text'" :label="'Complemento:'"
-                               :value-input="localizacao.complemento" :id="'complemento'" @resultadoText="atribuirResultado"/>
+              <input-component :holder="''" :tipo="'text'" :label="'Complemento:'" :value-input="localizacao.complemento"
+                               :id="'complemento'" @resultadoText="atribuirResultado"/>
 
               <input-component :holder="''" :tipo="'text'" :label="'Bairro:'"
                                :value-input="localizacao.bairro" :id="'bairro'" @resultadoText="atribuirResultado"/>
@@ -66,47 +66,24 @@
             <b-form-file v-model="fotos" class="mt-3" multiple plain></b-form-file>
           </div>
 
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <p class="text-left">Escolha o tipo de imóvel</p>
+          <input-select-component :id="'tipoImovel'" :options="tiposDeDomicilio" :label="'Escolha o tipo de imóvel'"
+                                  @resultadoSelect="atribuirResultado"/>
+
+          <input-select-component :id="'tipoNegocio'" :options="tiposDeNegocio" :label="'Escolha o tipo de negócio'"
+                                  @resultadoSelect="atribuirResultado"/>
+
+          <div class="col-sm-12 col-md-4 col-lg-6" style="padding: 0">
+            <input-component :holder="''" :tipo="'text'" :label="'Defina um título'" :id="'titulo'"
+                             @resultadoText="atribuirResultado"/>
           </div>
 
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <b-form-select id="file" v-model="infoImovel.tipoImovel" :options="tiposDeDomicilio"
-                           class="mb-3"></b-form-select>
+          <div class="col-sm-12 col-md-4 col-lg-6" style="padding: 0">
+            <input-component :holder="''" :tipo="'number'" :label="'Preço'" :id="'preco'"
+                             @resultadoText="atribuirResultado"/>
           </div>
 
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <p class="text-left">Escolha o tipo de negócio</p>
-          </div>
+          <input-text-area-component :id="'descricao'" :label="'Descrição:'" @resultadoTextArea="atribuirResultado"/>
 
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <b-form-select id="file" v-model="infoImovel.tipoNegocio" :options="tiposDeNegocio"
-                           class="mb-3"></b-form-select>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-6">
-            <p class="text-left">Defina um título</p>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-6">
-            <p class="text-left">Preço</p>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-6">
-            <input type="text" v-model="infoImovel.titulo" class="form-control"/>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-6">
-            <input type="number" v-model="infoImovel.valor" class="form-control"/>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <p class="text-left">Descrição:</p>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <textarea v-model="infoImovel.descricao" class="form-control" rows="8"></textarea>
-          </div>
         </div>
         <b-button style="margin-top: 10px"
                   variant="success"
@@ -125,13 +102,18 @@
   import Utils from '../util/Utils'
   import inputComponent from '../components/inputTextComponent'
   import inputNumberComponent from '../components/InputNumberComponent'
+  import inputSelectComponent from '../components/InputSelectComponent'
+  import inputTextAreaComponent from '../components/TextAreaComponent'
+  import {tiposDeDomicilio as tpDomicilios, tiposDeNegocio as tpNegocio} from "../models/Enums";
 
   export default {
     name: 'CadastroDomicilio',
     components: {
       loaderModal,
       inputComponent,
-      inputNumberComponent
+      inputNumberComponent,
+      inputSelectComponent,
+      inputTextAreaComponent
     },
     data() {
       return {
@@ -152,42 +134,8 @@
           tipoImovel: null,
           tipoNegocio: null
         },
-        tiposDeDomicilio: [
-          {
-            value: 0,
-            text: 'Casa'
-          },
-          {
-            value: 1,
-            text: 'Apartamento'
-          },
-          {
-            value: 2,
-            text: 'Loja'
-          },
-          {
-            value: 3,
-            text: 'Terreno'
-          },
-          {
-            value: 4,
-            text: 'Fazenda'
-          },
-          {
-            value: 5,
-            text: 'Imovel Comercial'
-          }
-        ],
-        tiposDeNegocio: [
-          {
-            value: 0,
-            text: 'Venda'
-          },
-          {
-            value: 1,
-            text: 'Aluguel'
-          }
-        ],
+        tiposDeDomicilio: tpDomicilios,
+        tiposDeNegocio: tpNegocio,
         showModal: false
       }
     },
@@ -207,6 +155,16 @@
           this.localizacao.complemento = result.message
         } else if (result.id === 'bairro') {
           this.localizacao.bairro = result.message
+        } else if (result.id === 'tipoImovel') {
+          this.infoImovel.tipoImovel = result.message
+        } else if (result.id === 'tipoNegocio') {
+          this.infoImovel.tipoNegocio = result.message
+        } else if (result.id === 'titulo') {
+          this.infoImovel.titulo = result.message
+        } else if (result.id === 'preco') {
+          this.infoImovel.valor = result.message
+        } else if (result.id === 'descricao') {
+          this.infoImovel.descricao = result.message
         }
       },
       buscarCep() {
