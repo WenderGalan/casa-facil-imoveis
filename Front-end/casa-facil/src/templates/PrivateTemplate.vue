@@ -1,13 +1,18 @@
 <template>
   <div id="divNavBar">
-    <b-navbar type="dark" variant="primary" toggleable  id="navbar">
-      <b-navbar-brand href="#" @click="irHome" style="padding: 0px"><img src="../assets/logo.png" style="max-height: 40px"></b-navbar-brand>
+    <b-navbar type="dark" variant="primary" toggleable id="navbar">
+      <b-navbar-brand href="#" @click="irHome" style="padding: 0px">
+        <img src="../assets/logo.png" style="max-height: 40px"></b-navbar-brand>
 
       <b-collapse is-nav id="nav_dropdown_collapse">
         <b-navbar-nav>
-          <b-nav-item style="margin-left: 15px" href="#" @click="irHome">Início</b-nav-item>
-          <b-nav-item href="#" v-if="verificarSessao" @click="adicionarAnuncio">Adicionar anúncio</b-nav-item>
-          <b-nav-item href="#" v-if="verificarSessao" @click="visualizarAnuncios">Meus anúncios</b-nav-item>
+          <b-nav-item style="margin-left: 15px" href="#" @click="irHome"><i class="fa fa-home" aria-hidden="true"></i>
+               Início
+          </b-nav-item>
+          <b-nav-item href="#" v-if="verificarSessao" @click="adicionarAnuncio">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>  Adicionar anúncio</b-nav-item>
+          <b-nav-item href="#" v-if="verificarSessao" @click="visualizarAnuncios">
+            <i class="fa fa-list" aria-hidden="true"></i>   Meus anúncios</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
@@ -26,57 +31,57 @@
 </template>
 
 <script>
-export default {
-  name: 'PrivateTemplate',
-  data () {
-    return {
-      user : 'User'
-    }
-  },
-  methods: {
-    irCadastro () {
-      this.$router.push({name: 'cadastro'})
-    },
-    irLogin () {
-      this.$router.push({name: 'login'})
-    },
-    irHome () {
-      this.$router.push({name: 'home'})
-    },
-    sair () {
-      this.$store.commit('alterarSessao', undefined)
-      this.$router.push({name: 'home'})
-    },
-    adicionarAnuncio () {
-      this.$router.push({name: 'cadastroDomicilio'})
-    },
-    irPerfil () {
-      const id = this.$store.state.sessao.id
-      this.$router.push(
-        {
-          name: 'perfil',
-          params: {id}
-        })
-    },
-    visualizarAnuncios () {
-      const id = this.$store.state.sessao.id
-      this.$router.push(
-        {
-          name: 'meusAnuncios',
-          params: {id}
-        })
-
-    }
-  },
-  computed: {
-    verificarSessao () {
-      if (this.$store.state.sessao !== undefined) {
-        this.user = this.$store.state.sessao.nome
+  export default {
+    name: 'PrivateTemplate',
+    data() {
+      return {
+        user: 'User'
       }
-      return this.$store.state.sessao !== undefined
+    },
+    methods: {
+      irCadastro() {
+        this.$router.push({name: 'cadastro'})
+      },
+      irLogin() {
+        this.$router.push({name: 'login'})
+      },
+      irHome() {
+        this.$router.push({name: 'home'})
+      },
+      sair() {
+        this.$store.commit('alterarSessao', undefined)
+        this.$router.push({name: 'home'})
+      },
+      adicionarAnuncio() {
+        this.$router.push({name: 'cadastroDomicilio'})
+      },
+      irPerfil() {
+        const id = this.$store.state.sessao.id
+        this.$router.push(
+          {
+            name: 'perfil',
+            params: {id}
+          })
+      },
+      visualizarAnuncios() {
+        const id = this.$store.state.sessao.id
+        this.$router.push(
+          {
+            name: 'meusAnuncios',
+            params: {id}
+          })
+
+      }
+    },
+    computed: {
+      verificarSessao() {
+        if (this.$store.state.sessao !== undefined) {
+          this.user = this.$store.state.sessao.nome
+        }
+        return this.$store.state.sessao !== undefined
+      }
     }
   }
-}
 </script>
 
 <style scoped>
