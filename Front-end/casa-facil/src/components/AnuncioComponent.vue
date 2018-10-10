@@ -6,7 +6,7 @@
           <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" class="img"></b-img>
         </div>
 
-        <div class="col-sm-12 col-md-4 col-lg-9">
+        <div class="col-sm-12 col-md-4 col-lg-9" style="padding-left: 30px">
           <h3>{{anuncio.titulo}}</h3>
           <p class="col-sm-12 col-md-4 col-lg-12 descricao"  style="width: 100%">{{anuncio.descricao}}</p>
 
