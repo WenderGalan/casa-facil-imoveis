@@ -218,11 +218,9 @@
         })
       },
       findAnuncio() {
-        debugger;
         const id = this.$router.history.current.params.id;
         this.showModal = true;
         buscarAnuncio(id).then((response) => {
-          debugger;
           this.anuncio = response.data;
           this.showModal = false;
           this.atribuirInformacoes()

@@ -2,56 +2,10 @@
   <div>
     <div style="padding: 15px; margin-top: 45px">
       <loader-modal :show-modal="showModal"></loader-modal>
-      <b-card id="tile" title="Cadastro de Imóvel">
+      <b-card id="tile" title="Cadastro de Imóvel" >
         <div class="row">
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <p id="titulo" class="text-left">Localização do Imóvel</p>
-            <hr>
-          </div>
 
-          <div class="col-sm-12 col-md-4 col-lg-6">
-            <div class="row">
-
-              <div class="col-sm-12 col-md-4 col-lg-10">
-                <input-number-component :id="'cep'" :holder="''" :mask="'#####-###'" :label="'CEP:'"
-                                        @resultadoNumber="atribuirResultado"/>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-2">
-                <b-button variant="info" class="botaoBuscar" @click="buscarCep">Buscar</b-button>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <div class="row">
-                  <div class="col-sm-12 col-md-4 col-lg-6">
-                    <input-component :holder="''" :tipo="'text'" :label="'Estado:'" :value-input="localizacao.uf"
-                                     :id="'uf'" @resultadoText="atribuirResultado"/>
-                  </div>
-
-                  <div class="col-sm-12 col-md-4 col-lg-6">
-                    <input-component :holder="''" :tipo="'text'" :label="'Número:'" :value-input="localizacao.numero"
-                                     :id="'numero'" @resultadoText="atribuirResultado"/>
-                  </div>
-                </div>
-              </div>
-
-              <input-component style="margin-left: 15px" :holder="''" :tipo="'text'" :label="'Cidade:'"
-                               :value-input="localizacao.localidade" :id="'cidade'" @resultadoText="atribuirResultado"/>
-            </div>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-6">
-            <div class="row">
-              <input-component :holder="''" :tipo="'text'" :label="'Endereço:'" :value-input="localizacao.logradouro"
-                               :id="'logradouro'" @resultadoText="atribuirResultado"/>
-
-              <input-component :holder="''" :tipo="'text'" :label="'Complemento:'" :value-input="localizacao.complemento"
-                               :id="'complemento'" @resultadoText="atribuirResultado"/>
-
-              <input-component :holder="''" :tipo="'text'" :label="'Bairro:'"
-                               :value-input="localizacao.bairro" :id="'bairro'" @resultadoText="atribuirResultado"/>
-            </div>
-          </div>
+          <endereco-component @updateLogradouro="updateLogradouro"/>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
             <p id="titulo2" class="text-left">Informações do Imóvel</p>
@@ -95,7 +49,6 @@
 </template>
 
 <script>
-  import Axios from 'axios'
   import {salvarAnuncio, salvarImagensAnuncio} from '../services/requestServices'
   import loaderModal from '../templates/Loader'
   import Swal from '../util/Swal'
@@ -104,6 +57,7 @@
   import inputNumberComponent from '../components/InputNumberComponent'
   import inputSelectComponent from '../components/InputSelectComponent'
   import inputTextAreaComponent from '../components/TextAreaComponent'
+  import enderecoComponent from '../components/groupComponents/EnderecoComponent'
   import {tiposDeDomicilio as tpDomicilios, tiposDeNegocio as tpNegocio} from "../models/Enums";
 
   export default {
@@ -113,19 +67,12 @@
       inputComponent,
       inputNumberComponent,
       inputSelectComponent,
-      inputTextAreaComponent
+      inputTextAreaComponent,
+      enderecoComponent
     },
     data() {
       return {
-        localizacao: {
-          cep: '',
-          logradouro: '',
-          uf: '',
-          numero: '',
-          complemento: '',
-          localidade: '',
-          bairro: ''
-        },
+        localizacao: '',
         fotos: null,
         infoImovel: {
           titulo: '',
@@ -140,22 +87,12 @@
       }
     },
     methods: {
+      updateLogradouro(result){
+        this.localizacao = result;
+        console.log(this.localizacao)
+      },
       atribuirResultado(result) {
-        if (result.id === 'cep') {
-          this.localizacao.cep = result.message
-        } else if (result.id === 'uf') {
-          this.localizacao.uf = result.message
-        } else if (result.id === 'numero') {
-          this.localizacao.numero = result.message
-        } else if (result.id === 'cidade') {
-          this.localizacao.localidade = result.message
-        } else if (result.id === 'logradouro') {
-          this.localizacao.logradouro = result.message
-        } else if (result.id === 'complemento') {
-          this.localizacao.complemento = result.message
-        } else if (result.id === 'bairro') {
-          this.localizacao.bairro = result.message
-        } else if (result.id === 'tipoImovel') {
+        if (result.id === 'tipoImovel') {
           this.infoImovel.tipoImovel = result.message
         } else if (result.id === 'tipoNegocio') {
           this.infoImovel.tipoNegocio = result.message
@@ -167,18 +104,7 @@
           this.infoImovel.descricao = result.message
         }
       },
-      buscarCep() {
-        Axios({
-          method: 'GET',
-          url: `http://viacep.com.br/ws/${this.localizacao.cep}/json/`
-        }).then((response) => {
-          this.localizacao = response.data
-        }).catch((err) => {
-          console.log(err.response)
-        })
-      },
       validarCadastro() {
-        debugger;
         let result = true;
         if (this.localizacao.cep === null || this.localizacao.cep === '') {
           Utils.alertInput('cep');
@@ -210,7 +136,6 @@
         return result
       },
       adicionarAnuncio() {
-        debugger;
         if (this.validarCadastro()) {
           this.showModal = true;
           const anuncio = {
@@ -264,19 +189,8 @@
 </script>
 
 <style scoped>
-  #titulo, #titulo2 {
+  #titulo2 {
     font-weight: bold;
-  }
-
-  p {
-    margin-top: 15px;
-    margin-bottom: -2px;
-  }
-
-  .botaoBuscar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
   }
 
 </style>
