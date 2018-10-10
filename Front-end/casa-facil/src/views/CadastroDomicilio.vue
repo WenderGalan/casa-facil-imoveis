@@ -52,13 +52,13 @@
   import {salvarAnuncio, salvarImagensAnuncio} from '../services/requestServices'
   import loaderModal from '../templates/Loader'
   import Swal from '../util/Swal'
-  import Utils from '../util/Utils'
   import inputComponent from '../components/inputTextComponent'
   import inputNumberComponent from '../components/InputNumberComponent'
   import inputSelectComponent from '../components/InputSelectComponent'
   import inputTextAreaComponent from '../components/TextAreaComponent'
   import enderecoComponent from '../components/groupComponents/EnderecoComponent'
   import {tiposDeDomicilio as tpDomicilios, tiposDeNegocio as tpNegocio} from "../models/Enums";
+  import CadastroAnuncioMixins from "../mixins/CadastroAnuncioMixins";
 
   export default {
     name: 'CadastroDomicilio',
@@ -72,7 +72,6 @@
     },
     data() {
       return {
-        localizacao: '',
         fotos: null,
         infoImovel: {
           titulo: '',
@@ -86,94 +85,10 @@
         showModal: false
       }
     },
+    mixins: [
+      CadastroAnuncioMixins
+    ],
     methods: {
-      updateLogradouro(result) {
-        this.localizacao = result;
-        console.log(this.localizacao)
-      },
-      atribuirResultado(result) {
-        if (result.id === 'tipoImovel') {
-          this.infoImovel.tipoImovel = result.message
-        } else if (result.id === 'tipoNegocio') {
-          this.infoImovel.tipoNegocio = result.message
-        } else if (result.id === 'titulo') {
-          this.infoImovel.titulo = result.message
-        } else if (result.id === 'preco') {
-          this.infoImovel.valor = result.message
-        } else if (result.id === 'descricao') {
-          this.infoImovel.descricao = result.message
-        }
-      },
-      validarCadastro() {
-        let result = true;
-        if (this.localizacao.cep === null || this.localizacao.cep === '') {
-          Utils.alertInput('cep');
-          result = false
-        } else {
-          Utils.alertInputValid('cep')
-        }
-        if (this.localizacao.logradouro === null || this.localizacao.logradouro === '') {
-          Utils.alertInput('logradouro');
-          result = false
-        } else {
-          Utils.alertInputValid('logradouro')
-        }
-        if (this.localizacao.bairro === null || this.localizacao.bairro === '') {
-          Utils.alertInput('bairro');
-          result = false
-        } else {
-          Utils.alertInputValid('bairro')
-        }
-        if (this.localizacao.uf === null || this.localizacao.uf === '') {
-          Utils.alertInput('uf');
-          result = false
-        } else {
-          Utils.alertInputValid('uf')
-        }
-        if (this.localizacao.localidade === null || this.localizacao.localidade === '') {
-          Utils.alertInput('localidade');
-          result = false
-        } else {
-          Utils.alertInputValid('localidade')
-        }
-        if (this.localizacao.complemento === null || this.localizacao.complemento === '') {
-          Utils.alertInput('complemento');
-          result = false
-        } else {
-          Utils.alertInputValid('complemento')
-        }
-        if (this.infoImovel.titulo === null || this.infoImovel.titulo === '') {
-          Utils.alertInput('titulo');
-          result = false
-        } else {
-          Utils.alertInputValid('titulo')
-        }
-        if (this.infoImovel.descricao === null || this.infoImovel.descricao === '') {
-          Utils.alertInput('descricao');
-          result = false
-        } else {
-          Utils.alertInputValid('descricao')
-        }
-        if (this.infoImovel.valor === null || this.infoImovel.valor === 0) {
-          Utils.alertInput('preco');
-          result = false
-        } else {
-          Utils.alertInputValid('preco')
-        }
-        if (this.infoImovel.tipoNegocio === null || this.infoImovel.tipoNegocio === '') {
-          Utils.alertInput('tipoNegocio');
-          result = false
-        } else {
-          Utils.alertInputValid('tipoNegocio')
-        }
-        if (this.infoImovel.tipoImovel === null || this.infoImovel.tipoImovel === '') {
-          Utils.alertInput('tipoImovel');
-          result = false
-        } else {
-          Utils.alertInputValid('tipoImovel')
-        }
-        return result
-      },
       adicionarAnuncio() {
         if (this.validarCadastro()) {
           this.showModal = true;
@@ -231,5 +146,4 @@
   #titulo2 {
     font-weight: bold;
   }
-
 </style>

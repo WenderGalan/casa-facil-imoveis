@@ -4,87 +4,7 @@
       <loader-modal :show-modal="showModal"></loader-modal>
       <b-card id="tile" title="Cadastro de Imóvel">
         <div class="row">
-          <div class="col-sm-12 col-md-4 col-lg-12">
-            <p id="titulo" class="text-left">Localização do Imóvel</p>
-            <hr>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-6">
-            <div class="row">
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">CEP:</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-10">
-                <input type="text" id="cep" @keyup.enter="buscarCep" v-model="localizacao.cep" v-mask="'#####-###'"
-                       class="form-control"/>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-2">
-                <b-button variant="info" @click="buscarCep">Buscar</b-button>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <div class="row">
-                  <div class="col-sm-12 col-md-4 col-lg-6" style="margin-left: -15px">
-                    <div class="col-sm-12 col-md-4 col-lg-12">
-                      <p class="text-left">Estado:</p>
-                    </div>
-
-                    <div class="col-sm-12 col-md-4 col-lg-12">
-                      <input type="text" v-model="localizacao.uf" class="form-control"/>
-                    </div>
-                  </div>
-
-                  <div class="col-sm-12 col-md-4 col-lg-6" style="margin-right: -20px">
-                    <div class="col-sm-12 col-md-4 col-lg-12">
-                      <p class="text-left">Número:</p>
-                    </div>
-
-                    <div class="col-sm-12 col-md-4 col-lg-12">
-                      <input type="number" v-model="localizacao.numero" class="form-control"/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">Cidade:</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" v-model="localizacao.localidade" class="form-control"/>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-12 col-md-4 col-lg-6">
-            <div class="row">
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">Endereço:</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" v-model="localizacao.logradouro" class="form-control"/>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">Complemento:</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" v-model="localizacao.complemento" class="form-control"/>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <p class="text-left">Bairro:</p>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-12">
-                <input type="text" v-model="localizacao.bairro" class="form-control"/>
-              </div>
-            </div>
-          </div>
+          <endereco-component :localizacao-prop="localizacao" @updateLogradouro="updateLogradouro"/>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
             <p id="titulo2" class="text-left">Informações do Imóvel</p>
@@ -158,25 +78,19 @@
   import {buscarAnuncio, alterarAnuncio, excluirImagemAnuncio, salvarImagensAnuncio} from '../services/requestServices'
   import loaderModal from '../templates/Loader'
   import Swal from '../util/Swal'
+  import EnderecoComponent from "../components/groupComponents/EnderecoComponent";
+  import CadastroAnuncioMixins from "../mixins/CadastroAnuncioMixins";
 
   export default {
     name: 'EditarAnuncio',
     components: {
+      EnderecoComponent,
       loaderModal
     },
     data() {
       return {
         fotos: null,
         anuncio: null,
-        localizacao: {
-          cep: '',
-          logradouro: '',
-          uf: '',
-          numero: '',
-          complemento: '',
-          localidade: '',
-          bairro: ''
-        },
         tiposDeDomicilio: [
           {
             value: 0,
@@ -206,6 +120,9 @@
         showModal: false
       }
     },
+    mixins: [
+      CadastroAnuncioMixins
+    ],
     methods: {
       buscarCep() {
         Axios({
@@ -228,34 +145,6 @@
           console.log(err.response);
           this.showModal = false
         })
-      },
-      atribuirInformacoes() {
-        this.localizacao.bairro = this.anuncio.endereco.bairro;
-        this.localizacao.cep = this.anuncio.endereco.cep;
-        this.localizacao.localidade = this.anuncio.endereco.cidade;
-        this.localizacao.complemento = this.anuncio.endereco.complemento;
-        this.localizacao.logradouro = this.anuncio.endereco.endereco;
-        this.localizacao.numero = this.anuncio.endereco.numero;
-        this.localizacao.uf = this.anuncio.endereco.estado;
-
-        if (this.anuncio.tiposImovel === 'Casa') {
-          this.anuncio.tiposImovel = this.tiposDeDomicilio[0].value
-
-        } else if (this.anuncio.tiposImovel === 'Apartamento') {
-          this.anuncio.tiposImovel = this.tiposDeDomicilio[1].value
-
-        } else if (this.anuncio.tiposImovel === 'Loja') {
-          this.anuncio.tiposImovel = this.tiposDeDomicilio[2].value
-
-        } else if (this.anuncio.tiposImovel === 'Terreno') {
-          this.anuncio.tiposImovel = this.tiposDeDomicilio[3].value
-
-        } else if (this.anuncio.tiposImovel === 'Fazenda') {
-          this.anuncio.tiposImovel = this.tiposDeDomicilio[4].value
-
-        } else if (this.anuncio.tiposImovel === 'Imovel Comercial') {
-          this.anuncio.tiposImovel = this.tiposDeDomicilio[5].value
-        }
       },
       editarAnuncio() {
         this.showModal = true;
@@ -339,18 +228,6 @@
 
   #imagem:hover {
     opacity: 0.3
-  }
-
-  #excluirImagem:hover {
-    opacity: 1;
-  }
-
-  #excluirImagem {
-    opacity: 0;
-    top: 50%;
-    position: absolute;
-    left: 40%;
-    margin-top: -30px
   }
 
 </style>
