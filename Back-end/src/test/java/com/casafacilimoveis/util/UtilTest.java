@@ -5,6 +5,7 @@ import com.casafacilimoveis.model.entities.Endereco;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.TipoImovel;
 import com.casafacilimoveis.model.enums.TipoNegocio;
+import com.casafacilimoveis.model.enums.TipoRelatorio;
 import com.casafacilimoveis.model.enums.TipoUsuario;
 import org.junit.After;
 import org.junit.Assert;
@@ -68,7 +69,7 @@ public class UtilTest {
 
     @Test
     public void gerarRelatorioTest() {
-        pdfGerado = Util.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario,
+        pdfGerado = Util.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, TipoRelatorio.PDF,
                 new ReportParameter("titulo", "TITULO TEST")
         );
         file = new File(pdfGerado);

@@ -2,9 +2,11 @@ package com.casafacilimoveis.util;
 
 import com.casafacilimoveis.model.beans.Validation;
 import com.casafacilimoveis.model.entities.Usuario;
+import com.casafacilimoveis.model.enums.TipoRelatorio;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +15,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
+
+import static com.casafacilimoveis.model.enums.TipoRelatorio.*;
 
 /**
  * casa-facil-imoveis
@@ -64,7 +68,7 @@ public class Util {
         return convFile;
     }
 
-    public static String gerarRelatorio(String layout, List result, Usuario usuario, ReportParameter... reportParameters) {
+    public static String gerarRelatorio(String layout, List result, Usuario usuario, TipoRelatorio tipoRelatorio, ReportParameter... reportParameters) {
         try {
             //criando o layout do relatorio a partir do jasper
             JasperDesign desenho = JRXmlLoader.load(JASPER_DIR + layout);
@@ -86,16 +90,45 @@ public class Util {
             File outDir = new File(REPORT_DIR);
             outDir.mkdirs();
 
-            //o nome do arquivo pdf será a data/hora atual no formato long
-            String nomeArquivo = new Date().getTime() + ".pdf";
-            JasperExportManager.exportReportToPdfFile(jasperPrint, REPORT_DIR + nomeArquivo);
-
-            //retorna o caminho do pdf gerado
-            return REPORT_DIR + nomeArquivo;
+            if (tipoRelatorio != null && tipoRelatorio == PDF || tipoRelatorio == HTML || tipoRelatorio == XML) {
+                //o nome do arquivo pdf será a data/hora atual no formato long
+                String nomeArquivo = null;
+                switch (tipoRelatorio) {
+                    case PDF:
+                        nomeArquivo = new Date().getTime() + ".pdf";
+                        JasperExportManager.exportReportToPdfFile(jasperPrint, REPORT_DIR + nomeArquivo);
+                        break;
+                    case HTML:
+                        nomeArquivo = new Date().getTime() + ".html";
+                        JasperExportManager.exportReportToHtmlFile(jasperPrint, REPORT_DIR + nomeArquivo);
+                        break;
+                    case XML:
+                        nomeArquivo = new Date().getTime() + ".xml";
+                        JasperExportManager.exportReportToXmlFile(jasperPrint, REPORT_DIR + nomeArquivo, false);
+                        break;
+                }
+                //retorna o caminho do pdf gerado
+                return REPORT_DIR + nomeArquivo;
+            } else if (tipoRelatorio != null && tipoRelatorio == CSV) {
+                String nomeArquivo = new Date().getTime() + ".csv";
+                convertToCsv(jasperPrint, nomeArquivo);
+                return REPORT_DIR + nomeArquivo;
+            }
         } catch (JRException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void convertToCsv(JasperPrint jasperPrint, String nomeArquivo){
+        try {
+            JRCsvExporter exporterCSV = new JRCsvExporter();
+            exporterCSV.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporterCSV.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, REPORT_DIR + nomeArquivo);
+            exporterCSV.exportReport();
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
     }
 
 }

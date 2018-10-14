@@ -7,6 +7,7 @@ import com.casafacilimoveis.model.entities.SugestaoAutoComplete;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.CodeError;
 import com.casafacilimoveis.model.enums.TipoNegocio;
+import com.casafacilimoveis.model.enums.TipoRelatorio;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.EnderecoRepository;
 import com.casafacilimoveis.repository.UsuarioRepository;
@@ -143,7 +144,7 @@ public class AnuncioServiceImpl implements AnuncioService {
     }
 
     @Override
-    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio) {
+    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, TipoRelatorio tipoRelatorio) {
         List<Anuncio> anuncios = anuncioRepository.findAllAnunciosByUserAndTipoNegocio(idUsuario, tipoNegocio);
         Usuario usuario = usuarioRepository.findOneById(idUsuario);
         if (anuncios != null && anuncios.size() > 0 && usuario != null) {
@@ -162,10 +163,10 @@ public class AnuncioServiceImpl implements AnuncioService {
                     "Atenciosamente,\nEquipe Casa Fácil Imóveis.";
 
 
-            String pdfGerado = Util.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario,
+            String arquivoGerado = Util.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, tipoRelatorio,
                     new ReportParameter("titulo", titulo)
             );
-            return emailService.sendEmailWithAttachement(pdfGerado, usuario.getEmail(), subject, text);
+            return emailService.sendEmailWithAttachement(arquivoGerado, usuario.getEmail(), subject, text);
         } else {
             return new ResponseEntity(new ResponseError(CodeError.USUARIO_NAO_POSSUI_ANUNCIOS,
                     "O usuário não possui anúncios suficientes para gerar relatório"), HttpStatus.BAD_REQUEST);
