@@ -14,6 +14,7 @@ import com.casafacilimoveis.repository.UsuarioRepository;
 import com.casafacilimoveis.service.AnuncioService;
 import com.casafacilimoveis.service.EmailService;
 import com.casafacilimoveis.service.GoogleDriveService;
+import com.casafacilimoveis.util.RelatorioUtil;
 import com.casafacilimoveis.util.ReportParameter;
 import com.casafacilimoveis.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,7 +164,7 @@ public class AnuncioServiceImpl implements AnuncioService {
                     "Atenciosamente,\nEquipe Casa Fácil Imóveis.";
 
 
-            String arquivoGerado = Util.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, tipoRelatorio,
+            String arquivoGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, tipoRelatorio,
                     new ReportParameter("titulo", titulo)
             );
             return emailService.sendEmailWithAttachement(arquivoGerado, usuario.getEmail(), subject, text);
