@@ -1,6 +1,6 @@
 Host: ec2-54-225-97-112.compute-1.amazonaws.com
 Database: dep3ele3ei4luk
-User: zxebwestoynydb
+User: tbxklcdkrqxaly
 Port: 5432
 Password: 0dd6f4527ec482e3cb151715535009bd23688dfc186f3e5ad014a66641c690ff
 URI: postgres://tbxklcdkrqxaly:0dd6f4527ec482e3cb151715535009bd23688dfc186f3e5ad014a66641c690ff@ec2-54-225-97-112.compute-1.amazonaws.com:5432/dep3ele3ei4luk
