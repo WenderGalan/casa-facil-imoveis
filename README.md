@@ -19,8 +19,8 @@ Para a instalação do spring boot é necessário fazer o download das dependên
   - #### Sprint 4: [Busca e Paginação de imóveis](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%204%20-%20Busca%20e%20Pagina%C3%A7%C3%A3o%20de%20im%C3%B3veis.pdf)
   - #### Sprint 5: [Autocomplete na busca de imóveis](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%205%20-%20Autocomplete%20na%20busca%20de%20im%C3%B3veis.pdf)
  - #### Sprint 6: [Relatórios de venda e aluguel](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%206%20-%20Relat%C3%B3rios%20de%20Venda%20e%20Aluguel.pdf)
- - #### Sprint 7: [Relatórios de venda e aluguel - Multiformatos]() 
-   - ##### Modelos de relatórios disponíveis: [Venda e Aluguel]()
+ - #### Sprint 7: [Relatórios de venda e aluguel - Multiformatos](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%207%20-%20Relat%C3%B3rios%20de%20Venda%20e%20Aluguel%20-%20Multiformatos.pdf) 
+   - ##### Modelos de relatórios disponíveis: [Venda e Aluguel](https://github.com/WenderGalan/casa-facil-imoveis/tree/master/Relat%C3%B3rios)
  
 ## Tecnologias Utilizadas:
 
