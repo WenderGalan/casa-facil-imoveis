@@ -1,0 +1,10 @@
+Os relatórios estão disponiveis nos seguintes formatos:
+	- PDF
+	- HTML
+	- XML
+	- TXT
+	- CSV
+	- JSON
+	- XLS
+
+E todos os relatórios estão disponveis tanto para o modelo de Aluguel quanto para venda.

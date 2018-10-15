@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperPrint xmlns="http://jasperreports.sourceforge.net/jasperreports/print" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/print http://jasperreports.sourceforge.net/xsd/jasperprint.xsd" name="listagemImoveis" pageWidth="595" pageHeight="842" topMargin="20" leftMargin="20" bottomMargin="20" rightMargin="20" locale="pt_BR" timezone="America/Cuiaba">
+	<property name="net.sf.jasperreports.export.xml.start.page.index" value="0"/>
+	<property name="net.sf.jasperreports.export.xml.end.page.index" value="0"/>
+	<property name="net.sf.jasperreports.export.xml.page.count" value="1"/>
+	<origin band="pageHeader"/>
+	<origin band="columnHeader"/>
+	<origin band="detail"/>
+	<origin band="pageFooter"/>
+	<origin band="summary"/>
+	<page>
+		<text verticalAlignment="Middle" textHeight="15.09375" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-2.6367188">
+			<reportElement uuid="29252d07-69f7-4ce4-af25-d8025948c566" x="200" y="31" width="298" height="45" origin="0" srcId="1"/>
+			<font fontName="SansSerif" size="12" isBold="true"/>
+			<textContent><![CDATA[Relatório de imóveis à venda]]></textContent>
+		</text>
+		<text textAlignment="Right" verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.util.Date" pattern="dd/MM/yyyy">
+			<reportElement uuid="29252d07-69f7-4ce4-af25-d8025948c566" x="508" y="20" width="67" height="15" origin="0" srcId="2"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[15/10/2018]]></textContent>
+		</text>
+		<text textAlignment="Right" verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.util.Date" pattern="HH:mm">
+			<reportElement uuid="29252d07-69f7-4ce4-af25-d8025948c566" x="508" y="35" width="67" height="15" origin="0" srcId="3"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[09:12]]></textContent>
+		</text>
+		<line>
+			<reportElement uuid="c97951a8-8a53-4a7f-a019-2b1cdaf82dfe" x="20" y="88" width="555" height="1" origin="0" srcId="4"/>
+		</line>
+		<image scaleImage="RetainShape" hAlign="Left" vAlign="Top">
+			<reportElement uuid="74faea9e-9c90-4362-900b-339cfa59664a" x="20" y="39" width="150" height="31" origin="0" srcId="5"/>
+			<imageSource>
+				<![CDATA[C:\Users\TDR\Downloads\casa-facil-imoveis\Back-end\reportdir\1539609147143.xml_files\img_0]]>
+			</imageSource>
+		</image>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="9f06dc5f-291b-4d06-ad0e-fd042e9edd0c" x="20" y="92" width="488" height="15" origin="1" srcId="6"/>
+			<font fontName="SansSerif" size="8" isBold="true"/>
+			<textContent><![CDATA[TÍTULO E ENDEREÇO DO IMÓVEL]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="9f06dc5f-291b-4d06-ad0e-fd042e9edd0c" x="508" y="92" width="67" height="15" origin="1" srcId="7"/>
+			<font fontName="SansSerif" size="8" isBold="true"/>
+			<textContent><![CDATA[VALOR]]></textContent>
+		</text>
+		<line>
+			<reportElement uuid="c97951a8-8a53-4a7f-a019-2b1cdaf82dfe" x="20" y="107" width="555" height="1" origin="1" srcId="8"/>
+			<graphicElement>
+				<pen lineWidth="0.5" lineColor="#000000"/>
+			</graphicElement>
+		</line>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="108" width="67" height="15" origin="2" srcId="9"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 380,00]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109" x="20" y="108" width="488" height="15" origin="2" srcId="10"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Apartamento com 2 Quartos à Venda, 72 m² , Rua da casa dele, Centro, Rio de Janeiro/RJ]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="123" width="67" height="15" origin="2" srcId="9"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 380,00]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109" x="20" y="123" width="488" height="15" origin="2" srcId="10"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Apartamento com 2 Quartos à Venda, 72 m² , Rua da casa dele, Centro, Rio de Janeiro/RJ]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="138" width="67" height="15" origin="2" srcId="9"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 350.000,00]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109" x="20" y="138" width="488" height="15" origin="2" srcId="10"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Casa em ótimo estado na Guaicurus, Rua Morélia N. Neves, Vila Aimoré, Campo Grande/MS]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="153" width="67" height="15" origin="2" srcId="9"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 263.000,00]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109" x="20" y="153" width="488" height="15" origin="2" srcId="10"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Casa na árvore - Acre, Rua Jardim Botânico, Conjunto Universitário, Rio Branco/AC]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="168" width="67" height="15" origin="2" srcId="9"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 500.000,00]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109" x="20" y="168" width="488" height="15" origin="2" srcId="10"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Casa no Iracy Coelho, Rua Gaudiley Brun, Parque Residencial Iracy Coelho Netto, Campo Grande/MS]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="183" width="67" height="15" origin="2" srcId="9"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 250,00]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109" x="20" y="183" width="488" height="15" origin="2" srcId="10"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Casa novissíma Jardim Palmeiras, Rua Elesbão Murtinho, Universitário, Campo Grande/MS]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="198" width="67" height="15" origin="2" srcId="9"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 780.000,00]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109" x="20" y="198" width="488" height="15" origin="2" srcId="10"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Casa super luxuosa na Guaicurus, Rua Morélia N. Neves, Vila Aimoré, Campo Grande/MS]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="213" width="67" height="15" origin="2" srcId="9"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 9.500.000,00]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109" x="20" y="213" width="488" height="15" origin="2" srcId="10"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Cobertura a beira-mar - Praia do Forte, Rua Jardim Alvalice, Caminho de Areia, Salvador/BA]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="228" width="67" height="15" origin="2" srcId="9"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 5.000.000,00]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109" x="20" y="228" width="488" height="15" origin="2" srcId="10"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Cobertura na praia - CE, Rua Jardim da Alegria, Frei Damião, Juazeiro do Norte/CE]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="243" width="67" height="15" origin="2" srcId="9"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 10.000.000,00]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="6cfd8294-5674-438a-a21d-22d1e8a4d109" x="20" y="243" width="488" height="15" origin="2" srcId="10"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Imovel comercial para lucrar muito, Rua Jardim Mirim, Cobilândia, Vila Velha/ES]]></textContent>
+		</text>
+		<line>
+			<reportElement uuid="c97951a8-8a53-4a7f-a019-2b1cdaf82dfe" x="20" y="258" width="555" height="1" origin="4" srcId="15"/>
+			<graphicElement>
+				<pen lineWidth="0.5"/>
+			</graphicElement>
+		</line>
+		<text verticalAlignment="Middle" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125" valueClass="java.lang.Double" pattern="¤ #,##0.00">
+			<reportElement uuid="1c20ce71-f90b-4a19-a9ef-86264667e2b9" x="508" y="259" width="67" height="15" origin="4" srcId="16"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[R$ 26.394.010,00]]></textContent>
+		</text>
+		<text verticalAlignment="Top" textHeight="10.0625" markup="none" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="29252d07-69f7-4ce4-af25-d8025948c566" x="20" y="807" width="384" height="15" origin="3" srcId="11"/>
+			<font fontName="SansSerif" size="8" isBold="false"/>
+			<textContent><![CDATA[Gerado por Matheus Vinicius Pimentel Cabreira]]></textContent>
+		</text>
+		<text textAlignment="Right" verticalAlignment="Top" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="decb909a-919b-48fd-b87c-8eea9f2085f9" x="448" y="807" width="100" height="15" origin="3" srcId="12"/>
+			<font fontName="SansSerif" size="8"/>
+			<textContent><![CDATA[Página  1  de  ]]></textContent>
+		</text>
+		<text verticalAlignment="Top" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-1.7578125">
+			<reportElement uuid="f65c1c02-741f-4bc9-8cf0-be711812860f" x="548" y="807" width="27" height="15" origin="3" srcId="13"/>
+			<font fontName="SansSerif" size="8"/>
+			<textContent><![CDATA[  1]]></textContent>
+		</text>
+		<line>
+			<reportElement uuid="c97951a8-8a53-4a7f-a019-2b1cdaf82dfe" x="20" y="806" width="555" height="1" origin="3" srcId="14"/>
+			<graphicElement>
+				<pen lineWidth="0.5" lineColor="#000000"/>
+			</graphicElement>
+		</line>
+	</page>
+</jasperPrint>

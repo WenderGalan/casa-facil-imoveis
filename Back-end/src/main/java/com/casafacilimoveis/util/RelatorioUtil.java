@@ -73,6 +73,7 @@ public class RelatorioUtil {
                         break;
                     case XML:
                         //Cria um arquivo com a imagem em byte array junto do arquivo xml
+                        //Site para formatar o XML: https://www.freeformatter.com/xml-formatter.html
                         nomeArquivo = new Date().getTime() + ".xml";
                         JasperExportManager.exportReportToXmlFile(jasperPrint, REPORT_DIR + nomeArquivo, true);
                         break;
