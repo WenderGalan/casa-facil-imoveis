@@ -4,6 +4,8 @@ import com.casafacilimoveis.model.entities.ContatoAnunciante;
 import com.casafacilimoveis.model.enums.TipoNegocio;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 /**
  * casafacilimoveis
  * Wender Galan
@@ -21,5 +23,5 @@ public interface EmailService {
 
     public ResponseEntity sendEmailContato(ContatoAnunciante contato, Integer idAnuncio);
 
-    public ResponseEntity sendEmailWithAttachement(String arquivo, String to, String subject, String text);
+    public ResponseEntity sendEmailWithAttachement(String arquivos, String to, String subject, String text);
 }
