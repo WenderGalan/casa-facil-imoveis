@@ -50,3 +50,39 @@ export const tiposDeNegocio = [
     text: 'Aluguel'
   }
 ];
+
+export const tiposRelatorio = [
+  {
+    value: null,
+    text: 'Selecione uma opção',
+    disabled: true
+  },
+  {
+    value: 'PDF',
+    text: 'PFD'
+  },
+  {
+    value: 'HTML',
+    text: 'HTML'
+  },
+  {
+    value: 'XML',
+    text: 'XML'
+  },
+  {
+    value: 'TXT',
+    text: 'TXT'
+  },
+  {
+    value: 'CSV',
+    text: 'CSV'
+  },
+  {
+    value: 'JSON',
+    text: 'JSON'
+  },
+  {
+    value: 'XLS',
+    text: 'XLS'
+  }
+];

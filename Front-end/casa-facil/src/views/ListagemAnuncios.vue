@@ -3,7 +3,12 @@
     <loader-modal :show-modal="showModal"></loader-modal>
     <b-card title="Anuncios cadastrados">
       <div class="col-sm-12 col-md-4 col-lg-12">
-        <div class="row" style="text-align: right; display: block; margin-top: -50px">
+        <div class="row" style="text-align: right; display: block">
+          <!--<div class="col-sm-12 col-md-4 col-lg-3">-->
+
+          <!--</div>-->
+          <b-form-select v-model="selected" :options="tiposDeRelatorio" class="mb-3 col-sm-12 col-md-4 col-lg-3"
+            style="margin-top: 18px; margin-right: 15px" pla/>
           <b-button variant="success" @click="gerarRelatorioVenda('VENDA')"><i class="fa fa-usd" aria-hidden="true"></i>
             Gerar relatório de venda
           </b-button>
@@ -35,11 +40,14 @@
   import {buscarAnunciosUsuario, excluirAnuncio, gerarRelatorio} from "../services/requestServices";
   import loaderModal from '../templates/Loader'
   import AnuncioComponent from '../components/AnuncioComponent'
+  import {tiposRelatorio} from "../models/Enums";
   import Swal from '../util/Swal'
+  import InputSelectComponent from "../components/InputSelectComponent";
 
   export default {
     name: 'ListagemAnuncios',
     components: {
+      InputSelectComponent,
       loaderModal,
       AnuncioComponent
     },
@@ -49,7 +57,9 @@
         showModal: false,
         page: 0,
         fazerBusca: true,
-        enableButton: false
+        enableButton: false,
+        tiposDeRelatorio: tiposRelatorio,
+        selected: null
       }
     },
     methods: {
