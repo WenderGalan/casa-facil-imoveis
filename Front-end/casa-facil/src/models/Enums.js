@@ -59,7 +59,7 @@ export const tiposRelatorio = [
   },
   {
     value: 'PDF',
-    text: 'PFD'
+    text: 'PDF'
   },
   {
     value: 'HTML',
