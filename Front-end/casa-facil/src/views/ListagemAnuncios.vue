@@ -114,7 +114,7 @@
         this.showModal = true;
         debugger;
         const id = this.$store.state.sessao.id;
-        gerarRelatorio(tipoNegocio, id, selected).then(response => {
+        gerarRelatorio(tipoNegocio, id, this.selected).then(response => {
           this.showModal = false;
           Swal.alertUmButton('', 'Relatório gerado com sucesso, verifique seu email para mais informações', 'success')
         }).catch(err => {
