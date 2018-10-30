@@ -3,32 +3,28 @@
     <div style="padding: 15px;">
       <div class="row">
           <loader :show-modal="showModal"/>
-        <div class="col-sm-12 col-md-4 col-lg-12">
-          <b-card
-              style="margin-left: 10px"
-              title="">
+        <b-card
+            style="margin-left: 10px"
+            title="">
 
-
-            <div class="row col-sm-12 col-md-4 col-lg-12">
-              <div class="col-sm-12 col-md-4 col-lg-11">
-                <auto-complete
-                        class="col-sm-12 col-md-4 col-lg-12"
-                        @buscarValores="receberValor"
-                        @alterarValor="alterarParametro"
-                        @recebeValor="receberValorAtual"
-                        :items="resultadoPesquisa"
-                        :novo-valor="buscar"/>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-1">
-                <b-button variant="info" @click="procurarAnuncio"><i class="fa fa-search" aria-hidden="true"></i></b-button>
-              </div>
+          <div class="row">
+            <div class="col-sm-11 col-md-11 col-lg-11">
+              <auto-complete
+                  @buscarValores="receberValor"
+                  @alterarValor="alterarParametro"
+                  @recebeValor="receberValorAtual"
+                  :items="resultadoPesquisa"
+                  :novo-valor="buscar"/>
             </div>
-            <AnuncioComponent v-for="anuncio in anuncios" :anuncio="anuncio"/>
-            <b-button variant="info" @click="definirChamadaBusca" :disabled="disabledButton">Carregar mais anúncios
-            </b-button>
-          </b-card>
-        </div>
+
+            <div class="col-sm-1 col-md-1 col-lg-1">
+              <b-button variant="info" @click="procurarAnuncio"><i class="fa fa-search" aria-hidden="true"></i></b-button>
+            </div>
+          </div>
+          <AnuncioComponent v-for="anuncio in anuncios" :anuncio="anuncio"/>
+          <b-button variant="info" @click="definirChamadaBusca" :disabled="disabledButton">Carregar mais anúncios
+          </b-button>
+        </b-card>
       </div>
     </div>
   </div>

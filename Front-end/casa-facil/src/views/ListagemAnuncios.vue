@@ -112,7 +112,6 @@
       },
       gerarRelatorioVenda(tipoNegocio) {
         this.showModal = true;
-        debugger;
         const id = this.$store.state.sessao.id;
         gerarRelatorio(tipoNegocio, id, this.selected).then(response => {
           this.showModal = false;
