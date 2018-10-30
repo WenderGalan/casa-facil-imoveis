@@ -4,6 +4,7 @@ import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.TipoRelatorio;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -75,7 +76,7 @@ public class RelatorioUtil {
                         //Cria um arquivo com a imagem em byte array junto do arquivo xml
                         //Site para formatar o XML: https://www.freeformatter.com/xml-formatter.html
                         nomeArquivo = new Date().getTime() + ".xml";
-                        JasperExportManager.exportReportToXmlFile(jasperPrint, REPORT_DIR + nomeArquivo, true);
+                        convertToXml(result, nomeArquivo);
                         break;
                 }
                 return REPORT_DIR + nomeArquivo;
@@ -178,6 +179,22 @@ public class RelatorioUtil {
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, REPORT_DIR + nomeArquivo);
             exporter.exportReport();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Convert um array list de anuncios em um arquivo XML
+     *
+     * @param nomeArquivo - nome do arquivo
+     * @param result      - lista de anuncios
+     **/
+    public static void convertToXml(List<Anuncio> result, String nomeArquivo) {
+        try {
+            if (result != null && !result.isEmpty()) result.forEach(a -> a.getAnunciante().setSenha(null));
+            XmlMapper xmlMapper = new XmlMapper();
+            xmlMapper.writeValue(new File(REPORT_DIR + nomeArquivo), result);
         } catch (Exception e) {
             e.printStackTrace();
         }
