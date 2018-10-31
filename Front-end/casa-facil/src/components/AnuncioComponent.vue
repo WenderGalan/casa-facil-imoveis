@@ -1,27 +1,25 @@
 <template>
-  <div class="col-sm-12 col-md-4 col-lg-12">
+  <div>
     <b-card class="card" @click="detalhesAnuncio(anuncio.titulo, anuncio.id)">
       <div class="row">
-        <div class="col-sm-12 col-md-4 col-lg-3" v-if="anuncio.imagensAnuncios.length > 0">
+        <div class="col-sm-12 col-md-12 col-lg-3" v-if="anuncio.imagensAnuncios.length > 0">
           <b-img alt="Thumbnail" :src="anuncio.imagensAnuncios[0].imagemUrl" class="img"></b-img>
         </div>
 
-        <div class="col-sm-12 col-md-4 col-lg-9" style="padding-left: 30px">
+        <div class="col-sm-12 col-md-12 col-lg-9" style="padding-left: 30px">
           <h3>{{anuncio.titulo}}</h3>
-          <p class="col-sm-12 col-md-4 col-lg-12 descricao"  style="width: 100%">{{anuncio.descricao}}</p>
+          <p class="descricao"  style="width: 100%">{{anuncio.descricao}}</p>
 
           <div class="row" style="margin-left: 20px">
-            <div class="col-sm-12 col-md-4 col-lg-4">
-              <div class="row">
-                <b-button variant="success">Tipo do imóvel: {{anuncio.tipoImovel}}</b-button>
-              </div>
+            <div class="col-sm-12 col-md-12 col-lg-4">
+              <b-button variant="success">Tipo do imóvel: {{anuncio.tipoImovel}}</b-button>
             </div>
 
-            <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="col-sm-12 col-md-12 col-lg-4">
               <b-button variant="warning">Tipo de negócio: {{anuncio.tipoNegocio}}</b-button>
             </div>
 
-            <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="col-sm-12 col-md-12 col-lg-4">
               <p class="valor">Valor: R${{anuncio.valor}}</p>
             </div>
           </div>
