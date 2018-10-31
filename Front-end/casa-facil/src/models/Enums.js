@@ -86,3 +86,18 @@ export const tiposRelatorio = [
     text: 'XLS'
   }
 ];
+
+export const tipoTemplate = [
+  {
+    value: 'CABECALHO_CORPO_RODAPE',
+    text: 'Cabeçalho - Corpo - Rodapé'
+  },
+  {
+    value: 'RODAPE_CABECALHO_CORPO',
+    text: 'Rodapé - Cabeçalho - Corpo'
+  },
+  {
+    value: 'CABECALHO_RODAPE',
+    text: 'Cabeçalho - Rodapé'
+  },
+];

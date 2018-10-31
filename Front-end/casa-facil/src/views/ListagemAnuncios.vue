@@ -7,8 +7,12 @@
           <!--<div class="col-sm-12 col-md-4 col-lg-3">-->
 
           <!--</div>-->
+          <b-form-select v-model="selectedTemplate" :options="tiposDeTemplate" class="mb-3 col-sm-12 col-md-4 col-lg-3"
+                         style="margin-top: 18px; margin-right: 15px"></b-form-select>
+
           <b-form-select v-model="selected" :options="tiposDeRelatorio" class="mb-3 col-sm-12 col-md-4 col-lg-3"
                          style="margin-top: 18px; margin-right: 15px"></b-form-select>
+
           <b-button variant="success" @click="gerarRelatorioVenda('VENDA')"><i class="fa fa-usd" aria-hidden="true"></i>
             Gerar relatório de venda
           </b-button>
@@ -40,7 +44,7 @@
   import {buscarAnunciosUsuario, excluirAnuncio, gerarRelatorio} from "../services/requestServices";
   import loaderModal from '../templates/Loader'
   import AnuncioComponent from '../components/AnuncioComponent'
-  import {tiposRelatorio} from "../models/Enums";
+  import {tiposRelatorio, tipoTemplate} from "../models/Enums";
   import Swal from '../util/Swal'
   import InputSelectComponent from "../components/InputSelectComponent";
 
@@ -59,7 +63,9 @@
         fazerBusca: true,
         enableButton: false,
         tiposDeRelatorio: tiposRelatorio,
-        selected: null
+        tiposDeTemplate: tipoTemplate,
+        selected: null,
+        selectedTemplate: 'CABECALHO_CORPO_RODAPE'
       }
     },
     methods: {
@@ -113,7 +119,7 @@
       gerarRelatorioVenda(tipoNegocio) {
         this.showModal = true;
         const id = this.$store.state.sessao.id;
-        gerarRelatorio(tipoNegocio, id, this.selected).then(response => {
+        gerarRelatorio(tipoNegocio, id, this.selected, this.selectedTemplate).then(response => {
           this.showModal = false;
           Swal.alertUmButton('', 'Relatório gerado com sucesso, verifique seu email para mais informações', 'success')
         }).catch(err => {
