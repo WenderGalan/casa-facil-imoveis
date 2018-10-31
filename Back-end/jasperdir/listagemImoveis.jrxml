@@ -14,13 +14,6 @@
 	<field name="data0" class="java.lang.Object"/>
 	<field name="data1" class="java.lang.Object"/>
 	<field name="data2" class="java.lang.Object"/>
-	<background>
-		<band height="802">
-			<rectangle>
-				<reportElement x="-20" y="0" width="595" height="802" uuid="9fb8a3f8-f370-427c-b732-d86d470a5863"/>
-			</rectangle>
-		</band>
-	</background>
 	<detail>
 		<band height="10">
 			<printWhenExpression><![CDATA[$P{template0} != null]]></printWhenExpression>

@@ -57,15 +57,12 @@ public class RelatorioUtil {
                 }
             }
 
-            //gerando o pdf
             JasperPrint jasperPrint = JasperFillManager.fillReport(relatorio, parameters, jrRS);
             File outDir = new File(REPORT_DIR);
             outDir.mkdirs();
 
-            /**Os arquivos são gerados com o nome em forma de data para nao ocorrer de sobreescrever arquivos no servidor**/
-            if (tipoRelatorio != null && tipoRelatorio == PDF || tipoRelatorio == HTML || tipoRelatorio == XML) {
+            if (tipoRelatorio != null) {
                 String nomeArquivo = null;
-                //Relatórios nativos sem a necessidade de conversao
                 switch (tipoRelatorio) {
                     case PDF:
                         nomeArquivo = new Date().getTime() + ".pdf";
