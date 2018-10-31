@@ -8,6 +8,7 @@ import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.CodeError;
 import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.model.enums.TipoRelatorio;
+import com.casafacilimoveis.model.enums.TipoTemplate;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.EnderecoRepository;
 import com.casafacilimoveis.repository.UsuarioRepository;
@@ -25,7 +26,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -145,7 +145,7 @@ public class AnuncioServiceImpl implements AnuncioService {
     }
 
     @Override
-    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, TipoRelatorio tipoRelatorio) {
+    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, TipoRelatorio tipoRelatorio, TipoTemplate tipoTemplate) {
         List<Anuncio> anuncios = anuncioRepository.findAllAnunciosByUserAndTipoNegocio(idUsuario, tipoNegocio);
         Usuario usuario = usuarioRepository.findOneById(idUsuario);
         if (anuncios != null && anuncios.size() > 0 && usuario != null) {
@@ -164,7 +164,7 @@ public class AnuncioServiceImpl implements AnuncioService {
                     "Atenciosamente,\nEquipe Casa Fácil Imóveis.";
 
 
-            String arquivoGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, tipoRelatorio,
+            String arquivoGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, tipoRelatorio, tipoTemplate,
                     new ReportParameter("titulo", titulo)
             );
             return emailService.sendEmailWithAttachement(arquivoGerado, usuario.getEmail(), subject, text);

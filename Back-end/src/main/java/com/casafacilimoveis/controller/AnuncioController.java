@@ -3,6 +3,7 @@ package com.casafacilimoveis.controller;
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.model.enums.TipoRelatorio;
+import com.casafacilimoveis.model.enums.TipoTemplate;
 import com.casafacilimoveis.service.AnuncioService;
 import com.casafacilimoveis.util.Constantes;
 import io.swagger.annotations.Api;
@@ -151,8 +152,8 @@ public class AnuncioController {
      **/
     @ApiOperation("Gera o relatório de listagem de anúncios a venda ou para alugar do usuário")
     @GetMapping("/relatorio/venda/{idUsuario}")
-    public ResponseEntity listagemVendaAluguel(@PathVariable("idUsuario") Integer idUsuario, @RequestParam TipoNegocio tipoNegocio, @RequestParam TipoRelatorio tipoRelatorio) {
-        return anuncioService.relatorioVendaAluguel(idUsuario, tipoNegocio, tipoRelatorio);
+    public ResponseEntity listagemVendaAluguel(@PathVariable("idUsuario") Integer idUsuario, @RequestParam TipoNegocio tipoNegocio, @RequestParam TipoRelatorio tipoRelatorio, @RequestParam TipoTemplate tipoTemplate) {
+        return anuncioService.relatorioVendaAluguel(idUsuario, tipoNegocio, tipoRelatorio, tipoTemplate);
     }
 
 }

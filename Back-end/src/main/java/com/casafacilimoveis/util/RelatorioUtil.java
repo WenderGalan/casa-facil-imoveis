@@ -1,8 +1,10 @@
 package com.casafacilimoveis.util;
 
 import com.casafacilimoveis.model.entities.Anuncio;
+import com.casafacilimoveis.model.entities.Relatorio;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.TipoRelatorio;
+import com.casafacilimoveis.model.enums.TipoTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import net.sf.jasperreports.engine.*;
@@ -13,10 +15,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.casafacilimoveis.model.enums.TipoRelatorio.*;
 
@@ -37,17 +36,21 @@ public class RelatorioUtil {
     private static final String REPORT_DIR = System.getProperty("user.dir") + FILE_SEPARATOR + "reportdir" + FILE_SEPARATOR;
     private static final String JASPER_DIR = System.getProperty("user.dir") + FILE_SEPARATOR + "jasperdir" + FILE_SEPARATOR;
 
-    public static String gerarRelatorio(String layout, List result, Usuario usuario, TipoRelatorio tipoRelatorio, ReportParameter... reportParameters) {
+    public static String gerarRelatorio(String layout, List result, Usuario usuario, TipoRelatorio tipoRelatorio, TipoTemplate tipoTemplate, ReportParameter... reportParameters) {
         try {
             //criando o layout do relatorio a partir do jasper
             JasperDesign desenho = JRXmlLoader.load(JASPER_DIR + layout);
             JasperReport relatorio = JasperCompileManager.compileReport(desenho);
-            JRDataSource jrRS = new JRBeanCollectionDataSource(result);
+            JRDataSource jrRS = new JRBeanCollectionDataSource(Arrays.asList(new Relatorio(result)));
 
             //setando os parametros
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("dataAtual", new Date());
             parameters.put("usuario", usuario != null ? usuario.getNome() : "Usuário Anônimo");
+            parameters.put("subreportDir", JASPER_DIR);
+            for (int i = 0; i < tipoTemplate.getOrdem().length; i++) {
+                parameters.put("template" + i, tipoTemplate.getOrdem()[i]);
+            }
             if (reportParameters != null) {
                 for (ReportParameter parameter : reportParameters) {
                     parameters.put(parameter.getKey(), parameter.getValue());
@@ -78,24 +81,23 @@ public class RelatorioUtil {
                         nomeArquivo = new Date().getTime() + ".xml";
                         convertToXml(result, nomeArquivo);
                         break;
+                    case CSV:
+                        nomeArquivo = new Date().getTime() + ".csv";
+                        convertToCsv(jasperPrint, nomeArquivo);
+                        break;
+                    case XLS:
+                        nomeArquivo = new Date().getTime() + ".xls";
+                        convertToXls(jasperPrint, nomeArquivo);
+                        break;
+                    case JSON:
+                        nomeArquivo = new Date().getTime() + ".json";
+                        convertToJson(result, nomeArquivo);
+                        break;
+                    case TXT:
+                        nomeArquivo = new Date().getTime() + ".txt";
+                        convertToTxt(jasperPrint, nomeArquivo);
+                        break;
                 }
-                return REPORT_DIR + nomeArquivo;
-                //Relatorios que precisam de conversao
-            } else if (tipoRelatorio != null && tipoRelatorio == CSV) {
-                String nomeArquivo = new Date().getTime() + ".csv";
-                convertToCsv(jasperPrint, nomeArquivo);
-                return REPORT_DIR + nomeArquivo;
-            } else if (tipoRelatorio != null && tipoRelatorio == XLS) {
-                String nomeArquivo = new Date().getTime() + ".xls";
-                convertToXls(jasperPrint, nomeArquivo);
-                return REPORT_DIR + nomeArquivo;
-            } else if (tipoRelatorio != null && tipoRelatorio == JSON) {
-                String nomeArquivo = new Date().getTime() + ".json";
-                convertToJson(result, nomeArquivo);
-                return REPORT_DIR + nomeArquivo;
-            } else if (tipoRelatorio != null && tipoRelatorio == TXT) {
-                String nomeArquivo = new Date().getTime() + ".txt";
-                convertToTxt(jasperPrint, nomeArquivo);
                 return REPORT_DIR + nomeArquivo;
             }
         } catch (JRException e) {
@@ -110,7 +112,7 @@ public class RelatorioUtil {
      * @param jasperPrint - desenho do relatorio
      * @param nomeArquivo - nome do arquivo gerado
      **/
-    public static void convertToCsv(JasperPrint jasperPrint, String nomeArquivo) {
+    private static void convertToCsv(JasperPrint jasperPrint, String nomeArquivo) {
         try {
             JRCsvExporter exporterCSV = new JRCsvExporter();
             exporterCSV.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -127,7 +129,7 @@ public class RelatorioUtil {
      * @param jasperPrint - desenho do relatorio
      * @param nomeArquivo - nome do arquivo gerado
      **/
-    public static void convertToXls(JasperPrint jasperPrint, String nomeArquivo) {
+    private static void convertToXls(JasperPrint jasperPrint, String nomeArquivo) {
         try {
             JRXlsExporter exporterXLS = new JRXlsExporter();
             exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
@@ -150,7 +152,7 @@ public class RelatorioUtil {
      * @param result      - lista de anuncios
      * @param nomeArquivo - nome do arquivo Json
      **/
-    public static void convertToJson(List<Anuncio> result, String nomeArquivo) {
+    private static void convertToJson(List<Anuncio> result, String nomeArquivo) {
         try {
             //seta a senha do anunciante para nulo para nao enviar junto
             for (Anuncio anuncio : result) {
@@ -171,7 +173,7 @@ public class RelatorioUtil {
      * @param jasperPrint - Desenho do relatório
      * @param nomeArquivo - Nome do arquivo gerado
      **/
-    public static void convertToTxt(JasperPrint jasperPrint, String nomeArquivo) {
+    private static void convertToTxt(JasperPrint jasperPrint, String nomeArquivo) {
         try {
             JRTextExporter exporter = new JRTextExporter();
             exporter.setParameter(JRTextExporterParameter.PAGE_WIDTH, 150);
@@ -190,7 +192,7 @@ public class RelatorioUtil {
      * @param nomeArquivo - nome do arquivo
      * @param result      - lista de anuncios
      **/
-    public static void convertToXml(List<Anuncio> result, String nomeArquivo) {
+    private static void convertToXml(List<Anuncio> result, String nomeArquivo) {
         try {
             if (result != null && !result.isEmpty()) result.forEach(a -> a.getAnunciante().setSenha(null));
             XmlMapper xmlMapper = new XmlMapper();

@@ -3,6 +3,7 @@ package com.casafacilimoveis.service;
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.model.enums.TipoRelatorio;
+import com.casafacilimoveis.model.enums.TipoTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 
@@ -33,6 +34,6 @@ public interface AnuncioService {
 
     public ResponseEntity excluirPorId(Integer id);
 
-    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, TipoRelatorio tipoRelatorio);
+    public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, TipoRelatorio tipoRelatorio, TipoTemplate tipoTemplate);
 
 }

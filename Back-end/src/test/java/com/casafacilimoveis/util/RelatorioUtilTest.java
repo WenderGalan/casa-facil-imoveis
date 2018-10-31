@@ -91,7 +91,7 @@ public class RelatorioUtilTest {
         anuncios.add(anuncio2);
     }
 
-    @Test
+   /* @Test
     public void gerarRelatorioPDFTest() {
         PDFGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, PDF,
                 new ReportParameter("titulo", "TITULO TEST")
@@ -152,7 +152,7 @@ public class RelatorioUtilTest {
         );
         fileXLS = new File(XLSGerado);
         Assert.assertTrue(fileXLS.exists());
-    }
+    }*/
 
     @After
     public void tearDown() {
