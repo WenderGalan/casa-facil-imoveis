@@ -5,6 +5,7 @@ import com.casafacilimoveis.model.entities.Endereco;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.TipoImovel;
 import com.casafacilimoveis.model.enums.TipoNegocio;
+import com.casafacilimoveis.model.enums.TipoTemplate;
 import com.casafacilimoveis.model.enums.TipoUsuario;
 import org.junit.After;
 import org.junit.Assert;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.casafacilimoveis.model.enums.TipoRelatorio.*;
+import static com.casafacilimoveis.model.enums.TipoTemplate.CABECALHO_CORPO_RODAPE;
 
 /**
  * casafacilimoveis
@@ -91,9 +93,9 @@ public class RelatorioUtilTest {
         anuncios.add(anuncio2);
     }
 
-   /* @Test
+    @Test
     public void gerarRelatorioPDFTest() {
-        PDFGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, PDF,
+        PDFGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, PDF, CABECALHO_CORPO_RODAPE,
                 new ReportParameter("titulo", "TITULO TEST")
         );
         filePDF = new File(PDFGerado);
@@ -102,7 +104,7 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioHTMLTest() {
-        HTMLGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, HTML,
+        HTMLGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, HTML, CABECALHO_CORPO_RODAPE,
                 new ReportParameter("titulo", "TITULO TEST")
         );
         fileHTML = new File(HTMLGerado);
@@ -111,7 +113,7 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioXMLTest() {
-        XMLGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, XML,
+        XMLGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, XML, CABECALHO_CORPO_RODAPE,
                 new ReportParameter("titulo", "TITULO TEST")
         );
         fileXML = new File(XMLGerado);
@@ -120,7 +122,7 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioTXTTest() {
-        TXTGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, TXT,
+        TXTGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, TXT, CABECALHO_CORPO_RODAPE,
                 new ReportParameter("titulo", "TITULO TEST")
         );
         fileTXT = new File(TXTGerado);
@@ -129,7 +131,7 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioJSONTest() {
-        JSONGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, JSON,
+        JSONGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, JSON, CABECALHO_CORPO_RODAPE,
                 new ReportParameter("titulo", "TITULO TEST")
         );
         fileJSON = new File(JSONGerado);
@@ -138,7 +140,7 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioCSVTest() {
-        CSVGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, CSV,
+        CSVGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, CSV, CABECALHO_CORPO_RODAPE,
                 new ReportParameter("titulo", "TITULO TEST")
         );
         fileCSV = new File(CSVGerado);
@@ -147,12 +149,12 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioXLSTest() {
-        XLSGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, XLS,
+        XLSGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, XLS, CABECALHO_CORPO_RODAPE,
                 new ReportParameter("titulo", "TITULO TEST")
         );
         fileXLS = new File(XLSGerado);
         Assert.assertTrue(fileXLS.exists());
-    }*/
+    }
 
     @After
     public void tearDown() {
