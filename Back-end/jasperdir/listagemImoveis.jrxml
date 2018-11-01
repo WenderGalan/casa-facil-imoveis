@@ -88,21 +88,21 @@
 			<textField>
 				<reportElement x="0" y="1" width="384" height="15" uuid="29252d07-69f7-4ce4-af25-d8025948c566"/>
 				<textElement verticalAlignment="Top" markup="none">
-					<font fontName="Arial" size="8" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Impresso por " + $P{usuario}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="428" y="1" width="100" height="15" uuid="decb909a-919b-48fd-b87c-8eea9f2085f9"/>
 				<textElement textAlignment="Right" verticalAlignment="Top">
-					<font fontName="Arial" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Página  "+$V{PAGE_NUMBER}+"  de  "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="528" y="1" width="27" height="15" uuid="f65c1c02-741f-4bc9-8cf0-be711812860f"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["  " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
