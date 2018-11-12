@@ -22,6 +22,7 @@ Para a instalação do spring boot é necessário fazer o download das dependên
  - #### Sprint 7: [Relatórios de venda e aluguel - Multiformatos](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%207%20-%20Relat%C3%B3rios%20de%20Venda%20e%20Aluguel%20-%20Multiformatos.pdf) 
    - ##### Modelos de relatórios disponíveis: [Venda e Aluguel](https://github.com/WenderGalan/casa-facil-imoveis/tree/master/Relat%C3%B3rios)
   - #### Sprint 8: [Relatórios de Venda e Aluguel - Múltiplos templates](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%208%20-%20Relat%C3%B3rios%20de%20Venda%20e%20Aluguel%20-%20M%C3%BAltiplos%20templates.pdf)
+  - #### Sprint 9: [Cadastro e gerência de cliente](https://github.com/WenderGalan/casa-facil-imoveis/blob/master/Documenta%C3%A7%C3%A3o/Sprint%209%20-%20Cadastro%20e%20ger%C3%AAncia%20de%20cliente.pdf)
  
 ## Tecnologias Utilizadas:
 
@@ -33,6 +34,7 @@ Para a instalação do spring boot é necessário fazer o download das dependên
     - Spring Cache
     - Spring DevTools
     - Jasper Reports
+    - Captura de exceções e armazenamento em banco
     - [FlyWay](https://flywaydb.org/): Faz o gerenciamento de versões do banco de dados.
     - Postgres
     - Spring test (Teste de unidade)
