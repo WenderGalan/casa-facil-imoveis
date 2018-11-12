@@ -2,6 +2,7 @@ package com.casafacilimoveis.model.entities;
 
 import com.casafacilimoveis.model.enums.TipoImovel;
 import com.casafacilimoveis.model.enums.TipoNegocio;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ import java.util.Objects;
  * *********************************************
  */
 @Entity
-@Table(name = "anuncios", schema = "public")
+@Table(name = "anuncio", schema = "public")
 public class Anuncio implements Serializable {
 
     @Id
@@ -47,7 +48,7 @@ public class Anuncio implements Serializable {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_anunciante", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_anuncio_anunciante"))
-    private Usuario anunciante;
+    private Anunciante anunciante;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_anuncio_endereco"))
@@ -63,6 +64,10 @@ public class Anuncio implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "anuncio")
     private List<Imagem> imagensAnuncios;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "anuncio")
+    private List<Favorito> favoritos;
 
     /**
      * Gets id.
@@ -141,7 +146,7 @@ public class Anuncio implements Serializable {
      *
      * @return the anunciante
      */
-    public Usuario getAnunciante() {
+    public Anunciante getAnunciante() {
         return anunciante;
     }
 
@@ -150,7 +155,7 @@ public class Anuncio implements Serializable {
      *
      * @param anunciante the anunciante
      */
-    public void setAnunciante(Usuario anunciante) {
+    public void setAnunciante(Anunciante anunciante) {
         this.anunciante = anunciante;
     }
 
@@ -214,6 +219,14 @@ public class Anuncio implements Serializable {
 
     public void setTipoNegocio(TipoNegocio tipoNegocio) {
         this.tipoNegocio = tipoNegocio;
+    }
+
+    public List<Favorito> getFavoritos() {
+        return favoritos;
+    }
+
+    public void setFavoritos(List<Favorito> favoritos) {
+        this.favoritos = favoritos;
     }
 
     @Override

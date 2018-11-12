@@ -7,11 +7,11 @@ import com.casafacilimoveis.CasaFacilImoveisApplicationTests;
  * Wender Galan
  * Todos os direitos reservados ©
  * *********************************************
- * Nome do arquivo: UsuarioServiceTest.java
+ * Nome do arquivo: AnuncianteServiceTest.java
  * Criado por : Wender Galan
  * Data da criação : 27/09/2018
  * Observação :
  * *********************************************
  */
-public class UsuarioServiceTest extends CasaFacilImoveisApplicationTests {
+public class AnuncianteServiceTest extends CasaFacilImoveisApplicationTests {
 }

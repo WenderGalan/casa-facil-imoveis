@@ -2,10 +2,9 @@ package com.casafacilimoveis.util;
 
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Endereco;
-import com.casafacilimoveis.model.entities.Usuario;
+import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.enums.TipoImovel;
 import com.casafacilimoveis.model.enums.TipoNegocio;
-import com.casafacilimoveis.model.enums.TipoTemplate;
 import com.casafacilimoveis.model.enums.TipoUsuario;
 import org.junit.After;
 import org.junit.Assert;
@@ -32,7 +31,7 @@ import static com.casafacilimoveis.model.enums.TipoTemplate.CABECALHO_CORPO_RODA
  */
 public class RelatorioUtilTest {
 
-    private Usuario usuario;
+    private Anunciante usuario;
     private List<Anuncio> anuncios = new ArrayList<>();
     private String PDFGerado = null;
     private String HTMLGerado = null;
@@ -62,7 +61,7 @@ public class RelatorioUtilTest {
         endereco.setEndereco("Rua elesbão murtinho");
         endereco.setComplemento("Na minha casa");
 
-        usuario = new Usuario();
+        usuario = new Anunciante();
         usuario.setNome("Wender Galan");
         usuario.setSenha(SenhaUtil.gerarBCrypt("minhasenha"));
         usuario.setEmail("wendergalan2014@hotmail.com");

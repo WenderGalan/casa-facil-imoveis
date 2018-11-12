@@ -17,10 +17,6 @@ public enum TipoUsuario {
      */
     FISICA(0),
     /**
-     * Corretor tipo usuario.
-     */
-    CORRETOR(1),
-    /**
      * Juridica tipo usuario.
      */
     JURIDICA(2);

@@ -4,11 +4,12 @@ import com.casafacilimoveis.model.beans.ResponseError;
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Imagem;
 import com.casafacilimoveis.model.entities.SugestaoAutoComplete;
-import com.casafacilimoveis.model.entities.Usuario;
+import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.enums.CodeError;
 import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.model.enums.TipoRelatorio;
 import com.casafacilimoveis.model.enums.TipoTemplate;
+import com.casafacilimoveis.repository.AnuncianteRepository;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.EnderecoRepository;
 import com.casafacilimoveis.repository.UsuarioRepository;
@@ -46,7 +47,7 @@ public class AnuncioServiceImpl implements AnuncioService {
     private AnuncioRepository anuncioRepository;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private AnuncianteRepository anuncianteRepository;
 
     @Autowired
     private EnderecoRepository enderecoRepository;
@@ -105,7 +106,7 @@ public class AnuncioServiceImpl implements AnuncioService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Util.criarListaDeErrosDaValidacao(result.getAllErrors()));
         }
 
-        Usuario usuario = usuarioRepository.findOneById(id);
+        Anunciante usuario = anuncianteRepository.findOneById(id);
         anuncio.setAnunciante(usuario);
         anuncioRepository.save(anuncio);
 
@@ -147,7 +148,7 @@ public class AnuncioServiceImpl implements AnuncioService {
     @Override
     public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, TipoRelatorio tipoRelatorio, TipoTemplate tipoTemplate) {
         List<Anuncio> anuncios = anuncioRepository.findAllAnunciosByUserAndTipoNegocio(idUsuario, tipoNegocio);
-        Usuario usuario = usuarioRepository.findOneById(idUsuario);
+        Anunciante usuario = anuncianteRepository.findOneById(idUsuario);
         if (anuncios != null && anuncios.size() > 0 && usuario != null) {
             String subject = null;
             String titulo = null;

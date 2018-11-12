@@ -17,11 +17,11 @@ public enum CodeError {
      */
     NAO_PERMITIDO_EXCLUIR(1000),
     /**
-     * Usuario existente code error.
+     * Anunciante existente code error.
      */
     USUARIO_EXISTENTE(1001),
     /**
-     * Usuario ou senha invalidos code error.
+     * Anunciante ou senha invalidos code error.
      */
     USUARIO_OU_SENHA_INVALIDOS(1002),
 

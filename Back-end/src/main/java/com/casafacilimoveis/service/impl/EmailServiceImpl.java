@@ -5,7 +5,6 @@ import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.ContatoAnunciante;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.service.EmailService;
-import com.google.common.io.Files;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;

@@ -1,13 +1,9 @@
 package com.casafacilimoveis.service.impl;
 
 import com.casafacilimoveis.model.beans.ResponseError;
-import com.casafacilimoveis.model.entities.Anuncio;
-import com.casafacilimoveis.model.entities.Imagem;
-import com.casafacilimoveis.model.entities.Usuario;
+import com.casafacilimoveis.model.entities.*;
 import com.casafacilimoveis.model.enums.CodeError;
-import com.casafacilimoveis.repository.AnuncioRepository;
-import com.casafacilimoveis.repository.ImagemRepository;
-import com.casafacilimoveis.repository.UsuarioRepository;
+import com.casafacilimoveis.repository.*;
 import com.casafacilimoveis.service.GoogleDriveService;
 import com.casafacilimoveis.service.UsuarioService;
 import com.casafacilimoveis.util.SenhaUtil;
@@ -33,6 +29,12 @@ import org.springframework.validation.BindingResult;
 public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
+    private AnuncianteRepository anuncianteRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Autowired
@@ -43,6 +45,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private GoogleDriveService googleDriveService;
+
+    @Autowired
+    private FavoritoRepository favoritoRepository;
 
     @Override
     public ResponseEntity buscarTodos(String search) {
@@ -65,31 +70,59 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public ResponseEntity salvar(Usuario usuario, BindingResult result) {
+    public ResponseEntity salvarAnunciante(Anunciante usuario, BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Util.criarListaDeErrosDaValidacao(result.getAllErrors()));
         }
         //verifica se o usuário já não existe no banco
-        Usuario usuarioExist = usuarioRepository.findByEmail(usuario.getEmail());
+        Anunciante usuarioExist = anuncianteRepository.findByEmail(usuario.getEmail());
 
         if (usuarioExist != null) {
             return new ResponseEntity(new ResponseError(CodeError.USUARIO_EXISTENTE, "Email já cadastrado"), HttpStatus.BAD_REQUEST);
         } else {
             usuario.setSenha(SenhaUtil.gerarBCrypt(usuario.getSenha()));
-            usuarioRepository.save(usuario);
+            anuncianteRepository.save(usuario);
         }
 
         return ResponseEntity.ok(usuario);
     }
 
     @Override
-    public ResponseEntity alterar(Usuario usuario, BindingResult result) {
+    public ResponseEntity alterarAnunciante(Anunciante usuario, BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Util.criarListaDeErrosDaValidacao(result.getAllErrors()));
         }
 
-        usuarioRepository.save(usuario);
+        anuncianteRepository.save(usuario);
         return ResponseEntity.ok(usuario);
+    }
+
+    @Override
+    public ResponseEntity salvarCliente(Cliente cliente, BindingResult result) {
+        if (result.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Util.criarListaDeErrosDaValidacao(result.getAllErrors()));
+        }
+        //verifica se o usuário já não existe no banco
+        Cliente usuarioExist = clienteRepository.findByEmail(cliente.getEmail());
+
+        if (usuarioExist != null) {
+            return new ResponseEntity(new ResponseError(CodeError.USUARIO_EXISTENTE, "Email já cadastrado"), HttpStatus.BAD_REQUEST);
+        } else {
+            cliente.setSenha(SenhaUtil.gerarBCrypt(cliente.getSenha()));
+            clienteRepository.save(cliente);
+        }
+
+        return ResponseEntity.ok(cliente);
+    }
+
+    @Override
+    public ResponseEntity alterarCliente(Cliente cliente, BindingResult result) {
+        if (result.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Util.criarListaDeErrosDaValidacao(result.getAllErrors()));
+        }
+
+        clienteRepository.save(cliente);
+        return ResponseEntity.ok(cliente);
     }
 
     @Override
@@ -101,12 +134,18 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         try {
-            for (Anuncio anuncio : usuario.getAnuncios()) {
-                for (Imagem imagem : anuncio.getImagensAnuncios()) {
-                    googleDriveService.deleteFile(imagem.getId());
-                    imagemRepository.delete(imagem);
+            if (usuario instanceof Anunciante){
+                for (Anuncio anuncio : ((Anunciante) usuario).getAnuncios()) {
+                    for (Imagem imagem : anuncio.getImagensAnuncios()) {
+                        googleDriveService.deleteFile(imagem.getId());
+                        imagemRepository.delete(imagem);
+                    }
+                    anuncioRepository.delete(anuncio);
                 }
-                anuncioRepository.delete(anuncio);
+            } else if (usuario instanceof Cliente){
+                for (Favorito favorito : ((Cliente) usuario).getAnunciosFavoritos()){
+                    favoritoRepository.delete(favorito);
+                }
             }
 
             usuarioRepository.delete(usuario);

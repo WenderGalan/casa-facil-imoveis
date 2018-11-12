@@ -1,16 +1,8 @@
 package com.casafacilimoveis.service;
 
 import com.casafacilimoveis.CasaFacilImoveisApplicationTests;
-import com.casafacilimoveis.model.entities.Anuncio;
-import com.casafacilimoveis.model.entities.Endereco;
-import com.casafacilimoveis.model.entities.Usuario;
-import com.casafacilimoveis.model.enums.TipoImovel;
-import com.casafacilimoveis.model.enums.TipoUsuario;
-import com.casafacilimoveis.util.SenhaUtil;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

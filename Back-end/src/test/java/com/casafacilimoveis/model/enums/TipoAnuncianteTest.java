@@ -9,18 +9,17 @@ import static org.junit.Assert.assertEquals;
  * Wender Galan
  * Todos os direitos reservados ©
  * *********************************************
- * Nome do arquivo: TipoUsuarioTest.java
+ * Nome do arquivo: TipoAnuncianteTest.java
  * Criado por : Wender Galan
  * Data da criação : 03/09/2018
  * Observação :
  * *********************************************
  */
-public class TipoUsuarioTest {
+public class TipoAnuncianteTest {
 
     @Test
     public void enumTest() {
         assertEquals(0, TipoUsuario.FISICA.getCode());
-        assertEquals(1, TipoUsuario.CORRETOR.getCode());
         assertEquals(2, TipoUsuario.JURIDICA.getCode());
     }
 }

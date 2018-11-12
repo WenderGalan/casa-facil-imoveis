@@ -2,7 +2,7 @@ package com.casafacilimoveis.util;
 
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Relatorio;
-import com.casafacilimoveis.model.entities.Usuario;
+import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.enums.TipoRelatorio;
 import com.casafacilimoveis.model.enums.TipoTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,8 +16,6 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
-import static com.casafacilimoveis.model.enums.TipoRelatorio.*;
 
 /**
  * casafacilimoveis
@@ -36,7 +34,7 @@ public class RelatorioUtil {
     private static final String REPORT_DIR = System.getProperty("user.dir") + FILE_SEPARATOR + "reportdir" + FILE_SEPARATOR;
     private static final String JASPER_DIR = System.getProperty("user.dir") + FILE_SEPARATOR + "jasperdir" + FILE_SEPARATOR;
 
-    public static String gerarRelatorio(String layout, List result, Usuario usuario, TipoRelatorio tipoRelatorio, TipoTemplate tipoTemplate, ReportParameter... reportParameters) {
+    public static String gerarRelatorio(String layout, List result, Anunciante usuario, TipoRelatorio tipoRelatorio, TipoTemplate tipoTemplate, ReportParameter... reportParameters) {
         try {
             //criando o layout do relatorio a partir do jasper
             JasperDesign desenho = JRXmlLoader.load(JASPER_DIR + layout);

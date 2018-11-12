@@ -1,10 +1,10 @@
 package com.casafacilimoveis.repository;
 
 import com.casafacilimoveis.CasaFacilImoveisApplicationTests;
+import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Endereco;
 import com.casafacilimoveis.model.entities.Imagem;
-import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.TipoImovel;
 import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.model.enums.TipoUsuario;
@@ -45,7 +45,7 @@ public class ImagemRepositoryTest extends CasaFacilImoveisApplicationTests {
 
     private Imagem imagem;
     private Anuncio anuncio;
-    private Usuario usuario;
+    private Anunciante usuario;
     private Endereco endereco;
 
     @Before
@@ -61,7 +61,7 @@ public class ImagemRepositoryTest extends CasaFacilImoveisApplicationTests {
         endereco.setEndereco("Rua elesbão murtinho");
         endereco.setComplemento("Na minha casa");
 
-        usuario = new Usuario();
+        usuario = new Anunciante();
         usuario.setNome("Wender Galan");
         usuario.setSenha(SenhaUtil.gerarBCrypt("minhasenha"));
         usuario.setEmail("wendergalan2014@hotmail.com");

@@ -1,6 +1,7 @@
 package com.casafacilimoveis.service;
 
-import com.casafacilimoveis.model.entities.Usuario;
+import com.casafacilimoveis.model.entities.Anunciante;
+import com.casafacilimoveis.model.entities.Cliente;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 
@@ -21,9 +22,13 @@ public interface UsuarioService {
 
     public ResponseEntity buscarPorId(Integer id);
 
-    public ResponseEntity salvar(Usuario usuario, BindingResult result);
+    public ResponseEntity salvarAnunciante(Anunciante usuario, BindingResult result);
 
-    public ResponseEntity alterar(Usuario usuario, BindingResult result);
+    public ResponseEntity salvarCliente(Cliente cliente, BindingResult result);
+
+    public ResponseEntity alterarAnunciante(Anunciante anunciante, BindingResult result);
+
+    public ResponseEntity alterarCliente(Cliente cliente, BindingResult result);
 
     public ResponseEntity excluirPorId(Integer id);
 

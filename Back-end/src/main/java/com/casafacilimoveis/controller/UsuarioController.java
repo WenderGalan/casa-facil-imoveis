@@ -1,26 +1,16 @@
 package com.casafacilimoveis.controller;
 
-import com.casafacilimoveis.model.beans.ResponseError;
-import com.casafacilimoveis.model.entities.Anuncio;
-import com.casafacilimoveis.model.entities.Imagem;
-import com.casafacilimoveis.model.entities.Usuario;
-import com.casafacilimoveis.model.enums.CodeError;
-import com.casafacilimoveis.repository.AnuncioRepository;
-import com.casafacilimoveis.repository.ImagemRepository;
-import com.casafacilimoveis.repository.UsuarioRepository;
-import com.casafacilimoveis.service.GoogleDriveService;
+import com.casafacilimoveis.model.entities.Anunciante;
+import com.casafacilimoveis.model.entities.Cliente;
+import com.casafacilimoveis.model.entities.interceptor.Crashlytics;
 import com.casafacilimoveis.service.UsuarioService;
 import com.casafacilimoveis.util.Constantes;
-import com.casafacilimoveis.util.SenhaUtil;
-import com.casafacilimoveis.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -81,25 +71,53 @@ public class UsuarioController {
      * @param result  the result
      * @return the response entity
      */
-    @ApiOperation("Salva o usuário")
+    @ApiOperation("Salva o usuário do tipo anunciante")
     @CacheEvict(value = Constantes.CACHE_USUARIOS, allEntries = true)
-    @PostMapping("/v1")
-    public ResponseEntity salvar(@Valid @RequestBody Usuario usuario, BindingResult result) {
-        return usuarioService.salvar(usuario, result);
+    @PostMapping("/v1/anunciante")
+    public ResponseEntity salvarAnunciante(@Valid @RequestBody Anunciante usuario, BindingResult result) {
+        return usuarioService.salvarAnunciante(usuario, result);
+    }
+
+    /**
+     * Salvar response entity.
+     *
+     * @param cliente the usuario
+     * @param result  the result
+     * @return the response entity
+     */
+    @ApiOperation("Salva o usuário do tipo cliente")
+    @CacheEvict(value = Constantes.CACHE_USUARIOS, allEntries = true)
+    @PostMapping("/v1/cliente")
+    public ResponseEntity salvarCliente(@Valid @RequestBody Cliente cliente, BindingResult result) {
+        return usuarioService.salvarCliente(cliente, result);
     }
 
     /**
      * Alterar response entity.
      *
-     * @param usuario the usuario
+     * @param anunciante the usuario anunciante
      * @param result  the result
      * @return the response entity
      */
-    @ApiOperation("Altera o usuário")
+    @ApiOperation("Altera o usuário do tipo cliente")
     @CacheEvict(value = Constantes.CACHE_USUARIOS, allEntries = true)
-    @PutMapping("/v1")
-    public ResponseEntity alterar(@Valid @RequestBody Usuario usuario, BindingResult result) {
-        return usuarioService.alterar(usuario, result);
+    @PutMapping("/v1/anunciante")
+    public ResponseEntity alterarAnunciante(@Valid @RequestBody Anunciante anunciante, BindingResult result) {
+        return usuarioService.alterarAnunciante(anunciante, result);
+    }
+
+    /**
+     * Alterar response entity.
+     *
+     * @param cliente the usuario
+     * @param result  the result
+     * @return the response entity
+     */
+    @ApiOperation("Altera o usuário do tipo cliente")
+    @CacheEvict(value = Constantes.CACHE_USUARIOS, allEntries = true)
+    @PutMapping("/v1/cliente")
+    public ResponseEntity alterarCliente(@Valid @RequestBody Cliente cliente, BindingResult result) {
+        return usuarioService.alterarCliente(cliente, result);
     }
 
     /**

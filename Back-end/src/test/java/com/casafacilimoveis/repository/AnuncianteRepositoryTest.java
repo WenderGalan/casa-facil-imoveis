@@ -1,6 +1,7 @@
 package com.casafacilimoveis.repository;
 
 import com.casafacilimoveis.CasaFacilImoveisApplicationTests;
+import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.TipoUsuario;
 import com.casafacilimoveis.util.SenhaUtil;
@@ -18,22 +19,22 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Wender Galan
  * Todos os direitos reservados ©
  * *********************************************
- * Nome do arquivo: UsuarioRepositoryTest.java
+ * Nome do arquivo: AnuncianteRepositoryTest.java
  * Criado por : Wender Galan
  * Data da criação : 29/08/2018
  * Observação :
  * *********************************************
  */
-public class UsuarioRepositoryTest extends CasaFacilImoveisApplicationTests {
+public class AnuncianteRepositoryTest extends CasaFacilImoveisApplicationTests {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    private static Usuario usuario;
+    private static Anunciante usuario;
 
     @Before
     public void setUp() {
-        usuario = new Usuario();
+        usuario = new Anunciante();
         usuario.setNome("Wender Galan");
         usuario.setSenha(SenhaUtil.gerarBCrypt("minhasenha"));
         usuario.setEmail("wendergalan2014444444444@hotmail.com");

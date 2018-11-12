@@ -1,15 +1,6 @@
 package com.casafacilimoveis.util;
 
 import com.casafacilimoveis.model.beans.Validation;
-import com.casafacilimoveis.model.entities.Anuncio;
-import com.casafacilimoveis.model.entities.Usuario;
-import com.casafacilimoveis.model.enums.TipoRelatorio;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.*;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,8 +8,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
-
-import static com.casafacilimoveis.model.enums.TipoRelatorio.*;
 
 /**
  * casa-facil-imoveis

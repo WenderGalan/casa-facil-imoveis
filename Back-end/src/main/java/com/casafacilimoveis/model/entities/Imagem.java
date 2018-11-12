@@ -19,7 +19,7 @@ import java.io.Serializable;
  **********************************************
  */
 @Entity
-@Table(name = "imagens", schema = "public")
+@Table(name = "imagem", schema = "public")
 public class Imagem implements Serializable {
 
     @Id

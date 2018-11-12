@@ -2,6 +2,7 @@ package com.casafacilimoveis.service.impl;
 
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Imagem;
+import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.ImagemRepository;

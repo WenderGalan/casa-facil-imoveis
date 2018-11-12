@@ -1,15 +1,6 @@
 package com.casafacilimoveis.controller;
 
 import com.casafacilimoveis.CasaFacilImoveisApplicationTests;
-import com.casafacilimoveis.model.entities.Anuncio;
-import com.casafacilimoveis.model.entities.Endereco;
-import com.casafacilimoveis.model.entities.Usuario;
-import com.casafacilimoveis.model.enums.TipoImovel;
-import com.casafacilimoveis.model.enums.TipoUsuario;
-import com.casafacilimoveis.repository.AnuncioRepository;
-import com.casafacilimoveis.repository.EnderecoRepository;
-import com.casafacilimoveis.repository.UsuarioRepository;
-import com.casafacilimoveis.util.SenhaUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

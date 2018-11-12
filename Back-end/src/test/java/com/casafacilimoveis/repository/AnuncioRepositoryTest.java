@@ -1,9 +1,9 @@
 package com.casafacilimoveis.repository;
 
 import com.casafacilimoveis.CasaFacilImoveisApplicationTests;
+import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Endereco;
-import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.model.enums.TipoImovel;
 import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.model.enums.TipoUsuario;
@@ -12,8 +12,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class AnuncioRepositoryTest extends CasaFacilImoveisApplicationTests {
 
     private static Endereco endereco;
     private static Anuncio anuncio;
-    private static Usuario usuario;
+    private static Anunciante usuario;
 
     @Before
     public void setUp() {
@@ -59,7 +57,7 @@ public class AnuncioRepositoryTest extends CasaFacilImoveisApplicationTests {
         endereco.setComplemento("Na minha casa");
         /*enderecoRepository.save(endereco);*/
 
-        usuario = new Usuario();
+        usuario = new Anunciante();
         usuario.setNome("Wender Galan");
         usuario.setSenha(SenhaUtil.gerarBCrypt("minhasenha"));
         usuario.setEmail("wendergalan2014@hotmail.com");
