@@ -64,7 +64,7 @@ public class FavoritoRepositoryTest extends CasaFacilImoveisApplicationTests {
         anunciante.setNumero("67981121278");
         anunciante.setTipoUsuario(TipoUsuario.JURIDICA);
         anunciante.setCnpj("09103131000179");
-        anuncianteRepository.save(anunciante);
+        //anuncianteRepository.save(anunciante);
 
         endereco = new Endereco();
         endereco.setBairro("Universitário");
@@ -108,7 +108,7 @@ public class FavoritoRepositoryTest extends CasaFacilImoveisApplicationTests {
     public void tearDown() {
         favoritoRepository.delete(favorito);
         clienteRepository.delete(cliente);
-        anuncianteRepository.delete(anunciante);
         anuncioRepository.delete(anuncio);
+        anuncianteRepository.delete(anunciante);
     }
 }

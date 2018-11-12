@@ -37,7 +37,7 @@ public class AnuncianteRepositoryTest extends CasaFacilImoveisApplicationTests {
         usuario = new Anunciante();
         usuario.setNome("Wender Galan");
         usuario.setSenha(SenhaUtil.gerarBCrypt("minhasenha"));
-        usuario.setEmail("wendergalan2014444444444@hotmail.com");
+        usuario.setEmail("josesilva@hotmail.com");
         usuario.setNumero("67981121278");
         usuario.setTipoUsuario(TipoUsuario.JURIDICA);
         usuarioRepository.save(usuario);
