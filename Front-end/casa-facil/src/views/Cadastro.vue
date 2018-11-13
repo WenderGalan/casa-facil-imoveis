@@ -35,7 +35,8 @@
           <input-component :tipo="'text'" :holder="'cnpj'" :id="'cnpj'" :label="'CNPJ:*'"
                            @resultadoText="atribuirResultado" v-if="habilitarAnunciante"/>
 
-          <input-component :tipo="'text'" :holder="'Nome'" :id="'nome'" :label="'Digite seu nome e sobrenome:*'"
+          <input-component :tipo="'text'" :holder="'Nome'" :id="'nome'"
+                           :label="'Digite seu nome e sobrenome:*'"
                            @resultadoText="atribuirResultado"/>
 
           <input-number-component :holder="'Número (opcional)'" :id="'numero'" :tipo="'text'"
@@ -43,10 +44,12 @@
                                   :mask="'(##) #####-####'"
                                   @resultadoNumber="atribuirResultado"/>
 
-          <input-component :holder="'exemplo@dominio.com'" :id="'email'" :tipo="'text'" :label="'Digite seu Email:*'"
+          <input-component :holder="'exemplo@dominio.com'" :id="'email'" :tipo="'text'"
+                           :label="'Digite seu Email:*'"
                            @resultadoText="atribuirResultado"/>
 
-          <input-select-component :id="'tipoUsuario'" :options="tiposDeUsuario" :label="'Que tipo de usuário você é?'"
+          <input-select-component :id="'tipoUsuario'" :options="tiposDeUsuario"
+                                  :label="'Que tipo de usuário você é?'"
                                   @resultadoSelect="atribuirResultado"/>
 
           <input-component :holder="'Senha (mínimo 8 caracteres)'" :id="'senha'" :tipo="'password'"
@@ -58,7 +61,8 @@
                            @resultadoText="atribuirResultado"/>
 
           <div class="container" style="margin-top: 25px">
-            <b-button class="form-control col-sm-12 col-md-4 col-lg-12" @click="validarEmail" variant="info">
+            <b-button class="form-control col-sm-12 col-md-4 col-lg-12" @click="validarEmail"
+                      variant="info">
               Cadastrar
             </b-button>
           </div>
@@ -66,7 +70,8 @@
           <div class="container">
             <div style="width: 80%; margin: auto" class="col-sm-12 col-md-4 col-lg-12">
               <p>Ao se cadastrar no Casa Fácil você concorda com os
-                <a href="https://github.com/WenderGalan/casa-facil-imoveis/blob/master/LICENSE" target="_blank">termos
+                <a href="https://github.com/WenderGalan/casa-facil-imoveis/blob/master/LICENSE"
+                   target="_blank">termos
                   de uso</a>.</p>
             </div>
           </div>
@@ -81,7 +86,8 @@
       <b-modal ref="myModalRef" hide-footer title="Código de validação da conta"
                centered no-close-on-backdrop hide-header-close>
         <div class="d-block text-center">
-          <p class="text-left">Enviamos o código de validação para seu email, por favor, digite o código abaixo</p>
+          <p class="text-left">Enviamos o código de validação para seu email, por favor, digite o código
+            abaixo</p>
 
           <div class="col-sm-12 col-md-4 col-lg-12">
             <input type="password" placeholder="Digite seu código de confirmação" v-model="inputValidacao"
@@ -101,7 +107,7 @@
   import inputNumberComponent from '../components/InputNumberComponent'
   import inputSelectComponent from '../components/InputSelectComponent'
   import {tiposDeUsuario as usuarios, anuncianteCliente} from "../models/Enums";
-  import {enviarEmail, criarConta} from '../services/requestServices'
+  import {enviarEmail, criarCliente, criarAnunciante} from '../services/requestServices'
   import Swal from '../util/Swal'
   import Utils from '../util/Utils'
   import Loader from '../templates/Loader'
@@ -153,7 +159,7 @@
           this.novoUsuario.senha = result.message;
         } else if (result.id === 'confirmaSenha') {
           this.confirmaSenha = result.message;
-        } else if(result.id === 'tipoUsuario') {
+        } else if (result.id === 'tipoUsuario') {
           this.novoUsuario.tipoUsuario = result.message;
         } else if (result.id === 'tipoUsuarioConta') {
           this.tipoUsuario = result.message;
@@ -251,22 +257,41 @@
           if (this.novoUsuario.numero.length > 0) {
             this.novoUsuario.numero = Utils.formatarNumero(this.novoUsuario.numero)
           }
-          this.showModal = true;
-          criarConta(this.novoUsuario).then((response) => {
-            this.showModal = false;
-            if (response.data) {
-              this.novoUsuario = response.data;
-              this.$refs.myModalRef.hide();
-              this.$store.commit('alterarSessao', this.novoUsuario);
-              this.$router.push({name: 'home'})
-            }
-          }).catch((err) => {
-            debugger;
-            this.showModal = false;
-            Swal.alertUmButton('Atenção', err.response.data[0].mensagem, 'error');
-            console.log(err.response)
-          })
+          if (this.tipoUsuario === 0) {
+            this.novoUsuario.cpf = this.cpf
+            this.showModal = true;
+            criarCliente(this.novoUsuario).then((response) => {
+              this.showModal = false;
+              if (response.data) {
+                this.atribuirStore(response.data)
+              }
+            }).catch((err) => {
+              debugger;
+              this.showModal = false;
+              Swal.alertUmButton('Atenção', err.response.data[0].mensagem, 'error');
+              console.log(err.response)
+            })
+          } else if (this.tipoUsuario === 1) {
+            this.novoUsuario.cnpj = this.cnpj;
+            this.novoUsuario.creci = '';
+            criarAnunciante(this.novoUsuario).then(response => {
+              if (response.data) {
+                this.atribuirStore(response.data)
+              }
+            }).catch(err => {
+              debugger;
+              this.showModal = false;
+              Swal.alertUmButton('Atenção', err.response.data[0].mensagem, 'error');
+              console.log(err.response)
+            })
+          }
         }
+      },
+      atribuirStore(user) {
+        this.novoUsuario = user;
+        this.$refs.myModalRef.hide();
+        this.$store.commit('alterarSessao', this.novoUsuario);
+        this.$router.push({name: 'home'})
       }
     },
     computed: {

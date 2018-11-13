@@ -2,7 +2,9 @@ import http from './http'
 
 export const login = (email, senha) => http.get(`/usuarios/v1/login?email=${email}&senha=${senha}`);
 
-export const criarConta = (user) => http.post('/usuarios/v1', user);
+export const criarCliente = user => http.post('/usuarios/v1/cliente', user);
+
+export const criarAnunciante = user => http.post('/usuarios/v1/anunciante', user);
 
 export const enviarEmail = (nome, email) => http.get(`/email/v1/email-enviar-codigo?nome=${nome}&email=${email}`);
 
@@ -25,8 +27,6 @@ export const alterarAnuncio = (anuncio) => http.put('/anuncios/v1', anuncio);
 export const excluirAnuncio = (idAnuncio) => http.delete(`/anuncios/v1/${idAnuncio}`);
 
 export const gerarRelatorio = (tipoNegocio, id, tipoRelatorio, tipoTemplate) => http.get(`/anuncios/relatorio/venda/${id}?tipoNegocio=${tipoNegocio}&tipoRelatorio=${tipoRelatorio}&tipoTemplate=${tipoTemplate}`);
-
-// export const gerarRelatorio = () => http.get('/anuncios/relatorio/usuario/20?tipoNegocio=VENDA');
 
 export const enviarEmailAnuncio = (email, idAnuncio) => http.post(`email/v1/email-enviar-contato/${idAnuncio}`, email);
 
