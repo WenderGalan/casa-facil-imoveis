@@ -26,6 +26,15 @@
             <p>ou</p>
           </div>
 
+          <input-select-component :id="'tipoUsuarioConta'" :options="tipoConta" :label="'Qual tipo de conta?'"
+                                  @resultadoSelect="atribuirResultado"/>
+
+          <input-component :tipo="'text'" :holder="'cpf'" :id="'cpf'" :label="'CPF:*'"
+                           @resultadoText="atribuirResultado" v-if="habilitarCliente"/>
+
+          <input-component :tipo="'text'" :holder="'cnpj'" :id="'cnpj'" :label="'CNPJ:*'"
+                           @resultadoText="atribuirResultado" v-if="habilitarAnunciante"/>
+
           <input-component :tipo="'text'" :holder="'Nome'" :id="'nome'" :label="'Digite seu nome e sobrenome:*'"
                            @resultadoText="atribuirResultado"/>
 
@@ -91,7 +100,7 @@
   import inputComponent from '../components/inputTextComponent'
   import inputNumberComponent from '../components/InputNumberComponent'
   import inputSelectComponent from '../components/InputSelectComponent'
-  import {tiposDeUsuario as usuarios} from "../models/Enums";
+  import {tiposDeUsuario as usuarios, anuncianteCliente} from "../models/Enums";
   import {enviarEmail, criarConta} from '../services/requestServices'
   import Swal from '../util/Swal'
   import Utils from '../util/Utils'
@@ -108,6 +117,10 @@
     data() {
       return {
         showModal: false,
+        tipoConta: anuncianteCliente,
+        tipoUsuario: '',
+        cpf: '',
+        cnpj: '',
         novoUsuario: {
           nome: '',
           numero: '',
@@ -142,6 +155,14 @@
           this.confirmaSenha = result.message;
         } else if(result.id === 'tipoUsuario') {
           this.novoUsuario.tipoUsuario = result.message;
+        } else if (result.id === 'tipoUsuarioConta') {
+          this.tipoUsuario = result.message;
+          this.cpf = '';
+          this.cnpj = ''
+        } else if (result.id === 'cpf') {
+          this.cpf = result.message
+        } else if (result.id === 'cnpj') {
+          this.cnpj = result.message
         }
       },
       // DIRECIONA O USUARIO PARA A TELA DE LOGIN
@@ -150,37 +171,59 @@
       },
       // FAZ A VALIDAÇÃO DOS CAMPOS
       validarCampos() {
-        let validacao = true
+        let validacao = true;
+        if (this.tipoUsuario === '') {
+          Utils.alertInput('tipoUsuarioConta');
+          validacao = false
+        } else {
+          Utils.alertInputValid('tipoUsuarioConta');
+          debugger
+          if (this.tipoUsuario === 0) {
+            if (this.cpf.trim() === '') {
+              validacao = false;
+              Utils.alertInput('cpf')
+            } else {
+              Utils.alertInputValid('cpf')
+            }
+          } else if (this.tipoUsuario === 1) {
+            if (this.cnpj.trim() === '') {
+              validacao = false;
+              Utils.alertInput('cnpj')
+            } else {
+              Utils.alertInputValid('cnpj')
+            }
+          }
+        }
         if (this.novoUsuario.nome === null || this.novoUsuario.nome.length < 4) {
-          Utils.alertInput('nome')
+          Utils.alertInput('nome');
           validacao = false
         } else {
           Utils.alertInputValid('nome')
         }
         if (Utils.validateEmail(this.novoUsuario.email) === false) {
-          Utils.alertInput('email')
+          Utils.alertInput('email');
           validacao = false
         } else {
           Utils.alertInputValid('email')
         }
         if (this.novoUsuario.senha === null || this.novoUsuario.senha.length < 8) {
-          Utils.alertInput('senha')
+          Utils.alertInput('senha');
           validacao = false
         } else {
           Utils.alertInputValid('senha')
         }
         if (this.novoUsuario.tipoUsuario === null) {
-          Utils.alertInput('tipoUsuario')
+          Utils.alertInput('tipoUsuario');
           validacao = false
         } else {
           Utils.alertInputValid('tipoUsuario')
         }
         if (this.novoUsuario.senha.length < 8 || this.novoUsuario.senha !== this.confirmaSenha) {
-          Utils.alertInput('senha')
-          Utils.alertInput('confirmaSenha')
+          Utils.alertInput('senha');
+          Utils.alertInput('confirmaSenha');
           validacao = false
         } else {
-          Utils.alertInputValid('senha')
+          Utils.alertInputValid('senha');
           Utils.alertInputValid('confirmaSenha')
         }
         return validacao
@@ -226,6 +269,16 @@
         }
       }
     },
+    computed: {
+      habilitarAnunciante() {
+        return !(this.tipoUsuario === '' || this.tipoUsuario === 0);
+
+      },
+      habilitarCliente() {
+        return !(this.tipoUsuario === '' || this.tipoUsuario === 1);
+
+      }
+    }
   }
 </script>
 

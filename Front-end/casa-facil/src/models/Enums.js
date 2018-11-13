@@ -13,6 +13,17 @@ export const tiposDeUsuario = [
   }
 ];
 
+export const anuncianteCliente = [
+  {
+    value: 0,
+    text: 'Cliente'
+  },
+  {
+    value: 1,
+    text: 'Anunciante'
+  },
+];
+
 export const tiposDeDomicilio = [
   {
     value: 0,
