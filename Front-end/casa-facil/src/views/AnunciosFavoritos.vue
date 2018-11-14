@@ -1,17 +1,17 @@
-<!--
-***********************************************
- * casa-facil
- * TDR Informática Ltda
- * Todos os direitos reservados ©
-***********************************************
- * Nome do arquivo: AnunciosFavoritos.vue
- * Criado por : Matheus Pimentel
- * Data da criação : 14/11/2018
- * Observação :
-***********************************************
--->
 <template>
-
+  <div>
+    <div>
+      suaijdiusd
+      suaijdiusd
+      suaijdiusd
+      suaijdiusd
+      suaijdiusd
+      suaijdiusd
+      suaijdiusd
+      suaijdiusd
+      suaijdiusd
+    </div>
+  </div>
 </template>
 
 <script>

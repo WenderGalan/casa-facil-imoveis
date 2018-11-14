@@ -9,13 +9,13 @@
           <b-nav-item style="margin-left: 15px" href="#" @click="irHome"><i class="fa fa-home" aria-hidden="true"></i>
             Início
           </b-nav-item>
-          <b-nav-item href="#" v-if="verificarSessao" @click="adicionarAnuncio">
+          <b-nav-item href="#" v-if="verificarSessao && verificarCnpj" @click="adicionarAnuncio">
             <i class="fa fa-plus-circle" aria-hidden="true"></i> Adicionar anúncio
           </b-nav-item>
-          <b-nav-item href="#" v-if="verificarSessao" @click="visualizarAnuncios">
+          <b-nav-item href="#" v-if="verificarCnpj" @click="visualizarAnuncios">
             <i class="fa fa-list" aria-hidden="true"></i> Meus anúncios
           </b-nav-item>
-          <b-nav-item href="#" v-if="verificarSessao" @click="visualizarAnuncios">
+          <b-nav-item href="#" v-if="verificarCpf" @click="irFavoritos">
             <i class="fa fa-list" aria-hidden="true"></i> Favoritos
           </b-nav-item>
         </b-navbar-nav>
@@ -68,6 +68,9 @@
             params: {id}
           })
       },
+      irFavoritos() {
+        this.$router.push({name: 'favoritos'})
+      },
       visualizarAnuncios() {
         const id = this.$store.state.sessao.id
         this.$router.push(
@@ -86,7 +89,12 @@
         return this.$store.state.sessao !== undefined
       },
       verificarCnpj() {
-        return !!this.$store.state.sessao.cnpj
+        if (this.$store.state.sessao !== undefined) return !!this.$store.state.sessao.cnpj;
+        return false;
+      },
+      verificarCpf() {
+        if (this.$store.state.sessao !== undefined) return !!this.$store.state.sessao.cpf
+        return false;
       }
     }
   }

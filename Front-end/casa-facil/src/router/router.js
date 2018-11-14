@@ -10,8 +10,9 @@ import Perfil from '../views/Perfil'
 import DetalheImovel from '../views/DetalheImovel'
 import ListaAnuncios from '../views/ListagemAnuncios'
 import EditarAnuncio from '../views/EditarAnuncio'
+import Favoritos from '../views/AnunciosFavoritos'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -56,6 +57,18 @@ export default new Router({
           path: '/private/detalhes/:title/:id',
           name: 'detalheImovel',
           component: DetalheImovel
+        },
+        {
+          path: '/private/favoritos',
+          name: 'favoritos',
+          component: Favoritos,
+          beforeEnter (to, from, next) {
+            if (store.state.sessao) {
+              next()
+            } else {
+              next({name: 'login'})
+            }
+          }
         },
         {
           path: '/private/meusanuncios/:id',
