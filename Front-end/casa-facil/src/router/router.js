@@ -61,14 +61,7 @@ export default new Router({
         {
           path: '/private/favoritos',
           name: 'favoritos',
-          component: Favoritos,
-          beforeEnter (to, from, next) {
-            if (store.state.sessao) {
-              next()
-            } else {
-              next({name: 'login'})
-            }
-          }
+          component: Favoritos
         },
         {
           path: '/private/meusanuncios/:id',

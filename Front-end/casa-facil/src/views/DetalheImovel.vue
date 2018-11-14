@@ -5,6 +5,7 @@
         <div class="col-sm-12 col-md-4 col-lg-8">
           <loader-modal :show-modal="showModal"></loader-modal>
           <b-card :title="anuncio.titulo">
+            <i v-if="verificarSessao" :class="[alterarIcon, 'unfav']" aria-hidden="true" @click="verificarFavorito"></i>
             <div class="row">
               <div class="col-sm-12 col-md-4 col-lg-10">
                 <div style="display:flex;justify-content:center;align-items:center;width:100%;">
@@ -109,7 +110,7 @@
 </template>
 
 <script>
-import {buscarAnuncio, enviarEmailAnuncio} from "../services/requestServices";
+import {buscarAnuncio, enviarEmailAnuncio, addFav, removeFav, trazerFavoritos} from "../services/requestServices";
 import loaderModal from '../templates/Loader'
 import Swal from '../util/Swal'
 
@@ -117,6 +118,8 @@ export default {
   name: 'DetalheImovel',
   data () {
     return {
+      id: '',
+      idFav: '',
       showModal: true,
       disabled: false,
       msgButton: 'CONTATAR ANUNCIANTE',
@@ -134,24 +137,49 @@ export default {
         nome: '',
         email: '',
         mensagem: ''
-      }
+      },
+      isFavorito: false
     }
   },
   components: {
     loaderModal
   },
   methods: {
+    verificarFavorito() {
+      debugger;
+      if (this.isFavorito) {
+        this.isFavorito = false;
+        removeFav(this.idFav).then(response => {
+          console.log(response)
+        }).catch(err => {
+          console.log(err)
+        })
+      } else {
+        this.adicionarFavorito()
+      }
+    },
+    adicionarFavorito() {
+      debugger;
+      let idCliente = this.$store.state.sessao.id;
+      addFav(idCliente, this.id).then(response => {
+        debugger;
+        console.log(response);
+        this.isFavorito = true;
+      }).catch(err => {
+        debugger;
+        console.log(err)
+      })
+    },
     procurarAnuncio () {
-      this.showModal = true
-      const id = this.$router.history.current.params.id
-      buscarAnuncio(id).then((response) => {
-        this.showModal = false
+      this.showModal = true;
+      buscarAnuncio(this.id).then((response) => {
+        this.showModal = false;
         if (response.data) {
-          this.anuncio = response.data
+          this.anuncio = response.data;
           this.ajustarPlaceHolder()
         }
       }).catch((err) => {
-        this.showModal = false
+        this.showModal = false;
         console.log(err.response)
       })
     },
@@ -159,29 +187,59 @@ export default {
       this.email.mensagem = `Olá ${this.anuncio.anunciante.nome}, tenho interesse neste imóvel: ${this.anuncio.titulo} - ${this.anuncio.endereco.endereco} - ${this.anuncio.endereco.cidade} - ${this.anuncio.endereco.estado}.\n \n Aguardo o contato. Obrigado.`
     },
     enviarEmail () {
-      this.showModal = true
+      this.showModal = true;
       enviarEmailAnuncio(this.email, this.anuncio.id).then((response) => {
-        this.showModal = false
-        Swal.alertUmButton('Anunciante contatado com sucesso!', '', 'success')
-        this.msgButton = 'ANUNCIANTE CONTATADO'
-        this.disabled = true
+        this.showModal = false;
+        Swal.alertUmButton('Anunciante contatado com sucesso!', '', 'success');
+        this.msgButton = 'ANUNCIANTE CONTATADO';
+        this.disabled = true;
         console.log('enviado com sucesso')
       }).catch((err) => {
-        this.showModal = false
+        this.showModal = false;
         console.log(err)
       })
+    },
+    verificarAnuncio () {
+      if (this.$store.state.sessao) {
+        let idUser = this.$store.state.sessao.id;
+        trazerFavoritos(idUser).then(response => {
+          for (let anuncio of response.data) {
+            if (anuncio.anuncio.id === this.id) {
+              this.isFavorito = true;
+              this.idFav = anuncio.id;
+            }
+          }
+        })
+      }
     }
   },
   mounted () {
-    this.procurarAnuncio()
+    this.id = this.$router.history.current.params.id;
+    this.procurarAnuncio();
+    this.verificarAnuncio();
   },
-  // beforeRouteEnter (to, from, next) {
-  //   next(vm => vm.procurarAnuncio())
-  // }
+  computed: {
+    verificarSessao() {
+      return this.$store.state.sessao !== undefined && this.$store.state.sessao.cpf
+    },
+    alterarIcon() {
+      if (this.isFavorito) {
+        return 'fa fa-star fa-lg'
+      }
+      return 'fa fa-star-o fa-lg'
+    }
+  }
 
 }
 </script>
 
 <style scoped>
+  .unfav {
+    position: absolute;
+    right: 60px;
+    top: 30px;
+    color: yellow;
+    cursor: pointer;
+  }
 
 </style>

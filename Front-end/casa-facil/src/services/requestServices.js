@@ -4,6 +4,12 @@ export const login = (email, senha) => http.get(`/usuarios/v1/login?email=${emai
 
 export const criarCliente = user => http.post('/usuarios/v1/cliente', user);
 
+export const addFav = (idCliente, idAnuncio) => http.post(`/favoritos/v1/cliente/${idCliente}/anuncio/${idAnuncio}`);
+
+export const removeFav = id => http.delete(`/favoritos/v1/${id}`);
+
+export const trazerFavoritos = id => http.get(`/favoritos/v1/cliente/${id}`);
+
 export const criarAnunciante = user => http.post('/usuarios/v1/anunciante', user);
 
 export const enviarEmail = (nome, email) => http.get(`/email/v1/email-enviar-codigo?nome=${nome}&email=${email}`);
