@@ -7,12 +7,17 @@
       <b-collapse is-nav id="nav_dropdown_collapse">
         <b-navbar-nav>
           <b-nav-item style="margin-left: 15px" href="#" @click="irHome"><i class="fa fa-home" aria-hidden="true"></i>
-               Início
+            Início
           </b-nav-item>
           <b-nav-item href="#" v-if="verificarSessao" @click="adicionarAnuncio">
-            <i class="fa fa-plus-circle" aria-hidden="true"></i>  Adicionar anúncio</b-nav-item>
+            <i class="fa fa-plus-circle" aria-hidden="true"></i> Adicionar anúncio
+          </b-nav-item>
           <b-nav-item href="#" v-if="verificarSessao" @click="visualizarAnuncios">
-            <i class="fa fa-list" aria-hidden="true"></i>   Meus anúncios</b-nav-item>
+            <i class="fa fa-list" aria-hidden="true"></i> Meus anúncios
+          </b-nav-item>
+          <b-nav-item href="#" v-if="verificarSessao" @click="visualizarAnuncios">
+            <i class="fa fa-list" aria-hidden="true"></i> Favoritos
+          </b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
@@ -79,6 +84,9 @@
           this.user = this.$store.state.sessao.nome
         }
         return this.$store.state.sessao !== undefined
+      },
+      verificarCnpj() {
+        return !!this.$store.state.sessao.cnpj
       }
     }
   }
