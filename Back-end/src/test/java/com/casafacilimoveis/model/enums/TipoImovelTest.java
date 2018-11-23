@@ -1,6 +1,5 @@
 package com.casafacilimoveis.model.enums;
 
-import com.casafacilimoveis.model.enums.TipoImovel;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

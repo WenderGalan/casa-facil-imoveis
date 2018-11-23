@@ -22,9 +22,6 @@ public class AnuncioServiceTest extends CasaFacilImoveisApplicationTests {
     @Autowired
     private AnuncioService anuncioService;
 
-    @Autowired
-    private UsuarioService usuarioService;
-
     @Test
     public void buscarTodosAutoCompleteTest(){
         assertThat(anuncioService.buscaTodosAutoComplete("univ").getBody()).isNotNull();
