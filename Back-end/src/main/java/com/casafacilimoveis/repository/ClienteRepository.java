@@ -1,7 +1,6 @@
 package com.casafacilimoveis.repository;
 
 import com.casafacilimoveis.model.entities.Cliente;
-import com.casafacilimoveis.model.entities.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

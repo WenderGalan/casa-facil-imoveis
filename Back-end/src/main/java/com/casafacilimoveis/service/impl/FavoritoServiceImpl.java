@@ -9,12 +9,10 @@ import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.ClienteRepository;
 import com.casafacilimoveis.repository.FavoritoRepository;
 import com.casafacilimoveis.service.FavoritoService;
-import com.casafacilimoveis.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 /**
  * casafacilimoveis
@@ -44,13 +42,9 @@ public class FavoritoServiceImpl implements FavoritoService {
         Cliente cliente = clienteRepository.getOne(idCliente);
         Anuncio anuncio = anuncioRepository.getOne(idAnuncio);
 
-        if (cliente == null || anuncio == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-
         Favorito favoritoExistente = favoritoRepository.findByClienteAndAnuncio(idCliente, idAnuncio);
 
-        if (favoritoExistente == null){
+        if (favoritoExistente == null) {
             Favorito favorito = new Favorito(anuncio, cliente);
             favoritoRepository.save(favorito);
         }
@@ -62,10 +56,6 @@ public class FavoritoServiceImpl implements FavoritoService {
     public ResponseEntity excluirPorId(Integer id) {
 
         Favorito favorito = favoritoRepository.getOne(id);
-
-        if (favorito == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
 
         try {
             favoritoRepository.delete(favorito);

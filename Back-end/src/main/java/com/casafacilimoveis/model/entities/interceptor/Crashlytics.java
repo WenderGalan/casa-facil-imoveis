@@ -1,7 +1,5 @@
 package com.casafacilimoveis.model.entities.interceptor;
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;

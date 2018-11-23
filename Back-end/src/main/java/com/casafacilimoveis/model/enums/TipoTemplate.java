@@ -1,5 +1,7 @@
 package com.casafacilimoveis.model.enums;
 
+import static com.casafacilimoveis.util.RelatorioUtil.*;
+
 /**
  * casafacilimoveis
  * Wender Galan
@@ -13,9 +15,9 @@ package com.casafacilimoveis.model.enums;
  */
 public enum TipoTemplate {
 
-    CABECALHO_CORPO_RODAPE("Cabeçalho", "Corpo", "Rodapé"),
-    RODAPE_CABECALHO_CORPO("Rodapé", "Cabeçalho", "Corpo"),
-    CABECALHO_RODAPE("Cabeçalho", "Rodapé");
+    CABECALHO_CORPO_RODAPE(CABECALHO, CORPO, RODAPE),
+    RODAPE_CABECALHO_CORPO(RODAPE, CABECALHO, CORPO),
+    CABECALHO_RODAPE(CABECALHO, RODAPE);
 
     private final String descricao;
     private final String[] ordem;
@@ -31,9 +33,11 @@ public enum TipoTemplate {
         }
         this.descricao = descricao;
     }
+
     public String getDescricao() {
         return descricao;
     }
+
     public String[] getOrdem() {
         return ordem;
     }

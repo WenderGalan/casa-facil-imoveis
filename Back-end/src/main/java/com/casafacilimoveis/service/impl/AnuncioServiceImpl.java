@@ -1,10 +1,10 @@
 package com.casafacilimoveis.service.impl;
 
 import com.casafacilimoveis.model.beans.ResponseError;
+import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Imagem;
 import com.casafacilimoveis.model.entities.SugestaoAutoComplete;
-import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.enums.CodeError;
 import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.model.enums.TipoRelatorio;
@@ -12,7 +12,6 @@ import com.casafacilimoveis.model.enums.TipoTemplate;
 import com.casafacilimoveis.repository.AnuncianteRepository;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.EnderecoRepository;
-import com.casafacilimoveis.repository.UsuarioRepository;
 import com.casafacilimoveis.service.AnuncioService;
 import com.casafacilimoveis.service.EmailService;
 import com.casafacilimoveis.service.GoogleDriveService;
@@ -127,10 +126,6 @@ public class AnuncioServiceImpl implements AnuncioService {
     public ResponseEntity excluirPorId(Integer id) {
         Anuncio anuncio = anuncioRepository.getOne(id);
 
-        if (anuncio == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
         try {
             for (Imagem imagem : anuncio.getImagensAnuncios()) {
                 if (!driveService.deleteFile(imagem.getId())) {
@@ -149,7 +144,7 @@ public class AnuncioServiceImpl implements AnuncioService {
     public ResponseEntity relatorioVendaAluguel(Integer idUsuario, TipoNegocio tipoNegocio, TipoRelatorio tipoRelatorio, TipoTemplate tipoTemplate) {
         List<Anuncio> anuncios = anuncioRepository.findAllAnunciosByUserAndTipoNegocio(idUsuario, tipoNegocio);
         Anunciante usuario = anuncianteRepository.findOneById(idUsuario);
-        if (anuncios != null && anuncios.size() > 0 && usuario != null) {
+        if (anuncios != null && !anuncios.isEmpty() && usuario != null) {
             String subject = null;
             String titulo = null;
             if (tipoNegocio == TipoNegocio.VENDA) {

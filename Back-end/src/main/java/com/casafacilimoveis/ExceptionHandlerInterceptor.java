@@ -3,9 +3,7 @@ package com.casafacilimoveis;
 import com.casafacilimoveis.model.entities.interceptor.Crashlytics;
 import com.casafacilimoveis.model.entities.interceptor.Header;
 import com.casafacilimoveis.repository.CrashlyticsRepository;
-import com.casafacilimoveis.repository.HeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,7 +14,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * casafacilimoveis
@@ -58,7 +59,7 @@ public class ExceptionHandlerInterceptor extends ResponseEntityExceptionHandler 
         crashlytics.setMethodUrl(((ServletWebRequest) request).getHttpMethod().name());
         crashlytics.setLanguage(request.getLocale().toString());
 
-        Map<String, String[]> parametrosUrl = request.getParameterMap();
+        //Map<String, String[]> parametrosUrl = request.getParameterMap();
 
         crashlyticsRepository.save(crashlytics);
 

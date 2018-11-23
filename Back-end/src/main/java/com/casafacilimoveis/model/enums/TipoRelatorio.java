@@ -14,7 +14,4 @@ public enum TipoRelatorio {
         return code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
 }

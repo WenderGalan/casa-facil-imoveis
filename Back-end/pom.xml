@@ -136,6 +136,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.5.0.1254</version>
+            </plugin>
+            <!--Token: 05cedc220aaa7791b6bf20c173bd71a07bf02d0b-->
+            <!--Comando: mvn sonar:sonar -Dsonar.projectKey=WenderGalan_casa-facil-imoveis -Dsonar.organization=wendergalan-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=05cedc220aaa7791b6bf20c173bd71a07bf02d0b-->
         </plugins>
     </build>
 

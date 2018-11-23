@@ -1,22 +1,20 @@
 package com.casafacilimoveis.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
  * casa-facil-imoveis
  * Wender Galan
  * Todos os direitos reservados ©
- **********************************************
+ * *********************************************
  * Nome do arquivo: Imagem.java
  * Criado por : Wender Galan
  * Data da criação :
  * Observação :
- **********************************************
+ * *********************************************
  */
 @Entity
 @Table(name = "imagem", schema = "public")

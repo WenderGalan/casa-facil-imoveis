@@ -5,6 +5,8 @@ import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.ContatoAnunciante;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.service.EmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,8 @@ import java.util.Random;
 @Service
 public class EmailServiceImpl implements EmailService {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(EmailServiceImpl.class);
+
     @Autowired
     private AnuncioRepository anuncioRepository;
 
@@ -56,12 +60,12 @@ public class EmailServiceImpl implements EmailService {
         try {
             mailSender.send(message);
             return ResponseEntity.ok(validation);
+        } catch (MailParseException e) {
+            LOGGER.error(e.getMessage());
+            validation.setmensagem("O e-mail é inválido");
+            return ResponseEntity.ok(validation);
         } catch (Exception e) {
-            e.printStackTrace();
-            if (e instanceof MailParseException) {
-                validation.setmensagem("O e-mail é inválido");
-                return ResponseEntity.ok(validation);
-            }
+            LOGGER.error(e.getMessage());
             validation.setmensagem("Erro ao envia o email");
             return ResponseEntity.ok(validation);
         }
@@ -115,7 +119,7 @@ public class EmailServiceImpl implements EmailService {
             fileDeletar.delete();
             return ResponseEntity.ok("Relatório gerado com sucesso!\nEm instantes irá recebê-lo em seu e-mail cadastrado!");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

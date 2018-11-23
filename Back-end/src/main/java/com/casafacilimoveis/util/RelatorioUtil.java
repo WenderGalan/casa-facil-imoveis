@@ -1,8 +1,8 @@
 package com.casafacilimoveis.util;
 
+import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Relatorio;
-import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.enums.TipoRelatorio;
 import com.casafacilimoveis.model.enums.TipoTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +12,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.*;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,9 +32,14 @@ import java.util.*;
  */
 public class RelatorioUtil {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(RelatorioUtil.class);
     private static final String FILE_SEPARATOR = System.getProperty("file.separator");
     private static final String REPORT_DIR = System.getProperty("user.dir") + FILE_SEPARATOR + "reportdir" + FILE_SEPARATOR;
     private static final String JASPER_DIR = System.getProperty("user.dir") + FILE_SEPARATOR + "jasperdir" + FILE_SEPARATOR;
+
+    public static final String CABECALHO = "Cabeçalho";
+    public static final String CORPO = "Corpo";
+    public static final String RODAPE = "Rodapé";
 
     public static String gerarRelatorio(String layout, List result, Anunciante usuario, TipoRelatorio tipoRelatorio, TipoTemplate tipoTemplate, ReportParameter... reportParameters) {
         try {
@@ -96,7 +103,7 @@ public class RelatorioUtil {
                 return REPORT_DIR + nomeArquivo;
             }
         } catch (JRException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return null;
     }
@@ -114,7 +121,7 @@ public class RelatorioUtil {
             exporterCSV.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, REPORT_DIR + nomeArquivo);
             exporterCSV.exportReport();
         } catch (JRException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -135,7 +142,7 @@ public class RelatorioUtil {
             exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME, REPORT_DIR + nomeArquivo);
             exporterXLS.exportReport();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex.getMessage());
         }
     }
 
@@ -158,7 +165,7 @@ public class RelatorioUtil {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File(REPORT_DIR + nomeArquivo), result);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -177,7 +184,7 @@ public class RelatorioUtil {
             exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, REPORT_DIR + nomeArquivo);
             exporter.exportReport();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -193,7 +200,7 @@ public class RelatorioUtil {
             XmlMapper xmlMapper = new XmlMapper();
             xmlMapper.writeValue(new File(REPORT_DIR + nomeArquivo), result);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
     }
 

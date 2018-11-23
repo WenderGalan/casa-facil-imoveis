@@ -1,6 +1,5 @@
 package com.casafacilimoveis.repository;
 
-import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Endereco;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Nullable;
-import javax.validation.constraints.Null;
 import java.util.List;
 
 /**

@@ -1,10 +1,7 @@
 package com.casafacilimoveis.service;
 
 import com.casafacilimoveis.model.entities.ContatoAnunciante;
-import com.casafacilimoveis.model.enums.TipoNegocio;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 /**
  * casafacilimoveis

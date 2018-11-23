@@ -18,6 +18,8 @@ import java.util.List;
  */
 public class Relatorio implements Serializable {
 
+    private static final long serialVersionUID = 2405172041950251807L;
+
     private JRBeanCollectionDataSource data0;
     private JRBeanCollectionDataSource data1;
     private JRBeanCollectionDataSource data2;

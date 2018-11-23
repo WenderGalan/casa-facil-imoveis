@@ -129,10 +129,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     public ResponseEntity excluirPorId(Integer id) {
         Usuario usuario = usuarioRepository.getOne(id);
 
-        if (usuario == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
         try {
             if (usuario instanceof Anunciante){
                 for (Anuncio anuncio : ((Anunciante) usuario).getAnuncios()) {

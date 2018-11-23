@@ -2,7 +2,6 @@ package com.casafacilimoveis.controller;
 
 import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.entities.Cliente;
-import com.casafacilimoveis.model.entities.interceptor.Crashlytics;
 import com.casafacilimoveis.service.UsuarioService;
 import com.casafacilimoveis.util.Constantes;
 import io.swagger.annotations.Api;

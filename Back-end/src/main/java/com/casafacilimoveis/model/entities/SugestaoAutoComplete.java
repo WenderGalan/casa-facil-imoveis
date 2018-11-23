@@ -45,21 +45,21 @@ public class SugestaoAutoComplete {
 
     public static List<SugestaoAutoComplete> criaSugestaoAutoComplete(List<String> cidades, List<String> bairros, List<String> enderecos) {
         List<SugestaoAutoComplete> sugestaoAutoCompleteList = new ArrayList<>();
-        if (cidades != null && cidades.size() > 0) {
+        if (cidades != null && !cidades.isEmpty()) {
             for (String cidade : cidades) {
-                String [] cidadeSplit = cidade.split(" - ");
+                String[] cidadeSplit = cidade.split(" - ");
                 sugestaoAutoCompleteList.add(new SugestaoAutoComplete(cidadeSplit[0], cidade));
             }
         }
-        if (bairros != null && bairros.size() > 0) {
+        if (bairros != null && !bairros.isEmpty()) {
             for (String bairro : bairros) {
-                String [] bairroSplit = bairro.split(" - ");
+                String[] bairroSplit = bairro.split(" - ");
                 sugestaoAutoCompleteList.add(new SugestaoAutoComplete(bairroSplit[0], bairro));
             }
         }
-        if (enderecos != null && enderecos.size() > 0){
-            for (String endereco : enderecos){
-                String [] enderecoSplit = endereco.split(" - ");
+        if (enderecos != null && !enderecos.isEmpty()) {
+            for (String endereco : enderecos) {
+                String[] enderecoSplit = endereco.split(" - ");
                 sugestaoAutoCompleteList.add(new SugestaoAutoComplete(enderecoSplit[0], endereco));
             }
         }

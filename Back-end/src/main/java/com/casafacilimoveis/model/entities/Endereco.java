@@ -73,12 +73,6 @@ public class Endereco implements Serializable {
     private List<Anuncio> anuncios;
 
     /**
-     * Instantiates a new Endereco.
-     */
-    public Endereco() {
-    }
-
-    /**
      * Gets id.
      *
      * @return the id

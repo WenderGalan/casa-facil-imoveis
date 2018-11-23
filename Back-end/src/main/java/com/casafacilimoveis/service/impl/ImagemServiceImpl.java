@@ -2,7 +2,6 @@ package com.casafacilimoveis.service.impl;
 
 import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.entities.Imagem;
-import com.casafacilimoveis.model.entities.Anunciante;
 import com.casafacilimoveis.model.entities.Usuario;
 import com.casafacilimoveis.repository.AnuncioRepository;
 import com.casafacilimoveis.repository.ImagemRepository;
@@ -10,6 +9,8 @@ import com.casafacilimoveis.repository.UsuarioRepository;
 import com.casafacilimoveis.service.GoogleDriveService;
 import com.casafacilimoveis.service.ImagemService;
 import com.casafacilimoveis.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,8 @@ import java.util.List;
  */
 @Service
 public class ImagemServiceImpl implements ImagemService {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(ImagemServiceImpl.class);
 
     @Autowired
     private GoogleDriveService driveService;
@@ -60,6 +63,7 @@ public class ImagemServiceImpl implements ImagemService {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
                 }
             } catch (Exception e) {
+                LOGGER.error(e.getMessage());
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         } else {
@@ -82,7 +86,7 @@ public class ImagemServiceImpl implements ImagemService {
                         return ResponseEntity.ok().body(usuario.getUrlImagem());
                     }
                 } catch (IOException e) {
-                    System.out.println("Erro na conversão da imagem");
+                    LOGGER.error("Erro na conversão da imagem");
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
                 }
 
@@ -100,13 +104,13 @@ public class ImagemServiceImpl implements ImagemService {
         if (anuncio != null) {
             List<File> fileList = new ArrayList<>();
             //Convert de Multipart file to File
-            if (files != null && files.size() > 0) {
+            if (files != null && !files.isEmpty()) {
                 for (MultipartFile imagemConvert : files) {
                     try {
                         File file = Util.convert(imagemConvert);
                         fileList.add(file);
                     } catch (IOException e) {
-                        System.out.println("Erro na conversão da imagem");
+                        LOGGER.error("Erro na conversão da imagem");
                     }
                 }
             }
@@ -120,7 +124,7 @@ public class ImagemServiceImpl implements ImagemService {
                         imagem.delete();
                         imagensSave.add(new Imagem(file.getId(), anuncio));
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage());
                     }
                 }
             }
@@ -133,11 +137,7 @@ public class ImagemServiceImpl implements ImagemService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        if (imagensSave != null) {
-            return ResponseEntity.ok(imagensSave);
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        return ResponseEntity.ok(imagensSave);
     }
 
     /*public boolean deletarImagensAnuncio(List<Imagem> imagens) {

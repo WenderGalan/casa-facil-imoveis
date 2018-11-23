@@ -3,8 +3,9 @@ package com.casafacilimoveis.model.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,12 +13,12 @@ import java.util.Objects;
  * casa-facil-imoveis
  * Wender Galan
  * Todos os direitos reservados ©
- **********************************************
+ * *********************************************
  * Nome do arquivo: Anunciante.java
  * Criado por : Wender Galan
  * Data da criação :
  * Observação :
- **********************************************
+ * *********************************************
  */
 @Entity
 public class Anunciante extends Usuario {
