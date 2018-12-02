@@ -19,6 +19,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "imagem", schema = "public")
 public class Imagem implements Serializable {
+    public static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id", nullable = false)

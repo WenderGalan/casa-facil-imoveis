@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * casafacilimoveis
@@ -32,7 +33,7 @@ import java.util.*;
  */
 public class RelatorioUtil {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(RelatorioUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RelatorioUtil.class);
     private static final String FILE_SEPARATOR = System.getProperty("file.separator");
     private static final String REPORT_DIR = System.getProperty("user.dir") + FILE_SEPARATOR + "reportdir" + FILE_SEPARATOR;
     private static final String JASPER_DIR = System.getProperty("user.dir") + FILE_SEPARATOR + "jasperdir" + FILE_SEPARATOR;
@@ -49,7 +50,7 @@ public class RelatorioUtil {
             JRDataSource jrRS = new JRBeanCollectionDataSource(Arrays.asList(new Relatorio(result)));
 
             //setando os parametros
-            Map<String, Object> parameters = new HashMap<>();
+            ConcurrentHashMap<String, Object> parameters = new ConcurrentHashMap<>();
             parameters.put("dataAtual", new Date());
             parameters.put("usuario", usuario != null ? usuario.getNome() : "Usuário Anônimo");
             parameters.put("subreportDir", JASPER_DIR);

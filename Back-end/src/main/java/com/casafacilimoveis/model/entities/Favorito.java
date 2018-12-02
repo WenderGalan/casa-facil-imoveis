@@ -18,6 +18,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "favorito", schema = "public")
 public class Favorito implements Serializable {
+    public static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id", nullable = false)

@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * casa-facil-imoveis
@@ -74,9 +75,9 @@ public class AnuncioServiceImpl implements AnuncioService {
     @Override
     public ResponseEntity buscaTodosAutoComplete(String text) {
         if (text != null && !text.isEmpty() && text.length() > 2) {
-            List<String> cidades = enderecoRepository.findCidadesAutoComplete(text.toLowerCase());
-            List<String> bairros = enderecoRepository.findBairroAutoComplete(text.toLowerCase());
-            List<String> enderecos = enderecoRepository.findEnderecoAutoComplete(text.toLowerCase());
+            List<String> cidades = enderecoRepository.findCidadesAutoComplete(text.toLowerCase(Locale.getDefault()));
+            List<String> bairros = enderecoRepository.findBairroAutoComplete(text.toLowerCase(Locale.getDefault()));
+            List<String> enderecos = enderecoRepository.findEnderecoAutoComplete(text.toLowerCase(Locale.getDefault()));
             return ResponseEntity.ok(SugestaoAutoComplete.criaSugestaoAutoComplete(cidades, bairros, enderecos));
         } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }

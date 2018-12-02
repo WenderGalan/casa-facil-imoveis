@@ -18,6 +18,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "header", schema = "public")
 public class Header implements Serializable {
+    public static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id", nullable = false)

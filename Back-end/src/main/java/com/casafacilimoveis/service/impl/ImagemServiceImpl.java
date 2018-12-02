@@ -36,7 +36,7 @@ import java.util.List;
 @Service
 public class ImagemServiceImpl implements ImagemService {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(ImagemServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImagemServiceImpl.class);
 
     @Autowired
     private GoogleDriveService driveService;
@@ -74,22 +74,20 @@ public class ImagemServiceImpl implements ImagemService {
     @Override
     public ResponseEntity salvarImagemUser(MultipartFile file, Integer id) {
         Usuario usuario = usuarioRepository.findOneById(id);
-        if (usuario != null) {
-            if (file != null && !file.isEmpty()) {
-                try {
-                    File fileConvert = Util.convert(file);
-                    if (fileConvert != null) {
-                        com.google.api.services.drive.model.File fileGoogle = driveService.uploadFile(fileConvert);
-                        usuario.setUrlImagem("https://drive.google.com/uc?id=" + fileGoogle.getId());
-                        usuarioRepository.save(usuario);
-                        fileConvert.delete();
-                        return ResponseEntity.ok().body(usuario.getUrlImagem());
-                    }
-                } catch (IOException e) {
-                    LOGGER.error("Erro na conversão da imagem");
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-                }
 
+        if (usuario != null && file != null && !file.isEmpty()) {
+            try {
+                File fileConvert = Util.convert(file);
+                if (fileConvert != null) {
+                    com.google.api.services.drive.model.File fileGoogle = driveService.uploadFile(fileConvert);
+                    usuario.setUrlImagem("https://drive.google.com/uc?id=" + fileGoogle.getId());
+                    usuarioRepository.save(usuario);
+                    fileConvert.delete();
+                    return ResponseEntity.ok().body(usuario.getUrlImagem());
+                }
+            } catch (IOException e) {
+                LOGGER.error("Erro na conversão da imagem");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

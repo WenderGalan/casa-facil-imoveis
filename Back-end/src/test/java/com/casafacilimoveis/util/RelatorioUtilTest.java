@@ -31,6 +31,8 @@ import static com.casafacilimoveis.model.enums.TipoTemplate.CABECALHO_CORPO_RODA
  */
 public class RelatorioUtilTest {
 
+    private static final String layout = "listagemImoveis.jrxml";
+    private static final String titulo = "TITULO TEST";
     private Anunciante usuario;
     private List<Anuncio> anuncios = new ArrayList<>();
     private String PDFGerado = null;
@@ -94,8 +96,8 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioPDFTest() {
-        PDFGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, PDF, CABECALHO_CORPO_RODAPE,
-                new ReportParameter("titulo", "TITULO TEST")
+        PDFGerado = RelatorioUtil.gerarRelatorio(layout, anuncios, usuario, PDF, CABECALHO_CORPO_RODAPE,
+                new ReportParameter("titulo", titulo)
         );
         filePDF = new File(PDFGerado);
         Assert.assertTrue(filePDF.exists());
@@ -103,8 +105,8 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioHTMLTest() {
-        HTMLGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, HTML, CABECALHO_CORPO_RODAPE,
-                new ReportParameter("titulo", "TITULO TEST")
+        HTMLGerado = RelatorioUtil.gerarRelatorio(layout, anuncios, usuario, HTML, CABECALHO_CORPO_RODAPE,
+                new ReportParameter("titulo", titulo)
         );
         fileHTML = new File(HTMLGerado);
         Assert.assertTrue(fileHTML.exists());
@@ -112,8 +114,8 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioXMLTest() {
-        XMLGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, XML, CABECALHO_CORPO_RODAPE,
-                new ReportParameter("titulo", "TITULO TEST")
+        XMLGerado = RelatorioUtil.gerarRelatorio(layout, anuncios, usuario, XML, CABECALHO_CORPO_RODAPE,
+                new ReportParameter("titulo", titulo)
         );
         fileXML = new File(XMLGerado);
         Assert.assertTrue(fileXML.exists());
@@ -121,8 +123,8 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioTXTTest() {
-        TXTGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, TXT, CABECALHO_CORPO_RODAPE,
-                new ReportParameter("titulo", "TITULO TEST")
+        TXTGerado = RelatorioUtil.gerarRelatorio(layout, anuncios, usuario, TXT, CABECALHO_CORPO_RODAPE,
+                new ReportParameter("titulo", titulo)
         );
         fileTXT = new File(TXTGerado);
         Assert.assertTrue(fileTXT.exists());
@@ -130,8 +132,8 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioJSONTest() {
-        JSONGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, JSON, CABECALHO_CORPO_RODAPE,
-                new ReportParameter("titulo", "TITULO TEST")
+        JSONGerado = RelatorioUtil.gerarRelatorio(layout, anuncios, usuario, JSON, CABECALHO_CORPO_RODAPE,
+                new ReportParameter("titulo", titulo)
         );
         fileJSON = new File(JSONGerado);
         Assert.assertTrue(fileJSON.exists());
@@ -139,8 +141,8 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioCSVTest() {
-        CSVGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, CSV, CABECALHO_CORPO_RODAPE,
-                new ReportParameter("titulo", "TITULO TEST")
+        CSVGerado = RelatorioUtil.gerarRelatorio(layout, anuncios, usuario, CSV, CABECALHO_CORPO_RODAPE,
+                new ReportParameter("titulo", titulo)
         );
         fileCSV = new File(CSVGerado);
         Assert.assertTrue(fileCSV.exists());
@@ -148,8 +150,8 @@ public class RelatorioUtilTest {
 
     @Test
     public void gerarRelatorioXLSTest() {
-        XLSGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, XLS, CABECALHO_CORPO_RODAPE,
-                new ReportParameter("titulo", "TITULO TEST")
+        XLSGerado = RelatorioUtil.gerarRelatorio(layout, anuncios, usuario, XLS, CABECALHO_CORPO_RODAPE,
+                new ReportParameter("titulo", titulo)
         );
         fileXLS = new File(XLSGerado);
         Assert.assertTrue(fileXLS.exists());

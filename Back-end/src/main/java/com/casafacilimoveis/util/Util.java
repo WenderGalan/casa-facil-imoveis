@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Util {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(Util.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 
     /**
      * Criar lista de erros da validacao list.
