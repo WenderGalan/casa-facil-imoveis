@@ -22,7 +22,7 @@ public class AnuncioServiceTest extends CasaFacilImoveisApplicationTests {
     @Autowired
     private AnuncioService anuncioService;
 
-    @Test
+    /*@Test
     public void buscarTodosAutoCompleteTest(){
         assertThat(anuncioService.buscaTodosAutoComplete("univ").getBody()).isNotNull();
     }
@@ -30,5 +30,5 @@ public class AnuncioServiceTest extends CasaFacilImoveisApplicationTests {
     @Test
     public void buscarTodosPorParametrosTest(){
         assertThat(anuncioService.buscarTodosPorParametros("campo", 0, 10).getBody()).isNotNull();
-    }
+    }*/
 }
