@@ -36,7 +36,7 @@ import java.util.Random;
 @Service
 public class EmailServiceImpl implements EmailService {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(EmailServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmailServiceImpl.class);
 
     @Autowired
     private AnuncioRepository anuncioRepository;
@@ -84,13 +84,11 @@ public class EmailServiceImpl implements EmailService {
                 try {
                     mailSender.send(message);
                     return ResponseEntity.ok().build();
+                } catch (MailParseException ex) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    if (e instanceof MailParseException) {
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-                    } else {
-                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-                    }
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
                 }
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

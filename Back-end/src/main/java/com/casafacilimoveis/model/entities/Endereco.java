@@ -23,6 +23,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "endereco", schema = "public")
 public class Endereco implements Serializable {
+    public static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id", nullable = false)

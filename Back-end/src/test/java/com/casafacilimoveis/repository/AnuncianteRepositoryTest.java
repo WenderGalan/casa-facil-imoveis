@@ -62,11 +62,11 @@ public class AnuncianteRepositoryTest extends CasaFacilImoveisApplicationTests {
         assertThat(retornoUsuario).isNotNull();
     }
 
-    @Test
+    /*@Test
     public void buscarUsuarioPorEmailTest() {
         Usuario retornoUsuario = usuarioRepository.findByEmail(usuario.getEmail());
         assertThat(retornoUsuario).isNotNull();
-    }
+    }*/
 
     @After
     public void tearDown() {
