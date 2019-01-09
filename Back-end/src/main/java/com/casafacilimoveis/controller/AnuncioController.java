@@ -4,19 +4,28 @@ import com.casafacilimoveis.model.entities.Anuncio;
 import com.casafacilimoveis.model.enums.TipoNegocio;
 import com.casafacilimoveis.model.enums.TipoRelatorio;
 import com.casafacilimoveis.model.enums.TipoTemplate;
+import com.casafacilimoveis.repository.AnuncioRepository;
+import com.casafacilimoveis.rsql.CustomRsqlVisitor;
 import com.casafacilimoveis.service.AnuncioService;
 import com.casafacilimoveis.util.Constantes;
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * casa-facil-imoveis
@@ -35,6 +44,9 @@ import javax.validation.Valid;
 @CrossOrigin
 @RequestMapping("/anuncios")
 public class AnuncioController {
+
+    @Autowired
+    private AnuncioRepository anuncioRepository;
 
     @Autowired
     private AnuncioService anuncioService;
@@ -84,7 +96,15 @@ public class AnuncioController {
             @RequestParam(value = "pesquisa", defaultValue = "") String pesquisa,
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size) {
-        return anuncioService.buscarTodosPorParametros(pesquisa, page, size);
+        Node rootNode = new RSQLParser().parse(pesquisa);
+        Specification<Anuncio> spec = rootNode.accept(new CustomRsqlVisitor<>());
+
+        PageRequest pageable = PageRequest.of(page, size);
+
+        Page<Anuncio> anuncios = ((JpaSpecificationExecutor) anuncioRepository).findAll(spec, pageable);
+
+        return ResponseEntity.ok(anuncios.getContent());
+        //return anuncioService.buscarTodosPorParametros(pesquisa, page, size);
     }
 
 
