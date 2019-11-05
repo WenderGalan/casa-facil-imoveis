@@ -12,7 +12,7 @@ services:
       - "15432:5432"
     # Mapeamento do volume de dados
     volumes:
-      - ../../Database:/var/lib/postgresql/data
+      - /Database:/var/lib/postgresql/data
     # Rede
     networks:
       - casa-facil-network
@@ -40,11 +40,9 @@ services:
     # Parâmetros de build
     build:
       # Contexto da aplicação
-      context: .
+      context: ./Back-end
       # Localização do dockerfile
       dockerfile: ./Dockerfile
-    # Diretório do projeto
-    working_dir: /
     # Porta exposta
     ports:
       - "8080:8080"
