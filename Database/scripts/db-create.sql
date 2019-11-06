@@ -25,80 +25,6 @@ TABLESPACE pg_default;
 ALTER TABLE public.usuario
     OWNER to postgres;
 
--- Table: public.imagem
-
--- DROP TABLE public.imagem;
-
-CREATE TABLE public.imagem
-(
-    id character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    imagem_url character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    id_anuncio integer,
-    CONSTRAINT imagem_pkey PRIMARY KEY (id),
-    CONSTRAINT fkpj66s2pdpdn3rg8myr2wud6ac FOREIGN KEY (id_anuncio)
-        REFERENCES public.anuncio (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public.imagem
-    OWNER to postgres;
-
--- Table: public.header
-
--- DROP TABLE public.header;
-
-CREATE TABLE public.header
-(
-    id integer NOT NULL,
-    key character varying(500) COLLATE pg_catalog."default" NOT NULL,
-    value character varying(500) COLLATE pg_catalog."default" NOT NULL,
-    id_crashlytics integer NOT NULL,
-    CONSTRAINT header_pkey PRIMARY KEY (id),
-    CONSTRAINT fk_header_crashlytics FOREIGN KEY (id_crashlytics)
-        REFERENCES public.crashlytics (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public.header
-    OWNER to postgres;
-
--- Table: public.favorito
-
--- DROP TABLE public.favorito;
-
-CREATE TABLE public.favorito
-(
-    id integer NOT NULL,
-    id_anuncio integer,
-    id_anunciante integer,
-    CONSTRAINT favorito_pkey PRIMARY KEY (id),
-    CONSTRAINT fkc60u995hkaqtn6y8mqxl532nw FOREIGN KEY (id_anunciante)
-        REFERENCES public.usuario (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT fks9n8oq9oc8nqi9rsfud5dpcjc FOREIGN KEY (id_anuncio)
-        REFERENCES public.anuncio (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public.favorito
-    OWNER to postgres;
-
 -- Table: public.endereco
 
 -- DROP TABLE public.endereco;
@@ -151,6 +77,30 @@ TABLESPACE pg_default;
 ALTER TABLE public.crashlytics
     OWNER to postgres;
 
+    -- Table: public.header
+
+-- DROP TABLE public.header;
+
+CREATE TABLE public.header
+(
+    id integer NOT NULL,
+    key character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    value character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    id_crashlytics integer NOT NULL,
+    CONSTRAINT header_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_header_crashlytics FOREIGN KEY (id_crashlytics)
+        REFERENCES public.crashlytics (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.header
+    OWNER to postgres;
+
 -- Table: public.anuncio
 
 -- DROP TABLE public.anuncio;
@@ -181,4 +131,54 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public.anuncio
+    OWNER to postgres;
+
+    -- Table: public.favorito
+
+-- DROP TABLE public.favorito;
+
+CREATE TABLE public.favorito
+(
+    id integer NOT NULL,
+    id_anuncio integer,
+    id_anunciante integer,
+    CONSTRAINT favorito_pkey PRIMARY KEY (id),
+    CONSTRAINT fkc60u995hkaqtn6y8mqxl532nw FOREIGN KEY (id_anunciante)
+        REFERENCES public.usuario (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fks9n8oq9oc8nqi9rsfud5dpcjc FOREIGN KEY (id_anuncio)
+        REFERENCES public.anuncio (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.favorito
+    OWNER to postgres;
+
+    -- Table: public.imagem
+
+-- DROP TABLE public.imagem;
+
+CREATE TABLE public.imagem
+(
+    id character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    imagem_url character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    id_anuncio integer,
+    CONSTRAINT imagem_pkey PRIMARY KEY (id),
+    CONSTRAINT fkpj66s2pdpdn3rg8myr2wud6ac FOREIGN KEY (id_anuncio)
+        REFERENCES public.anuncio (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.imagem
     OWNER to postgres;
