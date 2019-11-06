@@ -26,8 +26,6 @@ public class Usuario implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuarios")
-    @SequenceGenerator(name = "seq_usuarios", sequenceName = "usuarios_id_seq", schema = "public", allocationSize = 1)
     private Integer id;
 
     @Column(name = "nome", nullable = false)

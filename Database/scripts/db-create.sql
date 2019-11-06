@@ -4,7 +4,6 @@
 
 CREATE TABLE public.usuario
 (
-    dtype character varying(31) COLLATE pg_catalog."default" NOT NULL,
     id integer NOT NULL,
     email character varying(200) COLLATE pg_catalog."default" NOT NULL,
     nome character varying(100) COLLATE pg_catalog."default" NOT NULL,
