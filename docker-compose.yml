@@ -2,58 +2,53 @@ version: '3.4'
 services:
   # Cria o banco de dados
   db-postgres-compose:
-    image: postgres:10
-    restart: always
+    image: db-postgres-compose
+    build: ./Database
+    container_name: "postgres10"
+    restart: on-failure
     # Variaveis de ambiente
-    environment:
-      POSTGRES_PASSWORD: "Postgres2019!"
+    env_file: ./common.env
     # Porta exposta
     ports:
       - "15432:5432"
-    # Mapeamento do volume de dados
-    volumes:
-      - /Database:/var/lib/postgresql/data
     # Rede
     networks:
       - casa-facil-network
   # Cria a interface do PGAdmin 4
   db-pgadmin-compose:
     image: dpage/pgadmin4
-    restart: always
+    container_name: "pgadmin4"
+    restart: on-failure
     # Variaveis de ambiente
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "wendergalan2014@hotmail.com"
-      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+    env_file: ./common.env
     # Porta Exposta
     ports:
       - "16543:80"
-    # Dependências
-    depends_on:
-      - db-postgres-compose
     # Rede
     networks:
       - casa-facil-network
   # Cria o projeto do back-end
-  spring-boot-compose:
-    image: spring-boot-compose
-    restart: always
-    # Parâmetros de build
-    build:
-      # Contexto da aplicação
-      context: ./Back-end
-      # Localização do dockerfile
-      dockerfile: ./Dockerfile
-    # Porta exposta
-    ports:
-      - "8080:8080"
-    # Comando para executar na inicialização
-    command: mvn spring-boot:run
-    # Depêndencias
-    depends_on:
-      - db-postgres-compose
-    # Rede
-    networks:
-      - casa-facil-network
+#  spring-boot-compose:
+#    image: spring-boot-compose
+#    container_name: "back-end"
+#    restart: on-failure
+#    # Parâmetros de build
+#    build:
+#      # Contexto da aplicação
+#      context: ./Back-end
+#      # Localização do dockerfile
+#      dockerfile: ./Dockerfile
+#    # Porta exposta
+#    ports:
+#      - "8080:8080"
+#    # Comando para executar na inicialização
+#    command: mvn spring-boot:run
+#    # Depêndencias
+#    depends_on:
+#      - db-postgres-compose
+#    # Rede
+#    networks:
+#      - casa-facil-network
 networks:
   casa-facil-network:
     driver: bridge
