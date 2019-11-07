@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47d03813-cd25-4394-a162-6a55337a9989" name="Default Changelist" comment="Atualizando o README e o pdf da sprint">
+    <list default="true" id="47d03813-cd25-4394-a162-6a55337a9989" name="Default Changelist" comment="Update init.sh">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Database/init.sh" beforeDir="false" afterPath="$PROJECT_DIR$/Database/init.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/model/entities/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/model/entities/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Back-end/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Back-end/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,11 +16,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="-7" />
-    <option name="width" value="1294" />
-    <option name="height" value="1047" />
-  </component>
+  <component name="ProjectId" id="1TJ83ChV9B0CMGoAei3Q1p5LUMH" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -98,6 +96,7 @@
       <workItem from="1539606045777" duration="21000" />
       <workItem from="1540950750001" duration="824000" />
       <workItem from="1543780369304" duration="284000" />
+      <workItem from="1573166638058" duration="2738000" />
     </task>
     <task id="LOCAL-00001" summary="update sprint">
       <created>1536024287580</created>
@@ -148,11 +147,29 @@
       <option name="project" value="LOCAL" />
       <updated>1543780430503</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Update init.sh">
+      <created>1573058157330</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1573058157330</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update sprint" />
@@ -161,7 +178,8 @@
     <MESSAGE value="Implementação de tests nos controllers e criação do controller para cuidar de envio de contato com o anunciante..." />
     <MESSAGE value="Atualizando o README e o pdf da sprint" />
     <MESSAGE value="Atualizando o init.sh" />
-    <option name="LAST_COMMIT_MESSAGE" value="Atualizando o init.sh" />
+    <MESSAGE value="Update init.sh" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update init.sh" />
   </component>
   <component name="masterDetails">
     <states>

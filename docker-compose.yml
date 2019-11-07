@@ -1,54 +1,56 @@
 version: '3.4'
 services:
   # Cria o banco de dados
-  db-postgres-compose:
-    image: db-postgres-compose
+  db-postgres-casa-facil:
+    image: db-postgres-casa-facil
     build: ./Database
-    container_name: "postgres10"
+    container_name: "db-postgres-casa-facil"
     restart: on-failure
     # Variaveis de ambiente
     env_file: ./common.env
     # Porta exposta
     ports:
-      - "15432:5432"
+      - 15432:5432
     # Rede
     networks:
       - casa-facil-network
   # Cria a interface do PGAdmin 4
-  db-pgadmin-compose:
+  db-pgadmin-casa-facil:
     image: dpage/pgadmin4
-    container_name: "pgadmin4"
+    container_name: "db-pgadmin-casa-facil"
     restart: on-failure
     # Variaveis de ambiente
     env_file: ./common.env
     # Porta Exposta
     ports:
-      - "16543:80"
+      - 16543:80
     # Rede
     networks:
       - casa-facil-network
-  # Cria o projeto do back-end
-#  spring-boot-compose:
-#    image: spring-boot-compose
-#    container_name: "back-end"
-#    restart: on-failure
-#    # Parâmetros de build
-#    build:
-#      # Contexto da aplicação
-#      context: ./Back-end
-#      # Localização do dockerfile
-#      dockerfile: ./Dockerfile
-#    # Porta exposta
-#    ports:
-#      - "8080:8080"
-#    # Comando para executar na inicialização
-#    command: mvn spring-boot:run
-#    # Depêndencias
-#    depends_on:
-#      - db-postgres-compose
-#    # Rede
-#    networks:
-#      - casa-facil-network
+  back-end-casa-facil:
+    # Cria o projeto do back-end
+    image: back-end-casa-facil
+    container_name: "back-end-casa-facil"
+    restart: on-failure
+    # Variaveis de ambiente
+    env_file: ./common.env
+    # Parâmetros de build
+    build:
+      # Contexto da aplicação
+      context: ./Back-end
+      # Localização do dockerfile
+      dockerfile: ./Dockerfile
+    # Porta exposta
+    ports:
+      - 8080:8080
+    # Comando para executar na inicialização
+    command: mvn spring-boot:run
+    # Depêndencias
+    depends_on:
+      - db-postgres-casa-facil
+    # Rede
+    networks:
+      - casa-facil-network
 networks:
   casa-facil-network:
     driver: bridge
