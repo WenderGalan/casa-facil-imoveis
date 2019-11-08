@@ -6,12 +6,9 @@ services:
     build: ./Database
     container_name: "db-postgres-casa-facil"
     restart: on-failure
-    # Variaveis de ambiente
     env_file: ./common.env
-    # Porta exposta
     ports:
       - 15432:5432
-    # Rede
     networks:
       - casa-facil-network
   # Cria a interface do PGAdmin 4
@@ -19,38 +16,40 @@ services:
     image: dpage/pgadmin4
     container_name: "db-pgadmin-casa-facil"
     restart: on-failure
-    # Variaveis de ambiente
     env_file: ./common.env
-    # Porta Exposta
     ports:
       - 16543:80
-    # Rede
     networks:
       - casa-facil-network
+  # Cria o back-end
   back-end-casa-facil:
-    # Cria o projeto do back-end
     image: back-end-casa-facil
     container_name: "back-end-casa-facil"
     restart: on-failure
-    # Variaveis de ambiente
     env_file: ./common.env
-    # Parâmetros de build
     build:
-      # Contexto da aplicação
       context: ./Back-end
-      # Localização do dockerfile
       dockerfile: ./Dockerfile
-    # Porta exposta
     ports:
       - 8080:8080
-    # Comando para executar na inicialização
     command: mvn spring-boot:run
-    # Depêndencias
     depends_on:
       - db-postgres-casa-facil
-    # Rede
     networks:
       - casa-facil-network
+  front-end-casa-facil:
+    image: front-end-casa-facil
+    container_name: "front-end-casa-facil"
+    restart: on-failure
+    environment:
+      - BACKEND_URL=back-end-casa-facil
+    build:
+      context: ./Front-end/casa-facil
+      dockerfile: ./Dockerfile
+    depends_on:
+      - back-end-casa-facil
+    ports:
+      - 5000:80
 networks:
   casa-facil-network:
     driver: bridge

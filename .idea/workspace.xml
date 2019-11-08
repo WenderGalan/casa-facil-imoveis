@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47d03813-cd25-4394-a162-6a55337a9989" name="Default Changelist" comment="Update init.sh">
+    <list default="true" id="47d03813-cd25-4394-a162-6a55337a9989" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Front-end/casa-facil/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/model/entities/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/Back-end/src/main/java/com/casafacilimoveis/model/entities/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-end/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Back-end/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Back-end/Dockerfile-build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front-end/casa-facil/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front-end/casa-facil/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front-end/casa-facil/src/util/constantes.js" beforeDir="false" afterPath="$PROJECT_DIR$/Front-end/casa-facil/src/util/constantes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,6 +26,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
@@ -68,6 +71,39 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="docker-compose.yml.front-end-casa-facil: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="front-end-casa-facil" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.docker-compose.yml.front-end-casa-facil: Compose Deployment" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <treeState>
+          <expand>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@497f9cc6" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+          </expand>
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -96,7 +132,7 @@
       <workItem from="1539606045777" duration="21000" />
       <workItem from="1540950750001" duration="824000" />
       <workItem from="1543780369304" duration="284000" />
-      <workItem from="1573166638058" duration="2738000" />
+      <workItem from="1573166638058" duration="13936000" />
     </task>
     <task id="LOCAL-00001" summary="update sprint">
       <created>1536024287580</created>
@@ -154,7 +190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573058157330</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Update docker-compose">
+      <created>1573169530531</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1573169530532</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,7 +222,8 @@
     <MESSAGE value="Atualizando o README e o pdf da sprint" />
     <MESSAGE value="Atualizando o init.sh" />
     <MESSAGE value="Update init.sh" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update init.sh" />
+    <MESSAGE value="Update docker-compose" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update docker-compose" />
   </component>
   <component name="masterDetails">
     <states>
