@@ -19,6 +19,7 @@ import java.util.Objects;
  * *********************************************
  */
 @Entity
+@DiscriminatorValue(value = "1")
 public class Cliente extends Usuario {
 
     @CPF
