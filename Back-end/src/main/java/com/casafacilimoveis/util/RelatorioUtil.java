@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * casafacilimoveis
- * TDR Informática Ltda
+ * Casa Fácil Imóveis LTDA
  * Todos os direitos reservados ©
  * *********************************************
  * Nome do arquivo: RelatorioUtil.java
