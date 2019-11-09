@@ -4,3 +4,5 @@ dist: trusty
 before_install:
   - cd Back-end
   - chmod +x mvnw
+install: true
+script: mvn clean package -DskipTests=true
