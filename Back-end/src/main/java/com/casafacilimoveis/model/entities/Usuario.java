@@ -21,6 +21,8 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "usuario", schema = "public")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorValue(value = "0")
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -32,6 +34,9 @@ public class Usuario implements Serializable {
     @Length(min = 1, max = 100, message = "O nome deve ter no minímo {min} e no máximo {max} caracteres")
     @NotNull(message = "O nome não foi informado.")
     private String nome;
+
+    @Column(name = "dtype", nullable = false)
+    private Integer dtype;
 
     @Column(name = "email", nullable = false)
     @Length(min = 1, max = 200, message = "O email deve ter no minímo {min} e no máximo {max} caracteres")
@@ -110,5 +115,13 @@ public class Usuario implements Serializable {
 
     public void setUrlImagem(String urlImagem) {
         this.urlImagem = urlImagem;
+    }
+
+    public Integer getDtype() {
+        return dtype;
+    }
+
+    public void setDtype(Integer dtype) {
+        this.dtype = dtype;
     }
 }

@@ -3,6 +3,7 @@ package com.casafacilimoveis.model.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.br.CNPJ;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -21,6 +22,7 @@ import java.util.Objects;
  * *********************************************
  */
 @Entity
+@DiscriminatorValue(value = "2")
 public class Anunciante extends Usuario {
 
     @CNPJ
