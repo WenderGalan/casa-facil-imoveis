@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47d03813-cd25-4394-a162-6a55337a9989" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Front-end/casa-facil/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-end/Dockerfile-build" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front-end/casa-facil/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front-end/casa-facil/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front-end/casa-facil/src/util/constantes.js" beforeDir="false" afterPath="$PROJECT_DIR$/Front-end/casa-facil/src/util/constantes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +127,9 @@
       <workItem from="1539606045777" duration="21000" />
       <workItem from="1540950750001" duration="824000" />
       <workItem from="1543780369304" duration="284000" />
-      <workItem from="1573166638058" duration="13936000" />
+      <workItem from="1573166638058" duration="13973000" />
+      <workItem from="1573338532401" duration="2760000" />
+      <workItem from="1573511881115" duration="27000" />
     </task>
     <task id="LOCAL-00001" summary="update sprint">
       <created>1536024287580</created>
@@ -197,7 +194,28 @@
       <option name="project" value="LOCAL" />
       <updated>1573169530532</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update docker-compose">
+      <created>1573180697810</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1573180697811</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Removendo os nomes de outra IDE...">
+      <created>1573338599133</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1573338599133</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Alterando o db-create...">
+      <created>1573342487194</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1573342487194</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,7 +226,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -223,7 +243,9 @@
     <MESSAGE value="Atualizando o init.sh" />
     <MESSAGE value="Update init.sh" />
     <MESSAGE value="Update docker-compose" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update docker-compose" />
+    <MESSAGE value="Removendo os nomes de outra IDE..." />
+    <MESSAGE value="Alterando o db-create..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Alterando o db-create..." />
   </component>
   <component name="masterDetails">
     <states>
