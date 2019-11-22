@@ -1,18 +1,14 @@
 package com.casafacilimoveis.model.entities;
 
 import com.casafacilimoveis.model.enums.TipoUsuario;
-import groovy.util.logging.Log4j;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Length;
-import org.jfree.util.Log;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-
-import static org.apache.xmlbeans.impl.store.Public2.test;
 
 /**
  * casafacilimoveis
@@ -26,13 +22,11 @@ import static org.apache.xmlbeans.impl.store.Public2.test;
  * *********************************************
  */
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-@Slf4j
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Table(name = "usuario", schema = "public")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -42,6 +36,7 @@ public class Usuario implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false)
+    @EqualsAndHashCode.Include
     private Integer id;
 
     @Column(name = "nome", nullable = false)
@@ -74,12 +69,4 @@ public class Usuario implements Serializable {
     //Imagem padrão dos usuários
     @Column(name = "url_imagem")
     private String urlImagem = "https://drive.google.com/uc?id=1NzqIM3Li0YlTZDcTkGrIDCQsFUsCZqgm";
-
-    public static void wender() {
-        Usuario user = Usuario.builder().id(1).nome("Wender").build();
-        Usuario user2 = Usuario.builder().id(1).nome("Galan").build();
-        if (user.equals(user2)) {
-            log.warn("hahahaha");
-        }
-    }
 }
