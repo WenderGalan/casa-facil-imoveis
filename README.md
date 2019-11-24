@@ -40,6 +40,7 @@ Para a instalação do spring boot é necessário fazer o download das dependên
     - Postgres
     - Spring test (Teste de unidade)
     - [Swagger](https://swagger.io/): Faz o gerenciamento de todas as requisões (controllers) de dentro da aplicação facilitando a visualização das mesmas.
+    - [Lombok](https://projectlombok.org/): O Project Lombok é uma biblioteca java que se conecta automaticamente ao seu editor e cria ferramentas, apimentando o seu desenvolvimento java.
     
 - ### Front-end: [Vue JS](https://vuejs.org/) (dependências):
      - [Bootstrap-Vue](https://bootstrap-vue.js.org/docs/): Usado para auxiliar na criação de componentes responsivos.
@@ -55,11 +56,31 @@ Para a instalação do spring boot é necessário fazer o download das dependên
      - O Travis CI é um serviço web de Integração Contínua na nuvem integrado com o GitHub. Ele é gratuito para repositórios públicos e pago para repositórios privados.
 - ### Revisor de código: [Codacy](https://www.codacy.com/)
      - Codacy é um revisor de código automático que é feito em nuvem e integrado ao Github, quando é commitado algo automaticamente o mesmo já é chamado para poder fazer a revisão.
+     
+- ### [Docker](https://www.docker.com/):
+   - [Docker Compose](https://docs.docker.com/compose/)
 
 - ### Links para teste da aplicação:
 
      ### Back-end: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://casa-facil-imoveis.herokuapp.com/swagger-ui.html)
      ### Front-end: [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://casa-facil-imoveis.herokuapp.com/)
+
+- ### Como rodar o projeto?
+  Assumindo que já tenha o Docker instalado na máquina, execute os procedimentos abaixo:
+
+  Abra o console na pasta raiz da aplicação
+
+  Execute o deploy, atualiza a imagem da aplicação e cria o banco Postgresql populado
+  
+  ```
+  docker-compose up -d --build
+  ```
+
+  No seu browser acesse as urls: 
+    - Front-end: http://localhost:5000
+    - Back-end: http://localhost:8080/swagger-ui.html
+    - Banco de dados: http://localhost:16543
+       - Credenciais do mesmo está no common.env na raiz do projeto.
 
 - ### License:
 ```
