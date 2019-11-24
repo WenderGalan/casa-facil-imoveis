@@ -27,6 +27,9 @@ Para a instalação do spring boot é necessário fazer o download das dependên
  
 ## Tecnologias Utilizadas:
 
+ - ### [Docker](https://www.docker.com/):
+   - [Docker Compose](https://docs.docker.com/compose/)
+
  - ### Back-end: [Spring boot](https://spring.io/projects/spring-boot) (dependências):
     - JPA Data: Gerenciamento das entidades da aplicação
     - Spring Security: Segurança dos web-services (Foi usado apenas para criptografia de senhas)
