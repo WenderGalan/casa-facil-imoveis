@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47d03813-cd25-4394-a162-6a55337a9989" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="47d03813-cd25-4394-a162-6a55337a9989" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +128,7 @@
       <workItem from="1573166638058" duration="13973000" />
       <workItem from="1573338532401" duration="2760000" />
       <workItem from="1573511881115" duration="27000" />
+      <workItem from="1574637137369" duration="194000" />
     </task>
     <task id="LOCAL-00001" summary="update sprint">
       <created>1536024287580</created>

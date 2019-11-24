@@ -159,7 +159,7 @@ public class AnuncioServiceImpl implements AnuncioService {
 
 
             String arquivoGerado = RelatorioUtil.gerarRelatorio("listagemImoveis.jrxml", anuncios, usuario, tipoRelatorio, tipoTemplate,
-                    new ReportParameter("titulo", titulo)
+                    ReportParameter.builder().key("titulo").value(titulo).build()
             );
             return emailService.sendEmailWithAttachement(arquivoGerado, usuario.getEmail(), subject, text);
         } else
