@@ -40,6 +40,7 @@ Para a instalação do spring boot é necessário fazer o download das dependên
     - Postgres
     - Spring test (Teste de unidade)
     - [Swagger](https://swagger.io/): Faz o gerenciamento de todas as requisões (controllers) de dentro da aplicação facilitando a visualização das mesmas.
+    - [Lombok](https://projectlombok.org/): O Project Lombok é uma biblioteca java que se conecta automaticamente ao seu editor e cria ferramentas, apimentando o seu desenvolvimento java.
     
 - ### Front-end: [Vue JS](https://vuejs.org/) (dependências):
      - [Bootstrap-Vue](https://bootstrap-vue.js.org/docs/): Usado para auxiliar na criação de componentes responsivos.
