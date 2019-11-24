@@ -45,7 +45,7 @@ public class FavoritoServiceImpl implements FavoritoService {
         Favorito favoritoExistente = favoritoRepository.findByClienteAndAnuncio(idCliente, idAnuncio);
 
         if (favoritoExistente == null) {
-            Favorito favorito = new Favorito(anuncio, cliente);
+            Favorito favorito = Favorito.builder().anuncio(anuncio).cliente(cliente).build();
             favoritoRepository.save(favorito);
         }
 
@@ -60,7 +60,7 @@ public class FavoritoServiceImpl implements FavoritoService {
         try {
             favoritoRepository.delete(favorito);
         } catch (Exception ex) {
-            return new ResponseEntity(new ResponseError(CodeError.NAO_PERMITIDO_EXCLUIR, ex.getMessage()), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(ResponseError.builder().code(CodeError.NAO_PERMITIDO_EXCLUIR).message(ex.getMessage()).build());
         }
 
         return ResponseEntity.status(HttpStatus.OK).build();

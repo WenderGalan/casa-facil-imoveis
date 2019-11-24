@@ -1,5 +1,8 @@
 package com.casafacilimoveis.model.entities.interceptor;
 
+import lombok.Builder;
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -17,6 +20,8 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "header", schema = "public")
+@Data
+@Builder
 public class Header implements Serializable {
     public static final long serialVersionUID = 1L;
 
@@ -37,45 +42,4 @@ public class Header implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_crashlytics", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_header_crashlytics"))
     private Crashlytics crashlytics;
-
-    public Header() {
-    }
-
-    public Header(@NotNull String key, @NotNull String value, Crashlytics crashlytics) {
-        this.key = key;
-        this.value = value;
-        this.crashlytics = crashlytics;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Crashlytics getCrashlytics() {
-        return crashlytics;
-    }
-
-    public void setCrashlytics(Crashlytics crashlytics) {
-        this.crashlytics = crashlytics;
-    }
 }

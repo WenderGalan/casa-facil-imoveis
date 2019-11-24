@@ -37,7 +37,7 @@ public class ExceptionHandlerInterceptor extends ResponseEntityExceptionHandler 
 
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<Object> getException(Exception ex, WebRequest request) {
-        Crashlytics crashlytics = new Crashlytics();
+        Crashlytics crashlytics = Crashlytics.builder().build();
 
         crashlytics.setClassError(ex.getStackTrace()[0].getClassName());
         crashlytics.setMethodName(ex.getStackTrace()[0].getMethodName());
@@ -65,10 +65,10 @@ public class ExceptionHandlerInterceptor extends ResponseEntityExceptionHandler 
         /**Seta os headers da request**/
         Iterator<String> names = request.getHeaderNames();
         List<Header> headers = new ArrayList<>();
-        while (names.hasNext()){
+        while (names.hasNext()) {
             String name = names.next();
             String value = request.getHeader(name);
-            Header header = new Header(name, value, crashlytics);
+            Header header = Header.builder().key(name).value(value).crashlytics(crashlytics).build();
             headers.add(header);
         }
 

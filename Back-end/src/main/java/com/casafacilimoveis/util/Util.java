@@ -36,9 +36,8 @@ public class Util {
     public static List<Validation> criarListaDeErrosDaValidacao(List<ObjectError> erros) {
         List<Validation> lista = new ArrayList<>();
         if (erros != null && !erros.isEmpty()) {
-            for (ObjectError error : erros) {
-                lista.add(new Validation(error.getObjectName(), error.getDefaultMessage()));
-            }
+            for (ObjectError error : erros)
+                lista.add(Validation.builder().campo(error.getObjectName()).mensagem(error.getDefaultMessage()).build());
         }
         return lista;
     }

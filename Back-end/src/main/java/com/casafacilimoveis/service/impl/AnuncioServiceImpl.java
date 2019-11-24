@@ -115,9 +115,8 @@ public class AnuncioServiceImpl implements AnuncioService {
 
     @Override
     public ResponseEntity alterar(Anuncio anuncio, BindingResult result) {
-        if (result.hasErrors()) {
+        if (result.hasErrors())
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Util.criarListaDeErrosDaValidacao(result.getAllErrors()));
-        }
 
         anuncioRepository.save(anuncio);
         return ResponseEntity.ok(anuncio);
@@ -129,15 +128,13 @@ public class AnuncioServiceImpl implements AnuncioService {
 
         try {
             for (Imagem imagem : anuncio.getImagensAnuncios()) {
-                if (!driveService.deleteFile(imagem.getId())) {
+                if (!driveService.deleteFile(imagem.getId()))
                     driveService.deleteFile(imagem.getId());
-                }
             }
             anuncioRepository.delete(anuncio);
         } catch (Exception ex) {
-            return new ResponseEntity(new ResponseError(CodeError.NAO_PERMITIDO_EXCLUIR, ex.getMessage()), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(ResponseError.builder().code(CodeError.NAO_PERMITIDO_EXCLUIR).message(ex.getMessage()).build());
         }
-
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
@@ -165,10 +162,8 @@ public class AnuncioServiceImpl implements AnuncioService {
                     new ReportParameter("titulo", titulo)
             );
             return emailService.sendEmailWithAttachement(arquivoGerado, usuario.getEmail(), subject, text);
-        } else {
-            return new ResponseEntity(new ResponseError(CodeError.USUARIO_NAO_POSSUI_ANUNCIOS,
-                    "O usuário não possui anúncios suficientes para gerar relatório"), HttpStatus.BAD_REQUEST);
-        }
+        } else
+            return ResponseEntity.badRequest().body(ResponseError.builder().code(CodeError.USUARIO_NAO_POSSUI_ANUNCIOS).message("O usuário não possui anúncios suficientes para gerar relatório").build());
     }
 
 }

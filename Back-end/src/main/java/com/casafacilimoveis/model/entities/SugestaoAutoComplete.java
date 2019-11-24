@@ -1,5 +1,8 @@
 package com.casafacilimoveis.model.entities;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,53 +17,31 @@ import java.util.List;
  * Observação :
  * *********************************************
  */
+@Data
+@Builder
 public class SugestaoAutoComplete {
 
-    String pesquisa;
-    String concatenacao;
-
-    public SugestaoAutoComplete(String pesquisa, String concatenacao) {
-        this.pesquisa = pesquisa;
-        this.concatenacao = concatenacao;
-    }
-
-    public SugestaoAutoComplete() {
-    }
-
-    public String getPesquisa() {
-        return pesquisa;
-    }
-
-    public void setPesquisa(String pesquisa) {
-        this.pesquisa = pesquisa;
-    }
-
-    public String getConcatenacao() {
-        return concatenacao;
-    }
-
-    public void setConcatenacao(String concatenacao) {
-        this.concatenacao = concatenacao;
-    }
+    private String pesquisa;
+    private String concatenacao;
 
     public static List<SugestaoAutoComplete> criaSugestaoAutoComplete(List<String> cidades, List<String> bairros, List<String> enderecos) {
         List<SugestaoAutoComplete> sugestaoAutoCompleteList = new ArrayList<>();
         if (cidades != null && !cidades.isEmpty()) {
             for (String cidade : cidades) {
                 String[] cidadeSplit = cidade.split(" - ");
-                sugestaoAutoCompleteList.add(new SugestaoAutoComplete(cidadeSplit[0], cidade));
+                sugestaoAutoCompleteList.add(SugestaoAutoComplete.builder().pesquisa(cidadeSplit[0]).concatenacao(cidade).build());
             }
         }
         if (bairros != null && !bairros.isEmpty()) {
             for (String bairro : bairros) {
                 String[] bairroSplit = bairro.split(" - ");
-                sugestaoAutoCompleteList.add(new SugestaoAutoComplete(bairroSplit[0], bairro));
+                sugestaoAutoCompleteList.add(SugestaoAutoComplete.builder().pesquisa(bairroSplit[0]).concatenacao(bairro).build());
             }
         }
         if (enderecos != null && !enderecos.isEmpty()) {
             for (String endereco : enderecos) {
                 String[] enderecoSplit = endereco.split(" - ");
-                sugestaoAutoCompleteList.add(new SugestaoAutoComplete(enderecoSplit[0], endereco));
+                sugestaoAutoCompleteList.add(SugestaoAutoComplete.builder().pesquisa(enderecoSplit[0]).concatenacao(endereco).build());
             }
         }
         return sugestaoAutoCompleteList;

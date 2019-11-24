@@ -88,18 +88,18 @@ public class FavoritoRepositoryTest extends CasaFacilImoveisApplicationTests {
         anuncio.setAnunciante(anunciante);
         anuncioRepository.save(anuncio);
 
-        favorito = new Favorito(anuncio, cliente);
+        favorito = Favorito.builder().anuncio(anuncio).cliente(cliente).build();
         favoritoRepository.save(favorito);
     }
 
     @Test
-    public void findAllByIdCliente(){
+    public void findAllByIdCliente() {
         List<Favorito> favoritos = favoritoRepository.findAllByIdCliente(cliente.getId());
         assertThat(favoritos.size()).isPositive();
     }
 
     @Test
-    public void findByClienteAndAnuncio(){
+    public void findByClienteAndAnuncio() {
         Favorito favorito = favoritoRepository.findByClienteAndAnuncio(cliente.getId(), anuncio.getId());
         assertThat(favorito).isNotNull();
     }

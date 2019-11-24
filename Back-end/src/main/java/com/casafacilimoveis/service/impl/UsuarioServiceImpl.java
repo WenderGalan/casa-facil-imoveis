@@ -77,9 +77,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         //verifica se o usuário já não existe no banco
         Anunciante usuarioExist = anuncianteRepository.findByEmail(usuario.getEmail());
 
-        if (usuarioExist != null) {
-            return new ResponseEntity(new ResponseError(CodeError.USUARIO_EXISTENTE, "Email já cadastrado"), HttpStatus.BAD_REQUEST);
-        } else {
+        if (usuarioExist != null)
+            return ResponseEntity.badRequest().body(ResponseError.builder().code(CodeError.USUARIO_EXISTENTE).message("Email já cadastrado").build());
+        else {
             usuario.setSenha(SenhaUtil.gerarBCrypt(usuario.getSenha()));
             anuncianteRepository.save(usuario);
         }
@@ -105,9 +105,9 @@ public class UsuarioServiceImpl implements UsuarioService {
         //verifica se o usuário já não existe no banco
         Cliente usuarioExist = clienteRepository.findByEmail(cliente.getEmail());
 
-        if (usuarioExist != null) {
-            return new ResponseEntity(new ResponseError(CodeError.USUARIO_EXISTENTE, "Email já cadastrado"), HttpStatus.BAD_REQUEST);
-        } else {
+        if (usuarioExist != null)
+            return ResponseEntity.badRequest().body(ResponseError.builder().code(CodeError.USUARIO_EXISTENTE).message("Email já cadastrado").build());
+        else {
             cliente.setSenha(SenhaUtil.gerarBCrypt(cliente.getSenha()));
             clienteRepository.save(cliente);
         }
@@ -130,7 +130,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuario = usuarioRepository.getOne(id);
 
         try {
-            if (usuario instanceof Anunciante){
+            if (usuario instanceof Anunciante) {
                 for (Anuncio anuncio : ((Anunciante) usuario).getAnuncios()) {
                     for (Imagem imagem : anuncio.getImagensAnuncios()) {
                         googleDriveService.deleteFile(imagem.getId());
@@ -138,15 +138,15 @@ public class UsuarioServiceImpl implements UsuarioService {
                     }
                     anuncioRepository.delete(anuncio);
                 }
-            } else if (usuario instanceof Cliente){
-                for (Favorito favorito : ((Cliente) usuario).getAnunciosFavoritos()){
+            } else if (usuario instanceof Cliente) {
+                for (Favorito favorito : ((Cliente) usuario).getAnunciosFavoritos()) {
                     favoritoRepository.delete(favorito);
                 }
             }
 
             usuarioRepository.delete(usuario);
         } catch (Exception ex) {
-            return new ResponseEntity(new ResponseError(CodeError.NAO_PERMITIDO_EXCLUIR, ex.getMessage()), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(ResponseError.builder().code(CodeError.NAO_PERMITIDO_EXCLUIR).message(ex.getMessage()).build());
         }
 
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -157,11 +157,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (email != null && !email.isEmpty() && senha != null && !senha.isEmpty()) {
             Usuario usuario = usuarioRepository.findByEmail(email);
             if (usuario != null) {
-                if (SenhaUtil.senhaValida(senha, usuario.getSenha())) {
+                if (SenhaUtil.senhaValida(senha, usuario.getSenha()))
                     return ResponseEntity.ok(usuario);
-                } else {
-                    return new ResponseEntity(new ResponseError(CodeError.USUARIO_OU_SENHA_INVALIDOS, "Usuário ou senha inválidos"), HttpStatus.BAD_REQUEST);
-                }
+                else
+                    return ResponseEntity.badRequest().body(ResponseError.builder().code(CodeError.USUARIO_OU_SENHA_INVALIDOS).message("Usuário ou senha inválidos").build());
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

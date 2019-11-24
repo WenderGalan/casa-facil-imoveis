@@ -1,11 +1,15 @@
 package com.casafacilimoveis.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * casafacilimoveis
@@ -20,6 +24,12 @@ import java.util.Objects;
  */
 @Entity
 @DiscriminatorValue(value = "1")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(exclude = {"anunciosFavoritos"}, callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 public class Cliente extends Usuario {
 
     @CPF
@@ -28,34 +38,4 @@ public class Cliente extends Usuario {
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
     private List<Favorito> anunciosFavoritos;
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public List<Favorito> getAnunciosFavoritos() {
-        return anunciosFavoritos;
-    }
-
-    public void setAnunciosFavoritos(List<Favorito> anunciosFavoritos) {
-        this.anunciosFavoritos = anunciosFavoritos;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cliente cliente = (Cliente) o;
-        return Objects.equals(cpf, cliente.cpf) &&
-                Objects.equals(anunciosFavoritos, cliente.anunciosFavoritos);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cpf, anunciosFavoritos);
-    }
 }

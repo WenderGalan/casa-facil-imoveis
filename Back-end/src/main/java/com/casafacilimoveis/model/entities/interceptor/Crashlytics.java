@@ -1,5 +1,10 @@
 package com.casafacilimoveis.model.entities.interceptor;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +22,10 @@ import java.util.List;
  */
 @Entity
 @Table(name = "crashlytics", schema = "public")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Crashlytics implements Serializable {
     public static final long serialVersionUID = 1L;
 
@@ -55,92 +64,4 @@ public class Crashlytics implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "crashlytics", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Header> headers;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getClassError() {
-        return classError;
-    }
-
-    public void setClassError(String classError) {
-        this.classError = classError;
-    }
-
-    public String getMethodName() {
-        return methodName;
-    }
-
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public String getLineNumber() {
-        return lineNumber;
-    }
-
-    public void setLineNumber(String lineNumber) {
-        this.lineNumber = lineNumber;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    public String getExceptionStack() {
-        return exceptionStack;
-    }
-
-    public void setExceptionStack(String exceptionStack) {
-        this.exceptionStack = exceptionStack;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getMethodUrl() {
-        return methodUrl;
-    }
-
-    public void setMethodUrl(String methodUrl) {
-        this.methodUrl = methodUrl;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public List<Header> getHeaders() {
-        return headers;
-    }
-
-    public void setHeaders(List<Header> headers) {
-        this.headers = headers;
-    }
 }

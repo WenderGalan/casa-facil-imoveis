@@ -55,18 +55,18 @@ public class EmailServiceImpl implements EmailService {
         message.setSubject("Código de verificação Casa Fácil Imóveis");
         message.setTo(email);
 
-        Validation validation = new Validation("codigo", String.valueOf(codigo));
+        Validation validation = Validation.builder().campo("codigo").mensagem(String.valueOf(codigo)).build();
 
         try {
             mailSender.send(message);
             return ResponseEntity.ok(validation);
         } catch (MailParseException e) {
             LOGGER.error(e.getMessage());
-            validation.setmensagem("O e-mail é inválido");
+            validation.setMensagem("O e-mail é inválido");
             return ResponseEntity.ok(validation);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            validation.setmensagem("Erro ao envia o email");
+            validation.setMensagem("Erro ao envia o email");
             return ResponseEntity.ok(validation);
         }
     }
